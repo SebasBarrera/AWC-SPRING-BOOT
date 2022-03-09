@@ -1,0 +1,11 @@
+package com.sebas.taller.repositories.person;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.sebas.taller.model.person.Stateprovince;
+
+@Repository
+public interface StateprovinceRepository extends CrudRepository<Stateprovince, Integer>{
+
+}

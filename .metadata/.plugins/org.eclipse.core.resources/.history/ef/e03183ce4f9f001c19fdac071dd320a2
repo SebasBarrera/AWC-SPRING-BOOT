@@ -1,0 +1,15 @@
+package com.sebas.taller.services.person;
+
+import org.springframework.stereotype.Service;
+
+import com.sebas.taller.repositories.person.StateprovinceRepository;
+
+@Service
+public class StateprovinceServiceImp implements StateprovinceService {
+
+	private StateprovinceRepository spr;
+	
+	public StateprovinceServiceImp(StateprovinceRepository spr) {
+		this.spr = spr;
+	}
+}

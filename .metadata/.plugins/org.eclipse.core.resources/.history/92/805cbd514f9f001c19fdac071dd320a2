@@ -1,0 +1,11 @@
+package com.sebas.taller.services.person;
+
+import com.sebas.taller.model.person.Countryregion;
+import com.sebas.taller.repositories.person.AddressRepository;
+
+public interface AddressService {
+	
+	public Countryregion save(Countryregion c);
+	public Countryregion update(Countryregion c);
+
+}

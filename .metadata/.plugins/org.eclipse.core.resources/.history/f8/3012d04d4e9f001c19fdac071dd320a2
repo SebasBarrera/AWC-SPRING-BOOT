@@ -1,0 +1,12 @@
+package com.sebas.taller.repositories.person;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.sebas.taller.model.person.Countryregion;
+
+
+@Repository
+public interface CountryregionRepository extends CrudRepository<Countryregion, String> {
+
+}

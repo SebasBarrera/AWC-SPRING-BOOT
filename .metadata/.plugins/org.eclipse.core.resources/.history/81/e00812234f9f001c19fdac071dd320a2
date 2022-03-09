@@ -1,0 +1,16 @@
+package com.sebas.taller.services.person;
+
+import org.springframework.stereotype.Service;
+
+import com.sebas.taller.repositories.person.AddressRepository;
+
+@Service
+public class AddressServiceImp {
+	
+	private AddressRepository ar;
+	
+	public AddressServiceImp(AddressRepository ar) {
+		this.ar = ar;
+	}
+
+}

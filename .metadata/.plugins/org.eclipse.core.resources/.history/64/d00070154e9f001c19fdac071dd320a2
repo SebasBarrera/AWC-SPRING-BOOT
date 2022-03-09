@@ -1,0 +1,13 @@
+package com.sebas.taller.services.sales;
+
+import com.sebas.taller.repositories.sales.SalestaxrateRepository;
+
+public class SalestaxrateServiceImp implements SalestaxrateService{
+	
+	private SalestaxrateRepository str;
+	
+	public SalestaxrateServiceImp(SalestaxrateRepository str) {
+		this.str = str;
+	}
+
+}

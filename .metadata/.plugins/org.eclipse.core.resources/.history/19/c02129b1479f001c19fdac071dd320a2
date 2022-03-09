@@ -1,0 +1,5 @@
+package com.sebas.taller.repositories.person;
+
+public interface StateprovinceRepository {
+
+}

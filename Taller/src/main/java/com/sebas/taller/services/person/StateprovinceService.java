@@ -1,6 +1,5 @@
 package com.sebas.taller.services.person;
 
-import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Stateprovince;
 
 public interface StateprovinceService {

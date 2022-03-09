@@ -42,10 +42,9 @@ public class AddressServiceImp implements AddressService{
 
 	@Override
 	public Address update(Address a) {
-		Address real = null;
 		if (a != null) {
 			if (a.getStateprovince() != null) {
-				real = search(a);
+				Address real = search(a);
 				if (a.getAddressline1() != null && a.getCity().length() >= 3 && a.getPostalcode().length() >= 6) {
 					real.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()).get());
 					real.setAddressline1(a.getAddressline1());
@@ -65,9 +64,8 @@ public class AddressServiceImp implements AddressService{
 			}
 		} else {
 			throw new NullPointerException();
-			
 		}
-		return real;
+		return null;
 	}
 
 	@Override

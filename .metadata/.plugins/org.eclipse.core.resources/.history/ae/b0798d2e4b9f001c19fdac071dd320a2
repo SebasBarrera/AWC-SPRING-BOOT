@@ -1,0 +1,5 @@
+package com.sebas.taller.services.hr;
+
+public interface EmployeeService {
+
+}

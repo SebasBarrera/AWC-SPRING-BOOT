@@ -1,0 +1,41 @@
+package com.sebas.taller.services.person;
+
+import org.springframework.stereotype.Service;
+
+import com.sebas.taller.model.person.Address;
+import com.sebas.taller.repositories.person.AddressRepository;
+import com.sebas.taller.repositories.person.StateprovinceRepository;
+
+@Service
+public class AddressServiceImp implements AddressService{
+	
+	private AddressRepository ar;
+	private StateprovinceRepository sr;
+	
+	public AddressServiceImp(AddressRepository ar) {
+		this.ar = ar;
+	}
+
+	@Override
+	public Address save(Address a) {
+		if (a.getStateprovince() != null) {
+			sr.findById(a.getStateprovince().getStateprovinceid()).get().addAddress(a);;
+			
+		}
+		return null;
+	}
+
+	@Override
+	public Address update(Address a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Address search(Address a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

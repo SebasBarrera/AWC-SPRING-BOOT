@@ -1212,3 +1212,84 @@ java.lang.InterruptedException
 	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
 	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
 	at org.eclipse.jface.text.TextViewerHoverManager$1.run(TextViewerHoverManager.java:155)
+
+!ENTRY org.eclipse.lsp4e 4 0 2022-03-08 21:58:14.279
+!MESSAGE org.eclipse.lsp4j.jsonrpc.ResponseErrorException: Internal error.
+!STACK 0
+java.util.concurrent.ExecutionException: org.eclipse.lsp4j.jsonrpc.ResponseErrorException: Internal error.
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:396)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2096)
+	at org.eclipse.lsp4e.LanguageServerWrapper.lambda$13(LanguageServerWrapper.java:425)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+Caused by: org.eclipse.lsp4j.jsonrpc.ResponseErrorException: Internal error.
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleResponse(RemoteEndpoint.java:209)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:193)
+	at org.eclipse.lsp4e.LanguageServerWrapper.lambda$4(LanguageServerWrapper.java:260)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:194)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:94)
+	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:113)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:14.782
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.dGYlySvR
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:14.783
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.dGYlySvR
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:14.783
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:14.783
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.dGYlySvR => OK
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:18.199
+!MESSAGE Entering DelegatingStreamConnectionProvider()
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:18.199
+!MESSAGE DelegatingStreamConnectionProvider classloader = org.eclipse.osgi.internal.loader.EquinoxClassLoader@353b5d86[org.springframework.tooling.boot.ls:1.29.0.202112031705(id=558)]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:18.199
+!MESSAGE SpringBootLanguageServer exists!
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.026
+!MESSAGE Boot LS startup time from start to initialized: 827ms
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.061
+!MESSAGE ClasspathListenerHandler addClasspathListener sts4.classpath.iBQdNuEXisBatched = true
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.061
+!MESSAGE Setting up ClasspathListenerManager
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.062
+!MESSAGE Scheduling initial event for all projects ...
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.062
+!MESSAGE Scheduling initial event for all projects DONE
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.062
+!MESSAGE ClasspathListenerHandler addClasspathListener sts4.classpath.iBQdNuEX => OK
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.062
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.062
+!MESSAGE classpath=77 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.063
+!MESSAGE buffering callback sts4.classpath.iBQdNuEX Taller false 77
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.063
+!MESSAGE executing callback sts4.classpath.iBQdNuEX 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-03-08 21:58:19.212
+!MESSAGE executing callback sts4.classpath.iBQdNuEX SUCCESS [done]

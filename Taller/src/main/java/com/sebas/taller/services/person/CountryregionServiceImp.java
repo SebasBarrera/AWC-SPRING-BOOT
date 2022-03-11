@@ -8,13 +8,18 @@ import com.sebas.taller.repositories.person.CountryregionRepository;
 @Service
 public class CountryregionServiceImp implements CountryregionService{
 
-	private CountryregionRepository crr;
-	public CountryregionServiceImp(CountryregionRepository crr) {
-		this.crr = crr;
+	private CountryregionRepository cr;
+	
+	public CountryregionServiceImp(CountryregionRepository cr) {
+		this.cr = cr;
 	}
+	
 	@Override
 	public Countryregion save(Countryregion c) {
-		// TODO Auto-generated method stub
+		if (c != null) {
+			
+			//if() TODO
+		}
 		return null;
 	}
 	@Override
@@ -24,7 +29,16 @@ public class CountryregionServiceImp implements CountryregionService{
 	}
 	@Override
 	public Countryregion search(Countryregion c) {
-		// TODO Auto-generated method stub
-		return null;
+		Countryregion searched = null;
+		if (cr.existsById(c.getCountryregioncode())) {
+			
+			searched = cr.findById(c.getCountryregioncode()).get();
+			
+		} else {
+			
+			throw new NullPointerException();
+			
+		}
+		return searched;
 	}
 }

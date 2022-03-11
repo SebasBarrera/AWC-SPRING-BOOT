@@ -80,11 +80,9 @@ public class AddressServiceImp implements AddressService{
 				} else {
 					throw new IllegalArgumentException();
 				}
-				
 			} else {
 				throw new NullPointerException();
 			}
-			
 		} else {
 			throw new NullPointerException();
 			

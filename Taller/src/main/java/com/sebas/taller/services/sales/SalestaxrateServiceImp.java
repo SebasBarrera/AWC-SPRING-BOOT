@@ -70,7 +70,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 						real.setModifieddate(s.getModifieddate());
 						real.setName(s.getName());
 						real.setRowguid(s.getRowguid());
-						real.setStateprovinceid(s.getStateprovinceid());
+						real.setStateprovinceid(spr.findById(s.getStateprovinceid()).get().getStateprovinceid());
 						real.setTaxrate(s.getTaxrate());
 						real.setTaxtype(s.getTaxtype());
 						

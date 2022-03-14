@@ -1,5 +1,6 @@
 package com.sebas.taller.services.person;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ public class AddressServiceImp implements AddressService{
 	private AddressRepository ar;
 	private StateprovinceRepository sr;
 	
+	@Autowired
 	public AddressServiceImp(AddressRepository ar, StateprovinceRepository sr) {
 		this.ar = ar;
 		this.sr = sr;
@@ -48,7 +50,7 @@ public class AddressServiceImp implements AddressService{
 			throw new NullPointerException();
 		}
 		
-		return a;
+		return search(a);
 	}
 
 	@Override

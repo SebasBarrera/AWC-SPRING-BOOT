@@ -1,4 +1,4 @@
-package com.sebas.taller.services.sales;
+package com.sebas.taller.service.sales;
 
 import com.sebas.taller.model.sales.Salestaxrate;
 

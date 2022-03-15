@@ -1,27 +1,31 @@
-package com.sebas.taller.services.person;
+package com.sebas.taller.service.person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sebas.taller.model.person.Address;
-import com.sebas.taller.repositories.person.AddressRepository;
-import com.sebas.taller.repositories.person.StateprovinceRepository;
+import com.sebas.taller.repository.person.AddressRepository;
+import com.sebas.taller.repository.person.StateprovinceRepository;
 
 @Service
-@Transactional
+
 public class AddressServiceImp implements AddressService{
 	
-	private AddressRepository ar;
-	private StateprovinceRepository sr;
 	
 	@Autowired
+	private AddressRepository ar;
+	@Autowired
+	private StateprovinceRepository sr;
+	
+	
 	public AddressServiceImp(AddressRepository ar, StateprovinceRepository sr) {
 		this.ar = ar;
 		this.sr = sr;
 	}
 
 	@Override
+	@Transactional
 	public Address save(Address a) {
 		if (a != null) {
 			
@@ -54,6 +58,7 @@ public class AddressServiceImp implements AddressService{
 	}
 
 	@Override
+	@Transactional
 	public Address update(Address a) {
 		Address real = null;
 		if (a != null) {

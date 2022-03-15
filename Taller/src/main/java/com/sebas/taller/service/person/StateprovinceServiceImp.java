@@ -1,13 +1,13 @@
-package com.sebas.taller.services.person;
+package com.sebas.taller.service.person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sebas.taller.model.person.Stateprovince;
-import com.sebas.taller.repositories.person.CountryregionRepository;
-import com.sebas.taller.repositories.person.StateprovinceRepository;
-import com.sebas.taller.repositories.sales.SalesterritoryRepository;
+import com.sebas.taller.repository.person.CountryregionRepository;
+import com.sebas.taller.repository.person.StateprovinceRepository;
+import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
 @Service
 @Transactional

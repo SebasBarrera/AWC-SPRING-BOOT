@@ -1,4 +1,4 @@
-package com.sebas.taller.services.person;
+package com.sebas.taller.service.person;
 
 import com.sebas.taller.model.person.Address;
 

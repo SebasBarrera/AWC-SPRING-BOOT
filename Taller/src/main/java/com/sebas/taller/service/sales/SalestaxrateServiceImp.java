@@ -1,13 +1,14 @@
-package com.sebas.taller.services.sales;
+package com.sebas.taller.service.sales;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sebas.taller.model.sales.Salestaxrate;
-import com.sebas.taller.repositories.person.StateprovinceRepository;
-import com.sebas.taller.repositories.sales.SalestaxrateRepository;
+import com.sebas.taller.repository.person.StateprovinceRepository;
+import com.sebas.taller.repository.sales.SalestaxrateRepository;
 
 @Service
 @Transactional
@@ -16,6 +17,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 	private SalestaxrateRepository sr;
 	private StateprovinceRepository spr;
 	
+	@Autowired
 	public SalestaxrateServiceImp(SalestaxrateRepository sr, StateprovinceRepository spr) {
 		this.sr = sr;
 		this.spr = spr;

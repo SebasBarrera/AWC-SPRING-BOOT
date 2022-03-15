@@ -1,10 +1,10 @@
-package com.sebas.taller.services.person;
+package com.sebas.taller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class AddressServiceTest {
+class UnitTest {
 
 	@Test
 	void test() {

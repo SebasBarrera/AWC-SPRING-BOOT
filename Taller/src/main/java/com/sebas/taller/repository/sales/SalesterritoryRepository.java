@@ -1,4 +1,4 @@
-package com.sebas.taller.repositories.sales;
+package com.sebas.taller.repository.sales;
 
 import org.springframework.data.repository.CrudRepository;
 

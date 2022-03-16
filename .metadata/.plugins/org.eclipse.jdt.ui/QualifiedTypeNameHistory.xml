@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="com.sebas.taller.model.hr.Employee"/>
-    <fullyQualifiedTypeName name="org.springframework.data.repository.CrudRepository"/>
     <fullyQualifiedTypeName name="com.sebas.taller.model.person.Businessentity"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="com.sebas.taller.services.person.CountryregionService"/>
@@ -13,12 +12,15 @@
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
     <fullyQualifiedTypeName name="com.sebas.taller.services.person.AddressService"/>
-    <fullyQualifiedTypeName name="com.sebas.taller.model.person.Countryregion"/>
     <fullyQualifiedTypeName name="com.sebas.taller.repositories.person.CountryregionRepository"/>
     <fullyQualifiedTypeName name="com.sebas.taller.model.person.Stateprovince"/>
-    <fullyQualifiedTypeName name="com.sebas.taller.model.sales.Salestaxrate"/>
-    <fullyQualifiedTypeName name="com.sebas.taller.repositories.person.StateprovinceRepository"/>
     <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
     <fullyQualifiedTypeName name="com.sebas.taller.model.person.Address"/>
+    <fullyQualifiedTypeName name="org.springframework.data.repository.CrudRepository"/>
+    <fullyQualifiedTypeName name="com.sebas.taller.repositories.person.StateprovinceRepository"/>
+    <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
+    <fullyQualifiedTypeName name="com.sebas.taller.model.sales.Salestaxrate"/>
+    <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+    <fullyQualifiedTypeName name="com.sebas.taller.model.person.Countryregion"/>
     <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 </qualifiedTypeNameHistroy>

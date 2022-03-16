@@ -37,7 +37,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			}
 			
 			if (s.getStateprovincecode().length() == 5 && s.getName().length() >= 5 &&
-					/*(s.getIsonlystateprovinceflag().equals("Yes") || s.getIsonlystateprovinceflag().equals("No"))*/
+					/*(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))*/
 					s.getIsonlystateprovinceflag().equals("Y/N")) {
 				
 				s.setCountryregion(cr.findById(s.getCountryregion().getCountryregioncode()).get());
@@ -67,7 +67,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			
 			real = search(s);
 			if (s.getStateprovincecode().length() == 5 && s.getName().length() >= 5 &&
-					/*(s.getIsonlystateprovinceflag().equals("Yes") || s.getIsonlystateprovinceflag().equals("No"))*/
+					/*(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))*/
 					s.getIsonlystateprovinceflag().equals("Y/N")) {
 				
 				real.setAddresses(s.getAddresses()); //TODO este address deberia asignarse por repositorio o así esta bien

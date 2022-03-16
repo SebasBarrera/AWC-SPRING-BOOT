@@ -1,9 +1,0 @@
-package com.sebas.taller.repositories.person;
-
-import org.springframework.data.repository.CrudRepository;
-
-import com.sebas.taller.model.person.Countryregion;
-
-public interface CountryRegionRepository extends CrudRepository<Countryregion, String> {
-
-}

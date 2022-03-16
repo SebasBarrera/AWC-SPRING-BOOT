@@ -2,9 +2,7 @@ package com.sebas.taller;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -12,10 +10,7 @@ import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.repository.person.StateprovinceRepository;
 import com.sebas.taller.service.person.AddressService;
-import com.sebas.taller.service.person.StateprovinceService;
 
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 
 @SpringBootApplication

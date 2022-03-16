@@ -1,5 +1,0 @@
-package com.sebas.taller.repositories.hr;
-
-public interface EmployeeRepository {
-
-}

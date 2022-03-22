@@ -30,7 +30,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 				
 				if (spr.existsById(s.getStateprovinceid())) {
 					
-					if ((s.getTaxrate().compareTo(new BigDecimal(0)) == 0 ||s.getTaxrate().compareTo(new BigDecimal(0)) == 1)
+					if ((s.getTaxrate().compareTo(new BigDecimal(0)) == 0 || s.getTaxrate().compareTo(new BigDecimal(0)) == 1)
 							&& s.getName().length() >= 5) {
 					
 						s.setStateprovinceid(s.getStateprovinceid());
@@ -52,7 +52,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 			throw new NullPointerException();
 		}
 		
-		return s;
+		return sr.findById(s.getSalestaxrateid()).get();
 	}
 
 	@Override

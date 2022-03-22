@@ -28,17 +28,16 @@ public class StateprovinceServiceImp implements StateprovinceService {
 	public Stateprovince save(Stateprovince s) {
 		if (s != null) {
 			
-			if (s.getCountryregion() == null || !tr.existsById(s.getTerritoryid())) {
+			if (s.getCountryregion() == null || s.getTerritoryid() != null) {
 				throw new NullPointerException();
 				
-			} else if (!cr.existsById(s.getCountryregion().getCountryregioncode())) {
+			} else if (!cr.existsById(s.getCountryregion().getCountryregioncode()) || !tr.existsById(s.getTerritoryid())) {
 				throw new NullPointerException();
-				
 			}
 			
 			if (s.getStateprovincecode().length() == 5 && s.getName().length() >= 5 &&
-					/*(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))*/
-					s.getIsonlystateprovinceflag().equals("Y/N")) {
+					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))
+					) {
 				
 				s.setCountryregion(cr.findById(s.getCountryregion().getCountryregioncode()).get());
 				s.setTerritoryid(tr.findById(s.getTerritoryid()).get().getTerritoryid());
@@ -46,10 +45,14 @@ public class StateprovinceServiceImp implements StateprovinceService {
 				sr.save(s);
 				
 				
+			} else {
+				throw new IllegalArgumentException();
 			}
 			
+		} else {
+			throw new NullPointerException();
 		}
-		return search(s);
+		return sr.findById(s.getStateprovinceid()).get();
 	}
 
 	@Override
@@ -57,18 +60,16 @@ public class StateprovinceServiceImp implements StateprovinceService {
 		Stateprovince real = null;
 		if (s != null) {
 			
-			if (s.getCountryregion() == null || !tr.existsById(s.getTerritoryid())) {
+			if (s.getCountryregion() == null || s.getTerritoryid() != null) {
 				throw new NullPointerException();
 				
-			} else if (!cr.existsById(s.getCountryregion().getCountryregioncode())) {
+			} else if (!cr.existsById(s.getCountryregion().getCountryregioncode()) || !tr.existsById(s.getTerritoryid())) {
 				throw new NullPointerException();
-				
 			}
 			
 			real = search(s);
 			if (s.getStateprovincecode().length() == 5 && s.getName().length() >= 5 &&
-					/*(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))*/
-					s.getIsonlystateprovinceflag().equals("Y/N")) {
+					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))) {
 				
 				real.setAddresses(s.getAddresses()); //TODO este address deberia asignarse por repositorio o así esta bien
 				real.setCountryregion(cr.findById(s.getCountryregion().getCountryregioncode()).get());
@@ -82,6 +83,8 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			} else {
 				throw new IllegalArgumentException();
 			}
+		} else {
+			throw new NullPointerException();
 		}
 		return real;
 	}

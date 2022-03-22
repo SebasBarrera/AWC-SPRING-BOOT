@@ -54,7 +54,7 @@ public class AddressServiceImp implements AddressService{
 			throw new NullPointerException();
 		}
 		
-		return search(a);
+		return ar.findById(a.getAddressid()).get();
 	}
 
 	@Override

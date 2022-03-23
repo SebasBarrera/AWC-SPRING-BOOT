@@ -29,7 +29,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 	public Stateprovince save(Stateprovince s) {
 		if (s != null) {
 			
-			if (s.getCountryregion() == null || s.getTerritoryid() != null) {
+			if (s.getCountryregion() == null || s.getTerritoryid() == null) {
 				throw new NullPointerException();
 				
 			} else if (!cr.existsById(s.getCountryregion().getCountryregioncode()) || !tr.existsById(s.getTerritoryid())) {

@@ -10,7 +10,7 @@ import com.sebas.taller.repository.person.StateprovinceRepository;
 import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
 @Service
-@Transactional
+
 public class StateprovinceServiceImp implements StateprovinceService {
 
 	private StateprovinceRepository sr;
@@ -25,6 +25,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 	}
 
 	@Override
+	@Transactional
 	public Stateprovince save(Stateprovince s) {
 		if (s != null) {
 			
@@ -56,11 +57,12 @@ public class StateprovinceServiceImp implements StateprovinceService {
 	}
 
 	@Override
+	@Transactional
 	public Stateprovince update(Stateprovince s) {
 		Stateprovince real = null;
 		if (s != null) {
 			
-			if (s.getCountryregion() == null || s.getTerritoryid() != null) {
+			if (s.getCountryregion() == null || s.getTerritoryid() == null) {
 				throw new NullPointerException();
 				
 			} else if (!cr.existsById(s.getCountryregion().getCountryregioncode()) || !tr.existsById(s.getTerritoryid())) {

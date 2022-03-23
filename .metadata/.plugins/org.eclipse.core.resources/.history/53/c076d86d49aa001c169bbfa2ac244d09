@@ -1,0 +1,1175 @@
+package com.sebas.taller;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
+import java.math.BigDecimal;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import com.sebas.taller.model.person.Address;
+import com.sebas.taller.model.person.Countryregion;
+import com.sebas.taller.model.person.Stateprovince;
+import com.sebas.taller.model.sales.Salestaxrate;
+import com.sebas.taller.model.sales.Salesterritory;
+import com.sebas.taller.repository.hr.EmployeeRepository;
+import com.sebas.taller.repository.person.AddressRepository;
+import com.sebas.taller.repository.person.BusinessentityRepository;
+import com.sebas.taller.repository.person.CountryregionRepository;
+import com.sebas.taller.repository.person.StateprovinceRepository;
+import com.sebas.taller.repository.sales.SalestaxrateRepository;
+import com.sebas.taller.repository.sales.SalesterritoryRepository;
+import com.sebas.taller.service.person.AddressService;
+import com.sebas.taller.service.person.AddressServiceImp;
+import com.sebas.taller.service.person.CountryregionService;
+import com.sebas.taller.service.person.CountryregionServiceImp;
+import com.sebas.taller.service.person.StateprovinceService;
+import com.sebas.taller.service.person.StateprovinceServiceImp;
+import com.sebas.taller.service.sales.SalestaxrateService;
+import com.sebas.taller.service.sales.SalestaxrateServiceImp;
+
+@ExtendWith(MockitoExtension.class)
+@SpringBootTest(classes = {AddressService.class, CountryregionService.class, StateprovinceService.class, SalestaxrateService.class})
+class UnitTest {
+
+	public final static String CR_ID = "COL";
+	
+	
+	@MockBean
+	private AddressRepository ar;
+	@MockBean
+	private EmployeeRepository er;
+	@MockBean
+	private SalestaxrateRepository tr;
+	@MockBean
+	private StateprovinceRepository pr;
+	@MockBean 
+	private SalesterritoryRepository sr;
+	@MockBean
+	private BusinessentityRepository br;
+	@MockBean
+	private CountryregionRepository cr;
+	
+	
+	@InjectMocks
+	private AddressServiceImp as;
+	@InjectMocks
+	private CountryregionServiceImp cs;
+	@InjectMocks
+	private StateprovinceServiceImp ps;
+	@InjectMocks
+	private SalestaxrateServiceImp ts;
+	
+	
+	
+	private Countryregion c1;
+	private Salesterritory t1;
+	private Stateprovince s1;
+	private Stateprovince p1;
+	private Salestaxrate tax1;
+	private Address a1;
+	
+	//------------------------------COUNTRY REGION------------------------------
+	
+	void setUpUpdateCr() {
+		c1 = new Countryregion();
+		c1.setCountryregioncode(CR_ID);
+		c1.setName("Colombia");
+		cs.save(c1);
+	}
+	
+	
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Save")
+	void saveCrTest() {
+		Countryregion c = new Countryregion();
+		c.setCountryregioncode(CR_ID);
+		c.setName("Colombia");
+		
+		when(cr.findById(c.getCountryregioncode()).get()).thenReturn(c);
+		assertEquals(c, cs.save(c), "No se esta guardando");
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Save")
+	void saveNullCrTest() {
+		Countryregion c = null;
+		assertThrows(NullPointerException.class, () -> cs.save(c));
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Save")
+	void saveVoidCrTest() {
+		Countryregion c = new Countryregion();
+		assertThrows(IllegalArgumentException.class, () -> cs.save(c));
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Save")
+	void saveMinCodeCrTest() {
+		Countryregion c = new Countryregion();
+		c.setCountryregioncode("");
+		c.setName("Colombia");
+		assertThrows(IllegalArgumentException.class, () -> cs.save(c));
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Save")
+	void saveMaxCodeCrTest() {
+		Countryregion c = new Countryregion();
+		c.setCountryregioncode("COLOM");
+		c.setName("Colombia");
+		assertThrows(IllegalArgumentException.class, () -> cs.save(c));
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Save")
+	void saveMinNameCrTest() {
+		Countryregion c = new Countryregion();
+		c.setCountryregioncode("COL");
+		c.setName("Colo");
+		assertThrows(IllegalArgumentException.class, () -> cs.save(c));
+	}
+	
+
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Update")
+	void updateCrTest() {
+		setUpUpdateCr();
+		c1.setCountryregioncode(CR_ID);
+		c1.setName("Venezuela");
+		
+		
+		when(cr.findById(c1.getCountryregioncode()).get()).thenReturn(c1);
+		assertEquals("Venezuela", cs.update(c1).getName());
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Update")
+	void updateNullCrTest() {
+		setUpUpdateCr();
+		Countryregion c = null;
+		assertThrows(NullPointerException.class, () -> cs.update(c));
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Update")
+	void updateVoidCrTest() {
+		setUpUpdateCr();
+		when(cr.findById(CR_ID).get()).thenReturn(c1);
+		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Update")
+	void updateMinCodeCrTest() {
+		setUpUpdateCr();
+		c1.setCountryregioncode("");
+		c1.setName("Colombia");
+		when(cr.findById(CR_ID).get()).thenReturn(c1);
+		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Update")
+	void updateMaxCodeCrTest() {
+		c1.setCountryregioncode("COLOM");
+		c1.setName("Colombia");
+		when(cr.findById(CR_ID).get()).thenReturn(c1);
+		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
+	}
+	
+	@Test
+	@Tag("CountryRegionService")
+	@Tag("Update")
+	void updateMinNameCrTest() {
+		Countryregion c = new Countryregion();
+		c.setCountryregioncode(CR_ID);
+		c.setName("Colo");
+		when(cr.findById(CR_ID).get()).thenReturn(c1);
+		assertThrows(IllegalArgumentException.class, () -> cs.update(c));
+	}
+	
+	//------------------------------COUNTRY REGION------------------------------
+	
+	
+	
+	
+	//---------------------------------ADDRESS---------------------------------
+	
+	void setUpA() {
+		s1 = new Stateprovince();
+		pr.save(s1);
+	}
+	
+	void setUpUpdateA() {
+
+		setUpA();
+		a1 = new Address();
+		a1.setAddressline1("Cra 68 # 16 - 07");
+		a1.setCity("Cali");
+		a1.setPostalcode("760033");
+		a1.setStateprovince(s1);
+		when(pr.existsById(s1.getStateprovinceid())).thenReturn(true);
+		when(pr.findById(s1.getStateprovinceid())).thenReturn(Optional.ofNullable(s1));
+		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
+		as.save(a1);
+	}
+	
+	
+	@Test
+	@Tag("Address")
+	@Tag("Save")
+	void saveATest() {
+		setUpA();
+		Address a = new Address();
+		a.setAddressline1("Cra 68 # 16 - 07");
+		a.setCity("Cali");
+		a.setPostalcode("760033");
+		a.setStateprovince(s1);
+		
+		
+		when(sr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
+		
+		Address a2 = as.save(a);
+		assertAll("save address", 
+				() -> assertEquals(a.getStateprovince().getStateprovinceid(), a2.getStateprovince().getStateprovinceid()),
+				() -> assertEquals(a.getAddressline1(), a2.getAddressline1()),
+				() -> assertEquals(a.getPostalcode(), a2.getPostalcode()),
+				() -> assertEquals(a.getCity(), a2.getCity())
+				);
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Save")
+	void saveNullATest() {
+		setUpA();
+		Address a = null;
+		assertThrows(NullPointerException.class, () -> as.save(a));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Save")
+	void saveVoidTest() {
+		setUpA();
+		Address a = new Address();
+		assertThrows(NullPointerException.class, () -> as.save(a));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Save")
+	void saveNoStateATest() {
+		setUpA();
+		Address a = new Address();
+		a.setAddressline1("Cra 68 # 16 - 07");
+		a.setCity("Cali");
+		a.setPostalcode("760033");
+		
+		assertThrows(NullPointerException.class, () -> as.save(a));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Save")
+	void saveLine1NullATest() {
+		setUpA();
+		Address a = new Address();
+		a.setCity("Cali");
+		a.setPostalcode("760033");
+		a.setStateprovince(s1);
+		
+		when(sr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Save")
+	void saveMinCityATest() {
+		setUpA();
+		Address a = new Address();
+		a.setAddressline1("Cra 68 # 16 - 07");
+		a.setCity("Ca");
+		a.setPostalcode("760033");
+		a.setStateprovince(s1);
+		
+		when(sr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Save")
+	void saveMaxPostalTest() {
+		setUpA();
+		Address a = new Address();
+		a.setAddressline1("Cra 68 # 16 - 07");
+		a.setCity("Cali");
+		a.setPostalcode("7600330");
+		a.setStateprovince(s1);
+		
+		when(sr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+	}
+	
+	
+	@Test
+	@Tag("Address")
+	@Tag("Save")
+	void saveNoExistStateATest() {
+		Address a = new Address();
+		a.setAddressline1("Cra 68 # 16 - 07");
+		a.setCity("Cali");
+		a.setPostalcode("760033");
+		a.setStateprovince(s1);
+		
+		when(sr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(false);
+		
+		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+	}
+	
+	
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateATest() {
+		setUpUpdateA();
+		Stateprovince s2 = new Stateprovince();
+		pr.save(s2);
+		a1.setAddressline1("Cra 6 # 1 - 00");
+		a1.setCity("Bogota");
+		a1.setPostalcode("110033");
+		a1.setStateprovince(s2);
+		
+		when(ar.findById(a1.getAddressid()).get()).thenReturn(a1);
+		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
+		when(ar.existsById(a1.getAddressid())).thenReturn(true);
+		
+		Address updated = as.update(a1);
+		
+		assertAll("update address", 
+				() -> assertEquals(a1.getStateprovince().getStateprovinceid(), updated.getStateprovince().getStateprovinceid()),
+				() -> assertEquals(a1.getAddressline1(), updated.getAddressline1()),
+				() -> assertEquals(a1.getPostalcode(), updated.getPostalcode()),
+				() -> assertEquals(a1.getCity(), updated.getCity())
+				);
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateNullATest() {
+		setUpUpdateA();
+		Address a = null;
+		assertThrows(NullPointerException.class, () -> as.update(a));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateVoidTest() {
+		setUpUpdateA();
+		Address a = new Address();
+		assertThrows(NullPointerException.class, () -> as.update(a));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateNoStateATest() {
+		setUpUpdateA();
+		a1.setAddressline1("Cra 68 # 16 - 07");
+		a1.setCity("Cali");
+		a1.setPostalcode("760033");
+		assertThrows(NullPointerException.class, () -> as.update(a1));
+	}
+	
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateNoExistATest() {
+		setUpUpdateA();
+		Address a2 = new Address();
+		a2.setAddressline1("Cra 6 # 1 - 00");
+		a2.setCity("Bogota");
+		a2.setPostalcode("110033");
+		a2.setStateprovince(s1);
+		
+		when(ar.existsById(a2.getAddressid())).thenReturn(false);
+		
+		assertThrows(NullPointerException.class, () -> as.update(a1));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateLine1NullATest() {
+		setUpUpdateA();
+		a1.setAddressline1(null);
+		a1.setCity("Cali");
+		a1.setPostalcode("760033");
+		a1.setStateprovince(s1);
+		
+		when(ar.findById(a1.getAddressid()).get()).thenReturn(a1);
+		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
+		when(ar.existsById(a1.getAddressid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> as.update(a1));
+	}
+	
+	
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateMinCityATest() {
+		setUpUpdateA();
+		a1.setAddressline1("Cra 68 # 16 - 07");
+		a1.setCity("Ca");
+		a1.setPostalcode("760033");
+		a1.setStateprovince(s1);
+		
+		when(ar.findById(a1.getAddressid()).get()).thenReturn(a1);
+		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
+		when(ar.existsById(a1.getAddressid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> as.update(a1));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateMaxPostalTest() {
+		setUpUpdateA();
+		a1.setAddressline1("Cra 68 # 16 - 07");
+		a1.setCity("Cali");
+		a1.setPostalcode("7600330");
+		a1.setStateprovince(s1);
+		
+		when(ar.findById(a1.getAddressid()).get()).thenReturn(a1);
+		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
+		when(ar.existsById(a1.getAddressid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> as.update(a1));
+	}
+	
+	@Test
+	@Tag("Address")
+	@Tag("Update")
+	void updateNoExistStateATest() {
+		setUpUpdateA();
+		Stateprovince s2 = new Stateprovince();
+		a1.setAddressline1("Cra 68 # 16 - 07");
+		a1.setCity("Cali");
+		a1.setPostalcode("760033");
+		a1.setStateprovince(s2);
+		
+		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(false);
+		
+		
+		assertThrows(NullPointerException.class, () -> as.update(a1));
+	}
+	
+	//---------------------------------ADDRESS---------------------------------
+	
+	
+	
+	
+	
+	//------------------------------STATE PROVINCE------------------------------
+
+	private void setUpP() {
+		c1 = new Countryregion();
+		c1.setCountryregioncode(CR_ID);
+		t1 = new Salesterritory();
+		cr.save(c1);
+		sr.save(t1);
+	}
+	
+	private void setupUpdateP() {
+		setUpP();
+		p1 = new Stateprovince();
+		ps.save(p1);
+	}
+	
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void savePTest() {
+		setUpP();
+		
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(c1);
+		p.setTerritoryid(t1.getTerritoryid());
+		p.setStateprovincecode("VALLE");
+		p.setName("Valle del Cauca");
+		p.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
+		
+		Stateprovince p2 = ps.save(p);
+		assertAll("save state province", 
+				() -> assertEquals(p.getCountryregion().getCountryregioncode(), p2.getCountryregion().getCountryregioncode()),
+				() -> assertEquals(p.getTerritoryid(), p2.getTerritoryid()),
+				() -> assertEquals(p.getStateprovincecode(), p2.getStateprovincecode()),
+				() -> assertEquals(p.getName(), p2.getName()),
+				() -> assertEquals(p.getIsonlystateprovinceflag(), p2 .getIsonlystateprovinceflag())
+				);
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveNullPTest() {
+		Stateprovince p = null;
+		assertThrows(NullPointerException.class, () -> ps.save(p));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveNoCountryPTest() {
+		setUpP();
+		
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(null);
+		p.setTerritoryid(t1.getTerritoryid());
+		p.setStateprovincecode("VALLE");
+		p.setName("Valle del Cauca");
+		p.setIsonlystateprovinceflag("Y");
+		assertThrows(NullPointerException.class, () -> ps.save(p));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveNoTerritoryPTest() {
+		setUpP();
+		
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(c1);
+		p.setTerritoryid(null);
+		p.setStateprovincecode("VALLE");
+		p.setName("Valle del Cauca");
+		p.setIsonlystateprovinceflag("Y");
+		assertThrows(NullPointerException.class, () -> ps.save(p));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveNoCountryExistPTest() {
+		setUpP();
+		Countryregion c2 = new Countryregion();
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(c2);
+		p.setTerritoryid(t1.getTerritoryid());
+		p.setStateprovincecode("VALLE");
+		p.setName("Valle del Cauca");
+		p.setIsonlystateprovinceflag("Y");
+		
+		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(false);
+		
+		assertThrows(NullPointerException.class, () -> ps.save(p));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveNoTerritoryExistPTest() {
+		setUpP();
+		Salesterritory t2 = new Salesterritory();
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(c1);
+		p.setTerritoryid(t2.getTerritoryid());
+		p.setStateprovincecode("VALLE");
+		p.setName("Valle del Cauca");
+		p.setIsonlystateprovinceflag("Y");
+		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
+		assertThrows(NullPointerException.class, () -> ps.save(p));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveMinStateProvinceCodetPTest() {
+		setUpP();
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(c1);
+		p.setTerritoryid(t1.getTerritoryid());
+		p.setStateprovincecode("VALL");
+		p.setName("Valle del Cauca");
+		p.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveMaxStateProvinceCodetPTest() {
+		setUpP();
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(c1);
+		p.setTerritoryid(t1.getTerritoryid());
+		p.setStateprovincecode("VALLEC");
+		p.setName("Valle del Cauca");
+		p.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveMinNamePTest() {
+		setUpP();
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(c1);
+		p.setTerritoryid(t1.getTerritoryid());
+		p.setStateprovincecode("VALLE");
+		p.setName("Vall");
+		p.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Save")
+	void saveFlagPTest() {
+		setUpP();
+		Stateprovince p = new Stateprovince();
+		p.setCountryregion(c1);
+		p.setTerritoryid(t1.getTerritoryid());
+		p.setStateprovincecode("VALLE");
+		p.setName("Valle del Cauca");
+		p.setIsonlystateprovinceflag("Yes");
+		
+		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+	}
+	
+	
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updatePTest() {
+		setupUpdateP();
+		Countryregion c2 = new Countryregion();
+		Salesterritory t2 = new Salesterritory();
+		cr.save(c2);
+		sr.save(t2);
+		
+		p1.setCountryregion(c2);
+		p1.setTerritoryid(t2.getTerritoryid());
+		p1.setStateprovincecode("CUNDI");
+		p1.setName("Cundinamarca");
+		p1.setIsonlystateprovinceflag("N");
+		
+		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
+		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
+		
+		Stateprovince p2 = ps.update(p1);
+		assertAll("update state province", 
+				() -> assertEquals(p1.getCountryregion().getCountryregioncode(), p2.getCountryregion().getCountryregioncode()),
+				() -> assertEquals(p1.getTerritoryid(), p2.getTerritoryid()),
+				() -> assertEquals(p1.getStateprovincecode(), p2.getStateprovincecode()),
+				() -> assertEquals(p1.getName(), p2.getName()),
+				() -> assertEquals(p1.getIsonlystateprovinceflag(), p2 .getIsonlystateprovinceflag())
+				);
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateNullPTest() {
+		Stateprovince p = null;
+		assertThrows(NullPointerException.class, () -> ps.update(p));
+	}
+	
+	void updateNoExistPTest() {
+		Stateprovince p3 = new Stateprovince();
+		Countryregion c3 = new Countryregion();
+		Salesterritory t3 = new Salesterritory();
+		cr.save(c3);
+		sr.save(t3);
+		
+		p1.setCountryregion(c3);
+		p1.setTerritoryid(t3.getTerritoryid());
+		p1.setStateprovincecode("CUNDI");
+		p1.setName("Cundinamarca");
+		p1.setIsonlystateprovinceflag("N");
+		
+		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
+		when(pr.existsById(p1.getStateprovinceid())).thenReturn(false);
+		
+		assertThrows(NullPointerException.class, () -> ps.update(p3));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateNoCountryPTest() {
+		setupUpdateP();
+		
+		p1.setCountryregion(null);
+		p1.setTerritoryid(t1.getTerritoryid());
+		p1.setStateprovincecode("VALLE");
+		p1.setName("Valle del Cauca");
+		p1.setIsonlystateprovinceflag("Y");
+		
+		
+		
+		assertThrows(NullPointerException.class, () -> ps.update(p1));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateNoTerritoryPTest() {
+		setupUpdateP();
+		
+		p1.setCountryregion(c1);
+		p1.setTerritoryid(null);
+		p1.setStateprovincecode("VALLE");
+		p1.setName("Valle del Cauca");
+		p1.setIsonlystateprovinceflag("Y");
+		
+		
+		
+		assertThrows(NullPointerException.class, () -> ps.update(p1));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateNoCountryExistPTest() {
+		setupUpdateP();
+		Countryregion c2 = new Countryregion();
+		p1.setCountryregion(c2);
+		p1.setTerritoryid(t1.getTerritoryid());
+		p1.setStateprovincecode("VALLE");
+		p1.setName("Valle del Cauca");
+		p1.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(false);
+		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
+		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(NullPointerException.class, () -> ps.update(p1));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateNoTerritoryExistPTest() {
+		setupUpdateP();
+		Salesterritory t2 = new Salesterritory();
+		p1.setCountryregion(c1);
+		p1.setTerritoryid(t2.getTerritoryid());
+		p1.setStateprovincecode("VALLE");
+		p1.setName("Valle del Cauca");
+		p1.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p1.getTerritoryid())).thenReturn(false);
+		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(NullPointerException.class, () -> ps.update(p1));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateMinStateProvinceCodetPTest() {
+		setupUpdateP();
+		p1.setCountryregion(c1);
+		p1.setTerritoryid(t1.getTerritoryid());
+		p1.setStateprovincecode("VALL");
+		p1.setName("Valle del Cauca");
+		p1.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
+		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ps.update(p1));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateMaxStateProvinceCodetPTest() {
+		setupUpdateP();
+		p1.setCountryregion(c1);
+		p1.setTerritoryid(t1.getTerritoryid());
+		p1.setStateprovincecode("VALLEC");
+		p1.setName("Valle del Cauca");
+		p1.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
+		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ps.update(p1));
+	}
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateMinNamePTest() {
+		setupUpdateP();
+		p1.setCountryregion(c1);
+		p1.setTerritoryid(t1.getTerritoryid());
+		p1.setStateprovincecode("VALLE");
+		p1.setName("Vall");
+		p1.setIsonlystateprovinceflag("Y");
+		
+		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
+		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ps.update(p1));
+	}
+	
+	
+	@Test
+	@Tag("State Province")
+	@Tag("Update")
+	void updateFlagPTest() {
+		setupUpdateP();
+		p1.setCountryregion(c1);
+		p1.setTerritoryid(t1.getTerritoryid());
+		p1.setStateprovincecode("VALLE");
+		p1.setName("Valle del Cauca");
+		p1.setIsonlystateprovinceflag("Yes");
+		
+		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
+		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
+		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ps.update(p1));
+	}
+
+	//------------------------------STATE PROVINCE------------------------------
+	
+	
+	
+	
+	//------------------------------SALES TAX RATE------------------------------
+	
+	void setUpT() {
+		p1 = new Stateprovince();
+		p1.setStateprovinceid(1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
+		p1.setStateprovincecode(CR_ID);
+		pr.save(p1);
+	}
+	
+	void setUpUpdateT() {
+		setUpT();
+		tax1 = new Salestaxrate();
+		tax1.setStateprovinceid(p1.getStateprovinceid());
+		ts.save(tax1);
+	}
+	
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Save")
+	void saveTTest() {
+		setUpT();
+		
+		Salestaxrate t = new Salestaxrate();
+		t.setStateprovinceid(p1.getStateprovinceid());
+		t.setTaxrate(new BigDecimal(1));
+		t.setName("Impuesto al consumo");
+		
+		when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
+		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		
+		Salestaxrate saved = ts.save(t);
+		
+		assertAll("saved", 
+				() -> assertEquals(t.getStateprovinceid(), saved.getStateprovinceid()),
+				() -> assertEquals(t.getTaxrate(), saved.getTaxrate()),
+				() -> assertEquals(t.getName(), saved.getName())
+				);
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Save")
+	void saveNullTTest() {
+		setUpT();
+		
+		Salestaxrate t = null;
+		
+		assertThrows(NullPointerException.class, () -> ts.save(t));
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Save")
+	void saveStateNullTTest() {
+		setUpT();
+		
+		Salestaxrate t = new Salestaxrate();
+		t.setStateprovinceid(null);
+		t.setTaxrate(new BigDecimal(1));
+		t.setName("Impuesto al consumo");
+		
+		when(pr.existsById(t.getStateprovinceid())).thenReturn(false);
+		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		
+		
+		assertThrows(NullPointerException.class, () -> ts.save(t));
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Save")
+	void saveStateNoExistTTest() {
+		setUpT();
+		
+		Salestaxrate t = new Salestaxrate();
+		t.setStateprovinceid(p1.getStateprovinceid());
+		t.setTaxrate(new BigDecimal(1));
+		t.setName("Impuesto al consumo");
+		
+		when(pr.existsById(t.getStateprovinceid())).thenReturn(false);
+		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		
+		
+		assertThrows(NullPointerException.class, () -> ts.save(t));
+	}
+	
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Save")
+	void saveMinTaxRateTTest() {
+		setUpT();
+		
+		Salestaxrate t = new Salestaxrate();
+		t.setStateprovinceid(p1.getStateprovinceid());
+		t.setTaxrate(new BigDecimal(-1));
+		t.setName("Impuesto al consumo");
+		
+		when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
+		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		
+		
+		assertThrows(IllegalArgumentException.class, () -> ts.save(t));
+	}
+	
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Save")
+	void saveMinNameTTest() {
+		setUpT();
+		
+		Salestaxrate t = new Salestaxrate();
+		t.setStateprovinceid(p1.getStateprovinceid());
+		t.setTaxrate(new BigDecimal(1));
+		t.setName("IVA");
+		
+		when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
+		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		
+		
+		assertThrows(IllegalArgumentException.class, () -> ts.save(t));
+	}
+	
+	
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Update")
+	void UpdateTTest() {
+		setUpUpdateT();
+		
+		tax1.setStateprovinceid(p1.getStateprovinceid());
+		tax1.setTaxrate(new BigDecimal(0));
+		tax1.setName("Impuesto al valor agregado");
+		
+		
+		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
+		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
+		
+		Salestaxrate updated = ts.update(tax1);
+		
+		assertAll("saved", 
+				() -> assertEquals(tax1.getStateprovinceid(), updated.getStateprovinceid()),
+				() -> assertEquals(tax1.getTaxrate(), updated.getTaxrate()),
+				() -> assertEquals(tax1.getName(), updated.getName())
+				);
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Update")
+	void UpdateNullTTest() {
+		setUpUpdateT();
+		
+		tax1 = null;
+		
+		assertThrows(NullPointerException.class, () -> ts.update(tax1));
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Update")
+	void UpdateNullStateTTest() {
+		setUpUpdateT();
+		
+		tax1.setStateprovinceid(null);
+		tax1.setTaxrate(new BigDecimal(0));
+		tax1.setName("Impuesto al valor agregado");
+		
+		assertThrows(NullPointerException.class, () -> ts.update(tax1));
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Update")
+	void UpdateNoExistStateTTest() {
+		setUpUpdateT();
+		
+		tax1.setStateprovinceid(p1.getStateprovinceid());
+		tax1.setTaxrate(new BigDecimal(0));
+		tax1.setName("Impuesto al valor agregado");
+		
+		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(false);
+		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
+		
+		assertThrows(NullPointerException.class, () -> ts.update(tax1));
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Update")
+	void UpdateNoExistTTest() {
+		setUpUpdateT();
+		
+		tax1.setStateprovinceid(p1.getStateprovinceid());
+		tax1.setTaxrate(new BigDecimal(0));
+		tax1.setName("Impuesto al valor agregado");
+		
+		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
+		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(false);
+		
+		assertThrows(NullPointerException.class, () -> ts.update(tax1));
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Update")
+	void UpdatenegativeTaxTTest() {
+		setUpUpdateT();
+		
+		tax1.setStateprovinceid(p1.getStateprovinceid());
+		tax1.setTaxrate(new BigDecimal(-1));
+		tax1.setName("Impuesto al valor agregado");
+		
+		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
+		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ts.update(tax1));
+	}
+	
+	@Test
+	@Tag("Sales Tax Rate")
+	@Tag("Update")
+	void UpdateMinNameTTest() {
+		setUpUpdateT();
+		
+		tax1.setStateprovinceid(p1.getStateprovinceid());
+		tax1.setTaxrate(new BigDecimal(-1));
+		tax1.setName("IVA");
+		
+		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
+		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
+		
+		assertThrows(IllegalArgumentException.class, () -> ts.update(tax1));
+	}
+	
+	//------------------------------SALES TAX RATE------------------------------
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

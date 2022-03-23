@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,9 +27,13 @@ import com.sebas.taller.repository.person.StateprovinceRepository;
 import com.sebas.taller.repository.sales.SalestaxrateRepository;
 import com.sebas.taller.repository.sales.SalesterritoryRepository;
 import com.sebas.taller.service.person.AddressService;
+import com.sebas.taller.service.person.AddressServiceImp;
 import com.sebas.taller.service.person.CountryregionService;
+import com.sebas.taller.service.person.CountryregionServiceImp;
 import com.sebas.taller.service.person.StateprovinceService;
+import com.sebas.taller.service.person.StateprovinceServiceImp;
 import com.sebas.taller.service.sales.SalestaxrateService;
+import com.sebas.taller.service.sales.SalestaxrateServiceImp;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(classes = {AddressService.class, CountryregionService.class, StateprovinceService.class, SalestaxrateService.class})
@@ -52,14 +58,14 @@ class UnitTest {
 	private CountryregionRepository cr;
 	
 	
-	
-	private AddressService as;
-	
-	private CountryregionService cs;
-	
-	private StateprovinceService ps;
-	
-	private SalestaxrateService ts;
+	@InjectMocks
+	private AddressServiceImp as;
+	@InjectMocks
+	private CountryregionServiceImp cs;
+	@InjectMocks
+	private StateprovinceServiceImp ps;
+	@InjectMocks
+	private SalestaxrateServiceImp ts;
 	
 	
 	
@@ -76,6 +82,7 @@ class UnitTest {
 		c1 = new Countryregion();
 		c1.setCountryregioncode(CR_ID);
 		c1.setName("Colombia");
+		when(cr.findById(CR_ID)).thenReturn(Optional.ofNullable(c1));
 		cs.save(c1);
 	}
 	
@@ -89,7 +96,7 @@ class UnitTest {
 		c.setCountryregioncode(CR_ID);
 		c.setName("Colombia");
 		
-		when(cr.findById(c.getCountryregioncode()).get()).thenReturn(c);
+		when(cr.findById(c.getCountryregioncode())).thenReturn(Optional.ofNullable(c));
 		assertEquals(c, cs.save(c), "No se esta guardando");
 	}
 	
@@ -149,8 +156,8 @@ class UnitTest {
 		c1.setCountryregioncode(CR_ID);
 		c1.setName("Venezuela");
 		
-		
-		when(cr.findById(c1.getCountryregioncode()).get()).thenReturn(c1);
+		when(cr.existsById(CR_ID)).thenReturn(true);
+		when(cr.findById(c1.getCountryregioncode())).thenReturn(Optional.ofNullable(c1));
 		assertEquals("Venezuela", cs.update(c1).getName());
 	}
 	
@@ -168,7 +175,7 @@ class UnitTest {
 	@Tag("Update")
 	void updateVoidCrTest() {
 		setUpUpdateCr();
-		when(cr.findById(CR_ID).get()).thenReturn(c1);
+		when(cr.findById(CR_ID)).thenReturn(Optional.ofNullable(c1));
 		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
 	}
 	
@@ -179,7 +186,7 @@ class UnitTest {
 		setUpUpdateCr();
 		c1.setCountryregioncode("");
 		c1.setName("Colombia");
-		when(cr.findById(CR_ID).get()).thenReturn(c1);
+		when(cr.findById(CR_ID)).thenReturn(Optional.ofNullable(c1));
 		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
 	}
 	
@@ -189,7 +196,7 @@ class UnitTest {
 	void updateMaxCodeCrTest() {
 		c1.setCountryregioncode("COLOM");
 		c1.setName("Colombia");
-		when(cr.findById(CR_ID).get()).thenReturn(c1);
+		when(cr.findById(CR_ID)).thenReturn(Optional.ofNullable(c1));
 		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
 	}
 	
@@ -200,7 +207,7 @@ class UnitTest {
 		Countryregion c = new Countryregion();
 		c.setCountryregioncode(CR_ID);
 		c.setName("Colo");
-		when(cr.findById(CR_ID).get()).thenReturn(c1);
+		when(cr.findById(CR_ID)).thenReturn(Optional.ofNullable(c1));
 		assertThrows(IllegalArgumentException.class, () -> cs.update(c));
 	}
 	
@@ -213,6 +220,7 @@ class UnitTest {
 	
 	void setUpA() {
 		s1 = new Stateprovince();
+		s1.getStateprovinceid();
 		pr.save(s1);
 	}
 	
@@ -220,10 +228,14 @@ class UnitTest {
 
 		setUpA();
 		a1 = new Address();
+		a1.setAddressid(1);
 		a1.setAddressline1("Cra 68 # 16 - 07");
 		a1.setCity("Cali");
 		a1.setPostalcode("760033");
 		a1.setStateprovince(s1);
+		when(pr.existsById(s1.getStateprovinceid())).thenReturn(true);
+		when(pr.findById(s1.getStateprovinceid())).thenReturn(Optional.ofNullable(s1));
+		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
 		as.save(a1);
 	}
 	
@@ -234,6 +246,7 @@ class UnitTest {
 	void saveATest() {
 		setUpA();
 		Address a = new Address();
+		a.setAddressid(1);
 		a.setAddressline1("Cra 68 # 16 - 07");
 		a.setCity("Cali");
 		a.setPostalcode("760033");
@@ -319,6 +332,7 @@ class UnitTest {
 	void saveMaxPostalTest() {
 		setUpA();
 		Address a = new Address();
+		a.setAddressid(1);
 		a.setAddressline1("Cra 68 # 16 - 07");
 		a.setCity("Cali");
 		a.setPostalcode("7600330");
@@ -359,7 +373,7 @@ class UnitTest {
 		a1.setPostalcode("110033");
 		a1.setStateprovince(s2);
 		
-		when(ar.findById(a1.getAddressid()).get()).thenReturn(a1);
+		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
 		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		
@@ -429,7 +443,7 @@ class UnitTest {
 		a1.setPostalcode("760033");
 		a1.setStateprovince(s1);
 		
-		when(ar.findById(a1.getAddressid()).get()).thenReturn(a1);
+		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
 		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		
@@ -448,7 +462,7 @@ class UnitTest {
 		a1.setPostalcode("760033");
 		a1.setStateprovince(s1);
 		
-		when(ar.findById(a1.getAddressid()).get()).thenReturn(a1);
+		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
 		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		
@@ -465,7 +479,7 @@ class UnitTest {
 		a1.setPostalcode("7600330");
 		a1.setStateprovince(s1);
 		
-		when(ar.findById(a1.getAddressid()).get()).thenReturn(a1);
+		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
 		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		
@@ -508,7 +522,7 @@ class UnitTest {
 	private void setupUpdateP() {
 		setUpP();
 		p1 = new Stateprovince();
-		ps.save(p1);
+		pr.save(p1);
 	}
 	
 	
@@ -525,7 +539,7 @@ class UnitTest {
 		p.setName("Valle del Cauca");
 		p.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(pr.findById(p.getStateprovinceid())).thenReturn(Optional.ofNullable(p));
 		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
 		
@@ -623,7 +637,7 @@ class UnitTest {
 		p.setName("Valle del Cauca");
 		p.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(pr.findById(p.getStateprovinceid())).thenReturn(Optional.ofNullable(p));
 		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
 		
@@ -642,7 +656,7 @@ class UnitTest {
 		p.setName("Valle del Cauca");
 		p.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(pr.findById(p.getStateprovinceid())).thenReturn(Optional.ofNullable(p));
 		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
 		
@@ -661,7 +675,7 @@ class UnitTest {
 		p.setName("Vall");
 		p.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(pr.findById(p.getStateprovinceid())).thenReturn(Optional.ofNullable(p));
 		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
 		
@@ -680,7 +694,7 @@ class UnitTest {
 		p.setName("Valle del Cauca");
 		p.setIsonlystateprovinceflag("Yes");
 		
-		when(pr.findById(p.getStateprovinceid()).get()).thenReturn(p);
+		when(pr.findById(p.getStateprovinceid())).thenReturn(Optional.ofNullable(p));
 		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
 		
@@ -695,7 +709,9 @@ class UnitTest {
 	void updatePTest() {
 		setupUpdateP();
 		Countryregion c2 = new Countryregion();
+		c2.setCountryregioncode("VEN");
 		Salesterritory t2 = new Salesterritory();
+		t2.setTerritoryid(1);
 		cr.save(c2);
 		sr.save(t2);
 		
@@ -705,7 +721,7 @@ class UnitTest {
 		p1.setName("Cundinamarca");
 		p1.setIsonlystateprovinceflag("N");
 		
-		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
 		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
@@ -741,7 +757,7 @@ class UnitTest {
 		p1.setName("Cundinamarca");
 		p1.setIsonlystateprovinceflag("N");
 		
-		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
 		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(false);
@@ -795,7 +811,7 @@ class UnitTest {
 		p1.setName("Valle del Cauca");
 		p1.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
 		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(false);
 		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
@@ -815,7 +831,7 @@ class UnitTest {
 		p1.setName("Valle del Cauca");
 		p1.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
 		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p1.getTerritoryid())).thenReturn(false);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
@@ -834,7 +850,7 @@ class UnitTest {
 		p1.setName("Valle del Cauca");
 		p1.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
 		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
@@ -853,7 +869,7 @@ class UnitTest {
 		p1.setName("Valle del Cauca");
 		p1.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
 		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
@@ -872,7 +888,7 @@ class UnitTest {
 		p1.setName("Vall");
 		p1.setIsonlystateprovinceflag("Y");
 		
-		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
 		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
@@ -892,7 +908,7 @@ class UnitTest {
 		p1.setName("Valle del Cauca");
 		p1.setIsonlystateprovinceflag("Yes");
 		
-		when(pr.findById(p1.getStateprovinceid()).get()).thenReturn(p1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
 		when(cr.existsById(p1.getCountryregion().getCountryregioncode())).thenReturn(true);
 		when(tr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
@@ -909,11 +925,21 @@ class UnitTest {
 	
 	void setUpT() {
 		p1 = new Stateprovince();
+		p1.setStateprovinceid(1);
+		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
+		p1.setStateprovincecode(CR_ID);
 		pr.save(p1);
 	}
 	
 	void setUpUpdateT() {
+		setUpT();
 		tax1 = new Salestaxrate();
+		tax1.setSalestaxrateid(1);
+		tax1.setTaxrate(new BigDecimal(1));
+		tax1.setName("Impuesto al consumo");
+		tax1.setStateprovinceid(p1.getStateprovinceid());
+		when(pr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
+		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
 		ts.save(tax1);
 	}
 	
@@ -964,7 +990,7 @@ class UnitTest {
 		t.setName("Impuesto al consumo");
 		
 		when(pr.existsById(t.getStateprovinceid())).thenReturn(false);
-		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		when(tr.findById(t.getSalestaxrateid())).thenReturn(Optional.ofNullable(t));
 		
 		
 		assertThrows(NullPointerException.class, () -> ts.save(t));
@@ -982,7 +1008,7 @@ class UnitTest {
 		t.setName("Impuesto al consumo");
 		
 		when(pr.existsById(t.getStateprovinceid())).thenReturn(false);
-		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		when(tr.findById(t.getSalestaxrateid())).thenReturn(Optional.ofNullable(t));
 		
 		
 		assertThrows(NullPointerException.class, () -> ts.save(t));
@@ -1001,7 +1027,7 @@ class UnitTest {
 		t.setName("Impuesto al consumo");
 		
 		when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		when(tr.findById(t.getSalestaxrateid())).thenReturn(Optional.ofNullable(t));
 		
 		
 		assertThrows(IllegalArgumentException.class, () -> ts.save(t));
@@ -1020,7 +1046,7 @@ class UnitTest {
 		t.setName("IVA");
 		
 		when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(t.getSalestaxrateid()).get()).thenReturn(t);
+		when(tr.findById(t.getSalestaxrateid())).thenReturn(Optional.ofNullable(t));
 		
 		
 		assertThrows(IllegalArgumentException.class, () -> ts.save(t));
@@ -1040,7 +1066,7 @@ class UnitTest {
 		
 		
 		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
 		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
 		
 		Salestaxrate updated = ts.update(tax1);
@@ -1087,7 +1113,7 @@ class UnitTest {
 		tax1.setName("Impuesto al valor agregado");
 		
 		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(false);
-		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
 		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
 		
 		assertThrows(NullPointerException.class, () -> ts.update(tax1));
@@ -1104,7 +1130,7 @@ class UnitTest {
 		tax1.setName("Impuesto al valor agregado");
 		
 		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
 		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(false);
 		
 		assertThrows(NullPointerException.class, () -> ts.update(tax1));
@@ -1121,7 +1147,7 @@ class UnitTest {
 		tax1.setName("Impuesto al valor agregado");
 		
 		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
 		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
 		
 		assertThrows(IllegalArgumentException.class, () -> ts.update(tax1));
@@ -1138,7 +1164,7 @@ class UnitTest {
 		tax1.setName("IVA");
 		
 		when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(tax1.getSalestaxrateid()).get()).thenReturn(tax1);
+		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
 		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
 		
 		assertThrows(IllegalArgumentException.class, () -> ts.update(tax1));

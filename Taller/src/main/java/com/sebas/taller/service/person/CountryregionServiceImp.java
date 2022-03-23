@@ -1,5 +1,6 @@
 package com.sebas.taller.service.person;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +12,7 @@ import com.sebas.taller.repository.person.CountryregionRepository;
 public class CountryregionServiceImp implements CountryregionService{
 
 	private CountryregionRepository cr;
-	
+	@Autowired
 	public CountryregionServiceImp(CountryregionRepository cr) {
 		this.cr = cr;
 	}

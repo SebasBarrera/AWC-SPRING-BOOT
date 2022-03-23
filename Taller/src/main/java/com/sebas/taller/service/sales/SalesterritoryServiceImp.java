@@ -16,9 +16,9 @@ public class SalesterritoryServiceImp implements SalesterritoryService {
 
 	@Override
 	public Salesterritory save(Salesterritory s) {
-		if (s != null) {
+		
 			sr.save(s);
-		}
+		
 		return s;
 	}
 

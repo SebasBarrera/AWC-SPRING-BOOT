@@ -13,12 +13,11 @@ import com.sebas.taller.repository.person.StateprovinceRepository;
 public class AddressServiceImp implements AddressService{
 	
 	
-	@Autowired
 	private AddressRepository ar;
-	@Autowired
+	
 	private StateprovinceRepository sr;
 	
-	
+	@Autowired
 	public AddressServiceImp(AddressRepository ar, StateprovinceRepository sr) {
 		this.ar = ar;
 		this.sr = sr;

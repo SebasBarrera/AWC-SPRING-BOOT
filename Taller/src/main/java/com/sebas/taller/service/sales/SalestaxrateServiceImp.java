@@ -11,7 +11,6 @@ import com.sebas.taller.repository.person.StateprovinceRepository;
 import com.sebas.taller.repository.sales.SalestaxrateRepository;
 
 @Service
-@Transactional
 public class SalestaxrateServiceImp implements SalestaxrateService{
 	
 	private SalestaxrateRepository sr;
@@ -24,6 +23,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 	}
 
 	@Override
+	@Transactional
 	public Salestaxrate save(Salestaxrate s) {
 		if (s != null) {
 			if (s.getStateprovinceid() != null) {

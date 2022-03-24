@@ -62,9 +62,16 @@ class IntegrationTest {
 	private Salestaxrate tax1;
 	private Address a1;
 	
+	
+	
+	
+	
 	//------------------------------COUNTRY REGION------------------------------
 	
 	void setUpUpdateCr() {
+		
+		cs = new CountryregionServiceImp(cr);
+		
 		c1 = new Countryregion();
 		c1.setCountryregioncode(CR_ID);
 		c1.setName("Colombia");
@@ -206,6 +213,7 @@ class IntegrationTest {
 	//---------------------------------ADDRESS---------------------------------
 	
 	void setUpA() {
+		as = new AddressServiceImp(ar, pr);
 		s1 = new Stateprovince();
 		s1.setStateprovinceid(1);
 		pr.save(s1);
@@ -488,6 +496,8 @@ class IntegrationTest {
 	//------------------------------STATE PROVINCE------------------------------
 
 	private void setUpP() {
+		ps = new StateprovinceServiceImp(pr, cr, sr);
+		
 		c1 = new Countryregion();
 		c1.setCountryregioncode(CR_ID);
 		t1 = new Salesterritory();
@@ -860,6 +870,7 @@ class IntegrationTest {
 	//------------------------------SALES TAX RATE------------------------------
 	
 	void setUpT() {
+		ts = new SalestaxrateServiceImp(tr, pr);
 		p1 = new Stateprovince();
 		p1.setStateprovinceid(1);
 

@@ -1,6 +1,9 @@
 package com.sebas.taller;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -83,7 +86,8 @@ class UnitTest {
 		c1.setCountryregioncode(CR_ID);
 		c1.setName("Colombia");
 		when(cr.findById(CR_ID)).thenReturn(Optional.ofNullable(c1));
-		cs.save(c1);
+		cr.save(c1);
+		verify(cr).save(c1);
 	}
 	
 	
@@ -98,6 +102,9 @@ class UnitTest {
 		
 		when(cr.findById(c.getCountryregioncode())).thenReturn(Optional.ofNullable(c));
 		assertEquals(c, cs.save(c), "No se esta guardando");
+		verify(cr).save(c);
+		verify(cr).findById(c.getCountryregioncode());
+		verifyNoMoreInteractions(cr);
 	}
 	
 	@Test
@@ -106,6 +113,7 @@ class UnitTest {
 	void saveNullCrTest() {
 		Countryregion c = null;
 		assertThrows(NullPointerException.class, () -> cs.save(c));
+		verifyNoInteractions(cr);
 	}
 	
 	@Test
@@ -114,6 +122,7 @@ class UnitTest {
 	void saveVoidCrTest() {
 		Countryregion c = new Countryregion();
 		assertThrows(NullPointerException.class, () -> cs.save(c));
+		verifyNoInteractions(cr);
 	}
 	
 	@Test
@@ -124,6 +133,7 @@ class UnitTest {
 		c.setCountryregioncode("");
 		c.setName("Colombia");
 		assertThrows(IllegalArgumentException.class, () -> cs.save(c));
+		verifyNoInteractions(cr);
 	}
 	
 	@Test
@@ -134,6 +144,7 @@ class UnitTest {
 		c.setCountryregioncode("COLOM");
 		c.setName("Colombia");
 		assertThrows(IllegalArgumentException.class, () -> cs.save(c));
+		verifyNoInteractions(cr);
 	}
 	
 	@Test
@@ -144,6 +155,7 @@ class UnitTest {
 		c.setCountryregioncode("COL");
 		c.setName("Colo");
 		assertThrows(IllegalArgumentException.class, () -> cs.save(c));
+		verifyNoInteractions(cr);
 	}
 	
 
@@ -159,6 +171,9 @@ class UnitTest {
 		when(cr.existsById(CR_ID)).thenReturn(true);
 		when(cr.findById(c1.getCountryregioncode())).thenReturn(Optional.ofNullable(c1));
 		assertEquals("Venezuela", cs.update(c1).getName());
+		verify(cr).existsById(c1.getCountryregioncode());
+		verify(cr).findById(c1.getCountryregioncode());
+		verifyNoMoreInteractions(cr);
 	}
 	
 	@Test
@@ -168,6 +183,7 @@ class UnitTest {
 		setUpUpdateCr();
 		Countryregion c = null;
 		assertThrows(NullPointerException.class, () -> cs.update(c));
+		verifyNoMoreInteractions(cr);
 	}
 	
 	@Test
@@ -179,6 +195,9 @@ class UnitTest {
 		when(cr.findById(c1.getCountryregioncode())).thenReturn(Optional.ofNullable(c1));
 		when(cr.existsById(c1.getCountryregioncode())).thenReturn(true);
 		assertThrows(NullPointerException.class, () -> cs.update(c1));
+		verify(cr).existsById(c1.getCountryregioncode());
+		verify(cr).findById(c1.getCountryregioncode());
+		verifyNoMoreInteractions(cr);
 	}
 	
 	@Test
@@ -191,6 +210,9 @@ class UnitTest {
 		when(cr.findById(c1.getCountryregioncode())).thenReturn(Optional.ofNullable(c1));
 		when(cr.existsById(c1.getCountryregioncode())).thenReturn(true);
 		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
+		verify(cr).existsById(c1.getCountryregioncode());
+		verify(cr).findById(c1.getCountryregioncode());
+		verifyNoMoreInteractions(cr);
 	}
 	
 	@Test
@@ -203,6 +225,9 @@ class UnitTest {
 		when(cr.findById(c1.getCountryregioncode())).thenReturn(Optional.ofNullable(c1));
 		when(cr.existsById(c1.getCountryregioncode())).thenReturn(true);
 		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
+		verify(cr).existsById(c1.getCountryregioncode());
+		verify(cr).findById(c1.getCountryregioncode());
+		verifyNoMoreInteractions(cr);
 	}
 	
 	@Test
@@ -216,6 +241,9 @@ class UnitTest {
 		when(cr.findById(CR_ID)).thenReturn(Optional.ofNullable(c1));
 		when(cr.existsById(c1.getCountryregioncode())).thenReturn(true);
 		assertThrows(IllegalArgumentException.class, () -> cs.update(c));
+		verify(cr).existsById(c1.getCountryregioncode());
+		verify(cr).findById(c1.getCountryregioncode());
+		verifyNoMoreInteractions(cr);
 	}
 	
 	//------------------------------COUNTRY REGION------------------------------
@@ -243,7 +271,8 @@ class UnitTest {
 		when(pr.existsById(s1.getStateprovinceid())).thenReturn(true);
 		when(pr.findById(s1.getStateprovinceid())).thenReturn(Optional.ofNullable(s1));
 		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
-		as.save(a1);
+		ar.save(a1);
+		
 	}
 	
 	
@@ -271,6 +300,9 @@ class UnitTest {
 				() -> assertEquals(a.getPostalcode(), a2.getPostalcode()),
 				() -> assertEquals(a.getCity(), a2.getCity())
 				);
+		verify(ar).save(a);
+		verify(ar).findById(a.getAddressid());
+		verifyNoMoreInteractions(ar);
 	}
 	
 	@Test
@@ -280,6 +312,7 @@ class UnitTest {
 		setUpA();
 		Address a = null;
 		assertThrows(NullPointerException.class, () -> as.save(a));
+		verifyNoInteractions(ar);
 	}
 	
 	@Test
@@ -289,6 +322,7 @@ class UnitTest {
 		setUpA();
 		Address a = new Address();
 		assertThrows(NullPointerException.class, () -> as.save(a));
+		verifyNoMoreInteractions(ar);
 	}
 	
 	@Test
@@ -302,6 +336,7 @@ class UnitTest {
 		a.setPostalcode("760033");
 		
 		assertThrows(NullPointerException.class, () -> as.save(a));
+		verifyNoMoreInteractions(ar);
 	}
 	
 	@Test
@@ -317,6 +352,8 @@ class UnitTest {
 		when(pr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
 		
 		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+		
+		verifyNoMoreInteractions(ar);
 	}
 	
 	@Test
@@ -333,6 +370,10 @@ class UnitTest {
 		when(pr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
 		
 		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+		
+		
+		verify(pr).existsById(a.getStateprovince().getStateprovinceid());
+		verifyNoMoreInteractions(ar);
 	}
 	
 	@Test
@@ -348,9 +389,10 @@ class UnitTest {
 		a.setStateprovince(s1);
 		
 		when(pr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
-		when(pr.findById(a.getStateprovince().getTerritoryid())).thenReturn(Optional.ofNullable(s1));
+		
 		
 		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+		verify(pr).existsById(a.getStateprovince().getStateprovinceid());
 	}
 	
 	
@@ -365,9 +407,9 @@ class UnitTest {
 		a.setPostalcode("760033");
 		a.setStateprovince(null);
 		
-		//when(sr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(false);
 		
 		assertThrows(NullPointerException.class, () -> as.save(a));
+		verifyNoInteractions(ar);
 	}
 	
 	
@@ -389,6 +431,7 @@ class UnitTest {
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		when(pr.findById(a1.getStateprovince().getStateprovinceid())).thenReturn(Optional.ofNullable(s2));
 		
+		
 		Address updated = as.update(a1);
 		
 		assertAll("update address", 
@@ -397,6 +440,8 @@ class UnitTest {
 				() -> assertEquals(a1.getPostalcode(), updated.getPostalcode()),
 				() -> assertEquals(a1.getCity(), updated.getCity())
 				);
+		verify(ar).findById(a1.getAddressid());
+		
 	}
 	
 	@Test
@@ -456,10 +501,12 @@ class UnitTest {
 		a1.setStateprovince(s1);
 		
 		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
-		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		
 		assertThrows(IllegalArgumentException.class, () -> as.update(a1));
+		verify(ar).findById(a1.getAddressid());
+		verify(ar).existsById(a1.getAddressid());
+		verifyNoMoreInteractions(sr);
 	}
 	
 	
@@ -569,6 +616,9 @@ class UnitTest {
 				() -> assertEquals(p.getName(), p2.getName()),
 				() -> assertEquals(p.getIsonlystateprovinceflag(), p2 .getIsonlystateprovinceflag())
 				);
+		verify(pr).save(p);
+		verify(pr).findById(p.getStateprovinceid());
+		verifyNoMoreInteractions(pr);
 	}
 	
 	@Test
@@ -577,6 +627,7 @@ class UnitTest {
 	void saveNullPTest() {
 		Stateprovince p = null;
 		assertThrows(NullPointerException.class, () -> ps.save(p));
+		verifyNoInteractions(pr);
 	}
 	
 	@Test
@@ -592,6 +643,7 @@ class UnitTest {
 		p.setName("Valle del Cauca");
 		p.setIsonlystateprovinceflag("Y");
 		assertThrows(NullPointerException.class, () -> ps.save(p));
+		verifyNoInteractions(pr);
 	}
 	
 	@Test
@@ -607,6 +659,7 @@ class UnitTest {
 		p.setName("Valle del Cauca");
 		p.setIsonlystateprovinceflag("Y");
 		assertThrows(NullPointerException.class, () -> ps.save(p));
+		verifyNoInteractions(pr);
 	}
 	
 	@Test
@@ -625,6 +678,7 @@ class UnitTest {
 		when(cr.existsById(p.getCountryregion().getCountryregioncode())).thenReturn(false);
 		
 		assertThrows(NullPointerException.class, () -> ps.save(p));
+		verifyNoInteractions(pr);
 	}
 	
 	@Test
@@ -641,6 +695,7 @@ class UnitTest {
 		p.setIsonlystateprovinceflag("Y");
 		when(tr.existsById(p.getTerritoryid())).thenReturn(true);
 		assertThrows(NullPointerException.class, () -> ps.save(p));
+		verifyNoInteractions(pr);
 	}
 	
 	@Test
@@ -660,6 +715,7 @@ class UnitTest {
 		when(sr.existsById(p.getTerritoryid())).thenReturn(true);
 		
 		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+		verifyNoInteractions(pr);
 	}
 	
 	@Test
@@ -985,6 +1041,9 @@ class UnitTest {
 				() -> assertEquals(t.getTaxrate(), saved.getTaxrate()),
 				() -> assertEquals(t.getName(), saved.getName())
 				);
+		verify(tr).save(t);
+		verify(tr).findById(t.getSalestaxrateid());
+		verifyNoMoreInteractions(tr);
 	}
 	
 	@Test

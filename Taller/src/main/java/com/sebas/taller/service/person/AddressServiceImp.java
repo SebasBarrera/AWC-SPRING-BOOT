@@ -32,7 +32,8 @@ public class AddressServiceImp implements AddressService{
 				
 				if (sr.existsById(a.getStateprovince().getStateprovinceid())) {
 				
-					if (a.getAddressline1() != null && a.getCity().length() >= 3 && a.getPostalcode().length() == 6) {
+					if (a.getAddressline1() != null && a.getCity().length() >= 3 && 
+							a.getPostalcode().length() == 6 && a.getPostalcode().chars().allMatch(Character::isDigit)) {
 						
 						a.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()).get());
 						ar.save(a);
@@ -68,7 +69,8 @@ public class AddressServiceImp implements AddressService{
 					
 					real = search(a);
 					
-					if (a.getAddressline1() != null && a.getCity().length() >= 3 && a.getPostalcode().length() == 6) {
+					if (a.getAddressline1() != null && a.getCity().length() >= 3 && a.getPostalcode().length() == 6
+							 && a.getPostalcode().chars().allMatch(Character::isDigit)) {
 						
 						real.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()).get());
 						real.setAddressline1(a.getAddressline1());

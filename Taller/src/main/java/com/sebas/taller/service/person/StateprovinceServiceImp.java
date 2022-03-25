@@ -38,7 +38,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			
 			if (s.getStateprovincecode().length() == 5 && s.getName().length() >= 5 &&
 					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))
-					) {
+					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
 				s.setCountryregion(cr.findById(s.getCountryregion().getCountryregioncode()).get());
 				s.setTerritoryid(tr.findById(s.getTerritoryid()).get().getTerritoryid());
@@ -71,7 +71,8 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			
 			real = search(s);
 			if (s.getStateprovincecode().length() == 5 && s.getName().length() >= 5 &&
-					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))) {
+					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))
+					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
 				real.setAddresses(s.getAddresses()); //TODO este address deberia asignarse por repositorio o así esta bien
 				real.setCountryregion(cr.findById(s.getCountryregion().getCountryregioncode()).get());

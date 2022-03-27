@@ -24,6 +24,8 @@ public class Countryregion implements Serializable {
 	@Id
 	@SequenceGenerator(name = "COUNTRYREGION_COUNTRYREGIONCODE_GENERATOR", allocationSize = 1, sequenceName = "COUNTRYREGION_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COUNTRYREGION_COUNTRYREGIONCODE_GENERATOR")
+	private Integer countryregionid;
+	
 	private String countryregioncode;
 
 	private Timestamp modifieddate;
@@ -44,8 +46,8 @@ public class Countryregion implements Serializable {
 		return stateprovince;
 	}
 
-	public String getCountryregioncode() {
-		return this.countryregioncode;
+	public Integer getCountryregionid() {
+		return this.countryregionid;
 	}
 
 	public Timestamp getModifieddate() {
@@ -67,8 +69,8 @@ public class Countryregion implements Serializable {
 		return stateprovince;
 	}
 
-	public void setCountryregioncode(String countryregioncode) {
-		this.countryregioncode = countryregioncode;
+	public void setCountryregionid(Integer countryregionid) {
+		this.countryregionid = countryregionid;
 	}
 
 	public void setModifieddate(Timestamp modifieddate) {
@@ -81,6 +83,14 @@ public class Countryregion implements Serializable {
 
 	public void setStateprovinces(List<Stateprovince> stateprovinces) {
 		this.stateprovinces = stateprovinces;
+	}
+
+	public String getCountryregioncode() {
+		return countryregioncode;
+	}
+
+	public void setCountryregioncode(String countryregioncode) {
+		this.countryregioncode = countryregioncode;
 	}
 
 }

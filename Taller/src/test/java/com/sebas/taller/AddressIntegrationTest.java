@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.sebas.taller.model.person.Address;
@@ -14,7 +15,7 @@ import com.sebas.taller.repository.person.StateprovinceRepository;
 import com.sebas.taller.service.person.AddressService;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest(classes = {AddressService.class})
+@SpringBootTest(classes = {TallerApplication.class})
 class AddressIntegrationTest {
 	
 	AddressRepository ar;
@@ -29,6 +30,7 @@ class AddressIntegrationTest {
 
 	Stateprovince s1;
 	
+	@Autowired
 	public AddressIntegrationTest(AddressRepository ar, StateprovinceRepository sr, AddressService as) {
 		this.as = as;
 		this.ar = ar;
@@ -48,10 +50,9 @@ class AddressIntegrationTest {
 		setUpSave();
 		a.setStateprovince(s);
 		ar.save(a);
-		Stateprovince s1 = new Stateprovince();
-		a.setAddressline1("Carrera 55 b # 186 - 81");
-		a.setCity("Bogota");
-		a.setStateprovince(s1);
+		
+		
+		
 	}
 	
 	@Test
@@ -64,19 +65,34 @@ class AddressIntegrationTest {
 	@Test
 	void noExistStateProvinceSave() {
 		setUpSave();
+		
 		assertThrows(NullPointerException.class, () -> as.save(a));
 	}
 
 	@Test
 	void updateTest() {
 		setUpUpdate();
+		Stateprovince s1 = new Stateprovince();
+		a.setAddressline1("Carrera 55 b # 186 - 81");
+		a.setCity("Bogota");
 		sr.save(s1);
-		assertEquals(a, as.update(a));
+		a.setStateprovince(s1);
+		Address updated = as.update(a);
+		assertAll("address update",
+				() -> assertEquals("Carrera 55 b # 186 - 81", updated.getAddressline1()),
+				() -> assertEquals("Bogota", updated.getCity()),
+				() -> assertEquals(s1.getStateprovinceid(), updated.getStateprovince().getStateprovinceid())
+				);
 	}
 	
 	@Test
 	void updateNoExistStateProvinceTest() {
 		setUpUpdate();
+		a.setAddressline1("Carrera 55 b # 186 - 81");
+		a.setCity("Bogota");
+		Stateprovince s1 = new Stateprovince();
+		s1.setStateprovinceid(132);
+		a.setStateprovince(s1);
 		assertThrows(NullPointerException.class, () -> as.update(a));
 	}
 	

@@ -21,8 +21,8 @@ public class CountryregionServiceImp implements CountryregionService{
 	public Countryregion save(Countryregion c) {
 		if (c != null) {
 			
-			if(c.getCountryregioncode().length() >= 1 && 
-					c.getCountryregioncode().length() <= 4
+			if(c.getCountryregioncode().toString().length() >= 1 && 
+					c.getCountryregioncode().toString().length() <= 4
 					&& c.getName().length() >= 5) {
 				cr.save(c);
 			} else {
@@ -31,8 +31,9 @@ public class CountryregionServiceImp implements CountryregionService{
 		} else {
 			throw new NullPointerException();
 		}
-		return cr.findById(c.getCountryregioncode()).get();
+		return cr.findById(c.getCountryregionid()).get();
 	}
+
 	@Override
 	public Countryregion update(Countryregion c) {
 		Countryregion real = null;
@@ -40,8 +41,8 @@ public class CountryregionServiceImp implements CountryregionService{
 			
 			real = search(c);
 			
-			if (c.getCountryregioncode().length() >= 1 && 
-					c.getCountryregioncode().length() <= 4
+			if (c.getCountryregioncode().toString().length() >= 1 && 
+					c.getCountryregioncode().toString().length() <= 4
 					&& c.getName().length() >= 5) {
 				
 				real.setCountryregioncode(c.getCountryregioncode());
@@ -59,9 +60,9 @@ public class CountryregionServiceImp implements CountryregionService{
 	@Override
 	public Countryregion search(Countryregion c) {
 		Countryregion searched = null;
-		if (cr.existsById(c.getCountryregioncode())) {
+		if (cr.existsById(c.getCountryregionid())) {
 			
-			searched = cr.findById(c.getCountryregioncode()).get();
+			searched = cr.findById(c.getCountryregionid()).get();
 			
 		} else {
 			

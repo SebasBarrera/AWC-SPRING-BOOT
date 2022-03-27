@@ -32,7 +32,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			if (s.getCountryregion() == null || s.getTerritoryid() == null) {
 				throw new NullPointerException();
 				
-			} else if (!cr.existsById(s.getCountryregion().getCountryregioncode()) || !tr.existsById(s.getTerritoryid())) {
+			} else if (!cr.existsById(s.getCountryregion().getCountryregionid()) || !tr.existsById(s.getTerritoryid())) {
 				throw new NullPointerException();
 			}
 			
@@ -40,7 +40,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))
 					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
-				s.setCountryregion(cr.findById(s.getCountryregion().getCountryregioncode()).get());
+				s.setCountryregion(cr.findById(s.getCountryregion().getCountryregionid()).get());
 				s.setTerritoryid(tr.findById(s.getTerritoryid()).get().getTerritoryid());
 				
 				sr.save(s);
@@ -65,7 +65,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			if (s.getCountryregion() == null || s.getTerritoryid() == null) {
 				throw new NullPointerException();
 				
-			} else if (!cr.existsById(s.getCountryregion().getCountryregioncode()) || !tr.existsById(s.getTerritoryid())) {
+			} else if (!cr.existsById(s.getCountryregion().getCountryregionid()) || !tr.existsById(s.getTerritoryid())) {
 				throw new NullPointerException();
 			}
 			
@@ -75,7 +75,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
 				real.setAddresses(s.getAddresses()); //TODO este address deberia asignarse por repositorio o así esta bien
-				real.setCountryregion(cr.findById(s.getCountryregion().getCountryregioncode()).get());
+				real.setCountryregion(cr.findById(s.getCountryregion().getCountryregionid()).get());
 				real.setIsonlystateprovinceflag(s.getIsonlystateprovinceflag());
 				real.setModifieddate(s.getModifieddate());
 				real.setName(s.getName());

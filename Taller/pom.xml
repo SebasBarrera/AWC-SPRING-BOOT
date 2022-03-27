@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sebas.taller</groupId>
-	<artifactId>Taller</artifactId>
+	<artifactId>Barrera</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Taller</name>
 	<description>Taller-Compunet</description>
@@ -26,7 +26,7 @@
 
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-junit-jupiter</artifactId>
+			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
 

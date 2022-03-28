@@ -9,16 +9,16 @@ import com.sebas.taller.model.person.Stateprovince;
 
 public interface StateprovinceController {
 	
-	public String addUser(Model model, @ModelAttribute("stateprovince") Stateprovince s);
+	public String addStateProvince(Model model, @ModelAttribute("stateprovince") Stateprovince s);
 
-	public String deleteUser(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model);
+	public String deleteStateProvince(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model);
 
-	public String indexUser(Model model);
+	public String indexStateProvince(Model model);
 
-	public String saveUser(Stateprovince s, @RequestParam(value = "action", required = true) String action);
+	public String saveStateProvince(Stateprovince s, @RequestParam(value = "action", required = true) String action);
 
 	public String showUpdateForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model);
 
-	public String updateUser(@PathVariable("stateprovinceid") Integer stateprovinceid,
+	public String updateStateProvince(@PathVariable("stateprovinceid") Integer stateprovinceid,
 			@RequestParam(value = "action", required = true) String action, Stateprovince s, Model model);
 }

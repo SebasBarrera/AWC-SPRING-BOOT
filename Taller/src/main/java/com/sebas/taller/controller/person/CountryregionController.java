@@ -10,17 +10,17 @@ import com.sebas.taller.model.person.Countryregion;
 
 public interface CountryregionController {
 	
-	public String addUser(Model model, @ModelAttribute("countryregion") Countryregion c);
+	public String addCountryregion(Model model, @ModelAttribute("countryregion") Countryregion c);
 
-	public String deleteUser(@PathVariable("countryregionid") Integer countryregionid, Model model);
+	public String deleteCountryregion(@PathVariable("countryregionid") Integer countryregionid, Model model);
 
-	public String indexUser(Model model);
+	public String indexCountryregion(Model model);
 
-	public String saveUser(Countryregion c, @RequestParam(value = "action", required = true) String action);
+	public String saveCountryregion(Countryregion c, @RequestParam(value = "action", required = true) String action);
 
 	public String showUpdateForm(@PathVariable("countryregionid") Integer countryregionid, Model model);
 
-	public String updateUser(@PathVariable("countryregionid") Integer countryregionid,
+	public String updateCountryregion(@PathVariable("countryregionid") Integer countryregionid,
 			@RequestParam(value = "action", required = true) String action, Countryregion c, Model model);
 }
 

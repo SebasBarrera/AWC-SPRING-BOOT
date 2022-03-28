@@ -11,14 +11,14 @@ public interface SalestaxrateController {
 	
 	public String addUser(Model model, @ModelAttribute("salestaxrate") Salestaxrate t);
 
-	public String deleteUser(@PathVariable("id") long id, Model model);
+	public String deleteUser(@PathVariable("id") Integer salestaxrateid, Model model);
 
 	public String indexUser(Model model);
 
 	public String saveUser(Salestaxrate t, @RequestParam(value = "action", required = true) String action);
 
-	public String showUpdateForm(@PathVariable("id") long id, Model model);
+	public String showUpdateForm(@PathVariable("id") Integer salestaxrateid, Model model);
 
-	public String updateUser(@PathVariable("id") long id,
+	public String updateUser(@PathVariable("salestaxrateid") Integer salestaxrateid,
 			@RequestParam(value = "action", required = true) String action, Salestaxrate t, Model model);
 }

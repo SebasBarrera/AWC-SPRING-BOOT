@@ -11,14 +11,14 @@ public interface StateprovinceController {
 	
 	public String addUser(Model model, @ModelAttribute("stateprovince") Stateprovince s);
 
-	public String deleteUser(@PathVariable("id") long id, Model model);
+	public String deleteUser(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model);
 
 	public String indexUser(Model model);
 
 	public String saveUser(Stateprovince s, @RequestParam(value = "action", required = true) String action);
 
-	public String showUpdateForm(@PathVariable("id") long id, Model model);
+	public String showUpdateForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model);
 
-	public String updateUser(@PathVariable("id") long id,
+	public String updateUser(@PathVariable("stateprovinceid") Integer stateprovinceid,
 			@RequestParam(value = "action", required = true) String action, Stateprovince s, Model model);
 }

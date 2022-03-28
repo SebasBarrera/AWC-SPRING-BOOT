@@ -25,43 +25,48 @@ public class CountryregionControllerImp implements CountryregionController {
 	@Override
 	@GetMapping("/countryregion/add")
 	public String addCountryregion(@ModelAttribute("countryregion") Model model, Countryregion c) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO ??
+		return "countryregion/addCountryregion";
 	}
 
 	@Override
 	@GetMapping("/countryregion/delete/{countryregionid}")
 	public String deleteCountryregion(@PathVariable("countryregionid") Integer countryregionid, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		Countryregion c = cs.findById().orElseThrow(() -> new IllegalArgumentException("Invalid country region Id:" + countryregionid));
+		cs.delete(c);
+		return "redirect:/countryregion/";
 	}
 
 	@Override
 	@GetMapping("/countryregion")
 	public String indexCountryregion(Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		model.addAttribute("countryregions", cs.findAll());
+		return "countryregion/index";
 	}
 
 	@Override
 	@PostMapping("/countryregion/add")
 	public String saveCountryregion(Countryregion c, @RequestParam(value = "action", required = true) String action) {
-		// TODO Auto-generated method stub
-		return null;
+		if (!action.equals("Cancel"))
+			cs.save(c);
+		return "redirect:/countryregion/";
 	}
 
 	@Override
 	@GetMapping("/countryregion/edit/{countryregionid}")
 	public String showUpdateForm(@PathVariable("countryregionid") Integer countryregionid, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		Countryregion c = cs.findById().orElseThrow(() -> new IllegalArgumentException("Invalid country region Id:" + countryregionid));
+		model.addAttribute("countryregion", c);
+		// TODO ?
+		return "countryregion/updateCountryregion";
 	}
 
 	@Override
 	@PostMapping("/countryregion/edit/{countryregionid}")
 	public String updateCountryregion(@PathVariable("countryregionid") Integer countryregionid, @RequestParam(value = "action", required = true) String action, Countryregion c, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		if (action != null && !action.equals("Cancel")) 
+			cs.save(c);
+		return "redirect:/countryregion/";
 	}
 
 

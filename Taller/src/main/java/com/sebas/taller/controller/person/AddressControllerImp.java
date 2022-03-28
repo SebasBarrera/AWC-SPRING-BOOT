@@ -30,7 +30,7 @@ public class AddressControllerImp implements AddressController {
 
 	@Override
 	@GetMapping("/address/delete/{id}")
-	public String deleteAddress(long id, Model model) {
+	public String deleteAddress(Integer id, Model model) {
 		Address a = as.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid address Id:" + id));
 		as.delete(a);
 		return "redirect:/address/";
@@ -53,7 +53,7 @@ public class AddressControllerImp implements AddressController {
 
 	@Override
 	@GetMapping("/address/edit/{id}")
-	public String showUpdateForm(long id, Model model) {
+	public String showUpdateForm(Integer id, Model model) {
 		Optional<Address> a = as.findById(id);
 		if(a == null)
 			throw new IllegalArgumentException("Invalid user Id: " + id);
@@ -64,7 +64,7 @@ public class AddressControllerImp implements AddressController {
 
 	@Override
 	@PostMapping("/address/edit/{id}")
-	public String updateAddress(long id, String action, Address a, Model model) {
+	public String updateAddress(Integer id, String action, Address a, Model model) {
 		if (action != null && !action.equals("Cancel")) 
 			as.save(a);
 		return "redirect:/address/";

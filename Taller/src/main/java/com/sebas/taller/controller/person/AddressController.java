@@ -11,15 +11,15 @@ public interface AddressController {
 	
 	public String addAddress(Model model, @ModelAttribute("address") Address a);
 
-	public String deleteAddress(@PathVariable("id") long id, Model model);
+	public String deleteAddress(@PathVariable("id") Integer id, Model model);
 
 	public String indexAddress(Model model);
 
 	public String saveAddress(Address a, @RequestParam(value = "action", required = true) String action);
 
-	public String showUpdateForm(@PathVariable("id") long id, Model model);
+	public String showUpdateForm(@PathVariable("id") Integer id, Model model);
 
-	public String updateAddress(@PathVariable("id") long id,
+	public String updateAddress(@PathVariable("id") Integer id,
 			@RequestParam(value = "action", required = true) String action, Address a, Model model);
 }
 

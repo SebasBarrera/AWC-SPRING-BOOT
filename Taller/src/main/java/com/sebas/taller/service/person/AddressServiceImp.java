@@ -1,5 +1,7 @@
 package com.sebas.taller.service.person;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -117,6 +119,24 @@ public class AddressServiceImp implements AddressService{
 		}
 		
 		return searched;
+	}
+
+	@Override
+	public Optional<Address> findById(Integer id) {
+		// TODO Auto-generated method stub
+		return ar.findById(id);
+	}
+
+	@Override
+	public Iterable<Address> findAll() {
+		// TODO Auto-generated method stub
+		return ar.findAll();
+	}
+
+	@Override
+	public void delete(Address a) {
+		ar.delete(a);
+		
 	}
 
 	

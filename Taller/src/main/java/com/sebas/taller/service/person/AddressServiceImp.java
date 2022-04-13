@@ -123,13 +123,11 @@ public class AddressServiceImp implements AddressService{
 
 	@Override
 	public Optional<Address> findById(Integer id) {
-		// TODO Auto-generated method stub
 		return ar.findById(id);
 	}
 
 	@Override
 	public Iterable<Address> findAll() {
-		// TODO Auto-generated method stub
 		return ar.findAll();
 	}
 

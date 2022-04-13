@@ -1,5 +1,7 @@
 package com.sebas.taller.service.person;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,6 +72,22 @@ public class CountryregionServiceImp implements CountryregionService{
 			
 		}
 		return searched;
+	}
+
+
+	@Override
+	public Iterable<Countryregion> findAll() {
+		return cr.findAll();
+	}
+
+	@Override
+	public void delete(Countryregion c) {
+		cr.delete(c);
+	}
+
+	@Override
+	public Optional<Countryregion> findById(Integer id) {
+		return cr.findById(id);
 	}
 	
 	

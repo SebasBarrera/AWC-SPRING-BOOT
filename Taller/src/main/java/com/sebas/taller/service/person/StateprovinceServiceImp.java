@@ -1,5 +1,7 @@
 package com.sebas.taller.service.person;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,6 +106,21 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			throw new NullPointerException();
 		}
 		return searched;
+	}
+
+	@Override
+	public Optional<Stateprovince> findById(Integer id) {
+		return sr.findById(id);
+	}
+
+	@Override
+	public Iterable<Stateprovince> findAll() {
+		return sr.findAll();
+	}
+
+	@Override
+	public void delete(Stateprovince s) {
+		sr.delete(s);
 	}
 	
 	

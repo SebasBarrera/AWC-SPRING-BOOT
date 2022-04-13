@@ -72,4 +72,10 @@ public class AddressControllerImp implements AddressController {
 		return "redirect:/address/";
 	}
 
+	@Override
+	public String login(Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.sebas.taller.service.sales;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,6 +107,21 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 			throw new NullPointerException();
 		}
 		return searched;
+	}
+
+	@Override
+	public Optional<Salestaxrate> findById(Integer id) {
+		return sr.findById(id);
+	}
+
+	@Override
+	public Iterable<Salestaxrate> findAll() {
+		return sr.findAll();
+	}
+
+	@Override
+	public void delete(Salestaxrate s) {
+		sr.delete(s);
 	}
 
 }

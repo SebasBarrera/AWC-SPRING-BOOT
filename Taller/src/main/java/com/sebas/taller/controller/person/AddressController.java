@@ -20,7 +20,9 @@ public interface AddressController {
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model);
 
 	public String updateAddress(@PathVariable("id") Integer id,
-			@RequestParam(value = "action", required = true) String action, Address a, Model model);
+			@RequestParam(value = "action", required = true) String action, @ModelAttribute Address a, Model model);
+
+	public String login(Model model);
 }
 
 

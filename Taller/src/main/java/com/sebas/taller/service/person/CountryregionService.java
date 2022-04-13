@@ -9,7 +9,7 @@ public interface CountryregionService {
 	public Countryregion save(Countryregion c);
 	public Countryregion update(Countryregion c);
 	public Countryregion search(Countryregion c);
-	public Optional<Countryregion> findById();
+	public Optional<Countryregion> findById(Integer id);
 	public Iterable<Countryregion> findAll();
 	public void delete(Countryregion c);
 }

@@ -5,37 +5,47 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sebas.taller.model.person.Address;
 import com.sebas.taller.service.person.AddressService;
+import com.sebas.taller.service.person.StateprovinceService;
 
 @Controller
 public class AddressControllerImp implements AddressController {
 	
 	AddressService as;
+	StateprovinceService ss; 
 	
 	@Autowired
-	public AddressControllerImp(AddressService as) {
+	public AddressControllerImp(AddressService as, StateprovinceService ss) {
 		this.as = as;
+		this.ss = ss;
 	}
 
 	@Override
 	@GetMapping("/address/add")
-	public String addAddress(Model model, Address a) {
-		// TODO ??
+	public String addAddress(Model model) {
+		model.addAttribute("address", new Address());
+		
+		model.addAttribute("stateprovinces", ss.findAll());
 		return "address/addAddress";
 	}
 
 	@Override
 	@GetMapping("/address/delete/{addressid}")
 	public String deleteAddress(@PathVariable("addressid") Integer addressid, Model model) {
-		Address a = as.findById(addressid).orElseThrow(() -> new IllegalArgumentException("Invalid address Id:" + addressid));
-		as.delete(a);
-		return "redirect:/address/";
+		Address address = as.findById(addressid)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid address Id:" + addressid));
+		as.delete(address);
+		model.addAttribute("addresses", as.findAll());
+		return "address/index";
 	}
 
 	@Override
@@ -47,35 +57,48 @@ public class AddressControllerImp implements AddressController {
 
 	@Override
 	@PostMapping("/address/add")
-	public String saveAddress(Address a, @RequestParam(value = "action", required = true) String action) {
-		if (!action.equals("Cancel"))
-			as.save(a);
+	public String saveAddress(@Validated @ModelAttribute Address address, BindingResult bindingResult, Model model,
+			@RequestParam(value = "action", required = true) String action) {
+		if (!action.equals("Cancel")) {
+			if (bindingResult.hasErrors()) {
+				model.addAttribute("address", address);
+				model.addAttribute("stateprovinces", ss.findAll());
+				return "address/add";
+			}
+			as.save(address);
+		}
 		return "redirect:/address/";
 	}
 
 	@Override
 	@GetMapping("/address/edit/{addressid}")
 	public String showUpdateForm(@PathVariable("addressid") Integer addressid, Model model) {
-		Optional<Address> a = as.findById(addressid);
-		if(a == null)
+		Optional<Address> address = as.findById(addressid);
+		if(address == null)
 			throw new IllegalArgumentException("Invalid user Id: " + addressid);
-		model.addAttribute("address", a.get());
-		//TODO?
+		model.addAttribute("address", address.get());
+
+
+		model.addAttribute("stateprovinces", ss.findAll());
 		return "address/updateAddress";
 	}
 
 	@Override
 	@PostMapping("/address/edit/{addressid}")
-	public String updateAddress(@PathVariable("addressid") Integer addressid, @RequestParam(value = "action", required = true) String action, Address a, Model model) {
-		if (action != null && !action.equals("Cancel")) 
-			as.save(a);
+	public String updateAddress(@PathVariable("addressid") Integer addressid, @RequestParam(value = "action", required = true) String action, 
+			@Validated @ModelAttribute Address address, BindingResult bindingResult, Model model) {
+		if (!action.equals("Cancel")) {
+			if (bindingResult.hasErrors()) {
+				model.addAttribute("address", address);
+				model.addAttribute("stateprovinces", ss.findAll());
+				return "address/updateAddress";
+			}
+			as.save(address);
+			model.addAttribute("addresses", as.findAll());
+		}
 		return "redirect:/address/";
 	}
 
-	@Override
-	public String login(Model model) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

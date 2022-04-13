@@ -3,11 +3,13 @@ package com.sebas.taller.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sebas.taller.model.User;
 import com.sebas.taller.model.UserType;
 import com.sebas.taller.repository.UserRepository;
 
+@Service
 public class UserServiceImp implements UserService {
 
 	private UserRepository ur;

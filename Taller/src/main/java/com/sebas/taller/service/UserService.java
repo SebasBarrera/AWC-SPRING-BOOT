@@ -21,4 +21,5 @@ public interface UserService {
 
 	public UserType[] getTypes();
 
+	//public boolean confirmPassword(Integer id, String);
 }

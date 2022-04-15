@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the salestaxrate database table.
@@ -27,12 +30,18 @@ public class Salestaxrate implements Serializable {
 
 	private Timestamp modifieddate;
 
+	@Size(min = 5, message = "Name must have at least 5 characters")
+	@NotBlank(message = "Name can not be in blank")
 	private String name;
 
 	private Integer rowguid;
 
+	@NotBlank(message = "State-Province can not be in blank")
+	@Min(1)
 	private Integer stateprovinceid;
 
+	@Min(0)
+	@NotBlank(message = "Tax rate can not be in blank")
 	private BigDecimal taxrate;
 
 	private Integer taxtype;

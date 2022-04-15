@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the countryregion database table.
@@ -26,10 +28,14 @@ public class Countryregion implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COUNTRYREGION_COUNTRYREGIONCODE_GENERATOR")
 	private Integer countryregionid;
 	
+	@Size(min = 1, max = 4, message = "Country-Region code must have min 1 max 4 characters")
+	@NotBlank(message = "Country-Region code can not be in blank")
 	private String countryregioncode;
 
 	private Timestamp modifieddate;
 
+	@Size(min = 5, message = "Country-Region name must have at least 5 characters")
+	@NotBlank(message = "Name can not be in blank")
 	private String name;
 
 	// bi-directional many-to-one association to Stateprovince

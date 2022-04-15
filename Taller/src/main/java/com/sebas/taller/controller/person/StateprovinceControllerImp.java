@@ -95,7 +95,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 			ss.save(stateprovince);
 			model.addAttribute("stateprovinces", ss.findAll());
 		}
-		return null;
+		return "redirect:/stateprovince/";
 	}
 
 }

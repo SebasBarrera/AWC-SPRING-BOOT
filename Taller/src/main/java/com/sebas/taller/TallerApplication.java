@@ -1,5 +1,6 @@
 package com.sebas.taller;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -9,7 +10,17 @@ import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import com.sebas.taller.model.User;
 import com.sebas.taller.model.UserType;
+import com.sebas.taller.model.person.Countryregion;
+import com.sebas.taller.model.person.Stateprovince;
+import com.sebas.taller.model.sales.Salesterritory;
 import com.sebas.taller.service.UserServiceImp;
+import com.sebas.taller.service.person.CountryregionService;
+import com.sebas.taller.service.person.CountryregionServiceImp;
+import com.sebas.taller.service.person.StateprovinceService;
+import com.sebas.taller.service.person.StateprovinceServiceImp;
+import com.sebas.taller.service.sales.SalestaxrateService;
+import com.sebas.taller.service.sales.SalestaxrateServiceImp;
+import com.sebas.taller.service.sales.SalesterritoryService;
 
 
 @SpringBootApplication
@@ -19,6 +30,22 @@ public class TallerApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext c = SpringApplication.run(TallerApplication.class, args);
 	
+		StateprovinceService ss = c.getBean(StateprovinceServiceImp.class);
+		SalestaxrateService ts = c.getBean(SalestaxrateServiceImp.class);
+		CountryregionService cs = c.getBean(CountryregionServiceImp.class);
+		SalesterritoryService sts = c.getBean(SalesterritoryService.class);
+		Stateprovince s = new Stateprovince();
+		Countryregion c1 = new Countryregion();
+		Salesterritory t1 = new Salesterritory();
+		sts.save(t1);
+		cs.save(c1);
+		s.setCountryregion(c1);
+		s.setTerritoryid(t1.getTerritoryid());
+		s.setStateprovincecode("98765");
+		s.setIsonlystateprovinceflag("N");
+		s.setName("Cundinamarca");
+		ss.save(s);
+		
 		UserServiceImp us = c.getBean(UserServiceImp.class);
 		
 		User admin = new User();

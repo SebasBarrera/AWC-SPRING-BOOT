@@ -38,6 +38,7 @@ public class Stateprovince implements Serializable {
 	private Timestamp modifieddate;
 
 	@NotBlank(message = "Name can not be in blank")
+	@Size(min = 5, message = "Name must have at least 5 characters")
 	private String name;
 
 	private Integer rowguid;
@@ -46,7 +47,7 @@ public class Stateprovince implements Serializable {
 	@Size(min = 5, max = 5, message = "State-Province must have 5 digits")
 	private String stateprovincecode;
 
-	@NotEmpty(message = "Territory id can not be in blank")
+	@NotEmpty(message = "Territory id can not be Empty")
 	private Integer territoryid;
 
 	// bi-directional many-to-one association to Address

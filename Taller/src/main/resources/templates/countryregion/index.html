@@ -26,20 +26,18 @@
 						<thead>
 							<tr>
 								<th>Id</th>
-								<th>Country Region Code</th>
-								<th>Modified Date</th>
+								<th>Code</th>
 								<th>Name</th>
 								<th>State Provinces</th>
 								<th>Edit</th>
 								<th>Delete</th>
 							</tr>
 						</thead>
-						<!-- List Users -->
+						<!-- List countries -->
 						<div th:each="current : ${countryregions}" class="card">
 							<tr>
 								<td th:text="${current.countryregionid}" />
 								<td th:text="${current.countryregioncode}" />
-								<td th:text="${current.modifieddate}" />
 								<td th:text="${current.name}" />
 								<td th:text="${current.stateprovinces}" />
 								<td><a th:href="@{'/countryregion/edit/' + ${current.countryregionid}}" class="btn btn-primary"><i

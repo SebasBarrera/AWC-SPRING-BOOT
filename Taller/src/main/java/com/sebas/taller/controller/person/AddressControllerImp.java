@@ -44,13 +44,21 @@ public class AddressControllerImp implements AddressController {
 		Address address = as.findById(addressid)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid address Id:" + addressid));
 		as.delete(address);
-		model.addAttribute("addresses", as.findAll());
+		model.addAttribute("addresss", as.findAll());
 		return "address/index";
 	}
 
 	@Override
 	@GetMapping("/address/")
 	public String indexAddress(Model model) {
+		/*
+		as.save(new Address());
+		if (as.findAll().iterator().hasNext() == false ) {
+			model.addAttribute("addresss", null);
+		} else {
+			model.addAttribute("addresss", as.findAll());
+		}
+		*/ 
 		model.addAttribute("addresss", as.findAll());
 		return "address/index";
 	}
@@ -94,7 +102,7 @@ public class AddressControllerImp implements AddressController {
 				return "address/updateAddress";
 			}
 			as.save(address);
-			model.addAttribute("addresses", as.findAll());
+			model.addAttribute("addresss", as.findAll());
 		}
 		return "redirect:/address/";
 	}

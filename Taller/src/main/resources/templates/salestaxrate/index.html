@@ -26,9 +26,7 @@
 						<thead>
 							<tr>
 								<th>Id</th>
-								<th>Modified Date</th>
 								<th>Name</th>
-								<th>Row Guid</th>
 								<th>State Province Id</th>
 								<th>Tax Rate</th>
 								<th>Tax Type</th>
@@ -36,13 +34,11 @@
 								<th>Delete</th>
 							</tr>
 						</thead>
-						<!-- List Users -->
+						<!-- List taxes -->
 						<div th:each="current : ${salestaxrates}" class="card">
 							<tr>
 								<td th:text="${current.salestaxrateid}" />
-								<td th:text="${current.modifieddate}" />
 								<td th:text="${current.name}" />
-								<td th:text="${current.rowguid}" />
 								<td th:text="${current.stateprovinceid}" />
 								<td th:text="${current.taxrate}" />
 								<td th:text="${current.taxtype}" />

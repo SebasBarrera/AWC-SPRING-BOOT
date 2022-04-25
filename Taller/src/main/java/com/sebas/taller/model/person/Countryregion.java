@@ -29,13 +29,11 @@ public class Countryregion implements Serializable {
 	private Integer countryregionid;
 	
 	@Size(min = 1, max = 4, message = "Country-Region code must have min 1 max 4 characters")
-	@NotBlank(message = "Country-Region code can not be in blank")
 	private String countryregioncode;
 
 	private Timestamp modifieddate;
 
 	@Size(min = 5, message = "Country-Region name must have at least 5 characters")
-	@NotBlank(message = "Name can not be in blank")
 	private String name;
 
 	// bi-directional many-to-one association to Stateprovince

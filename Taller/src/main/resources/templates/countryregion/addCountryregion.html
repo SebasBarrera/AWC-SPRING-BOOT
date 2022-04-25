@@ -42,7 +42,7 @@
 							<label for="stateprovinces" class="col-form-label">States-Provinces</label>
 							<select class="form-control-range" th:field="*{stateprovinces}">
 								<option th:each="s : ${stateprovinces}"
-									th:value="${s.stateprovinceId}" class="form-control"
+									th:value="${s.stateprovinceid}" class="form-control"
 									th:text="${s.name}"
 									th:selected="${countryregion.stateprovinces=s}"></option>
 							</select> <span th:if="${#fields.hasErrors('stateprovinces')}"

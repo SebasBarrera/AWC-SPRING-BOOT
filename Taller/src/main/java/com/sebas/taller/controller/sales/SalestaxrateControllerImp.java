@@ -30,9 +30,9 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 	}
 	
 	@Override
-	@GetMapping("/salestaxrate/add")
+	@GetMapping("/salestaxrate/addSalestaxrate")
 	public String addSalestaxrate(Model model) {
-		model.addAttribute("taxrate", new Salestaxrate());
+		model.addAttribute("salestaxrate", new Salestaxrate());
 		
 		model.addAttribute("stateprovinces", ss.findAll());
 		return "salestaxrate/addSalestaxrate";
@@ -41,57 +41,57 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 	@Override
 	@GetMapping("/salestaxrate/delete/{addressid}")
 	public String deleteSalestaxrate(@PathVariable("salestaxrateid") Integer salestaxrateid, Model model) {
-		Salestaxrate taxrate = ts.findById(salestaxrateid)
+		Salestaxrate salestaxrate = ts.findById(salestaxrateid)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid tax rate id: " + salestaxrateid));
-		ts.delete(taxrate);
-		model.addAttribute("taxrates", ts.findAll());
+		ts.delete(salestaxrate);
+		model.addAttribute("salestaxrates", ts.findAll());
 		return "salestaxrate/index";
 	}
 
 	@Override
 	@GetMapping("/salestaxrate/")
 	public String indexSalestaxrate(Model model) {
-		model.addAttribute("taxrates", ts.findAll());
+		model.addAttribute("salestaxrates", ts.findAll());
 		return "salestaxrate/index";
 	}
 
 	@Override
-	@PostMapping("/salestaxrate/add")
-	public String saveSalestaxrate(@Validated @ModelAttribute Salestaxrate taxrate, BindingResult bindingResult, Model model,
+	@PostMapping("/salestaxrate/addSalestaxrate")
+	public String saveSalestaxrate(@Validated @ModelAttribute Salestaxrate salestaxrate, BindingResult bindingResult, Model model,
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
-				model.addAttribute("taxrate", taxrate);
+				model.addAttribute("salestaxrate", salestaxrate);
 				model.addAttribute("stateprovinces", ss.findAll());
 				return "salestaxrate/addSalestaxrate";
 			}
-			ts.save(taxrate);
+			ts.save(salestaxrate);
 		}
 		return "redirect:/salestaxrate/";
 	}
 
 	@Override
-	@GetMapping("/salestaxrate/edit/{salestaxrateid}")
+	@GetMapping("/salestaxrate/editSalestaxrate/{salestaxrateid}")
 	public String showUpdateForm(@PathVariable("salestaxrateid") Integer salestaxrateid, Model model) {
-		Optional<Salestaxrate> taxrate = ts.findById(salestaxrateid);
-		if (taxrate == null)
-			throw new IllegalArgumentException("Invalid taxrate id: " + salestaxrateid);
-		model.addAttribute("taxrate", taxrate.get());
+		Optional<Salestaxrate> salestaxrate = ts.findById(salestaxrateid);
+		if (salestaxrate == null)
+			throw new IllegalArgumentException("Invalid salestaxrate id: " + salestaxrateid);
+		model.addAttribute("salestaxrate", salestaxrate.get());
 		model.addAttribute("stateprovinces", ts.findAll());
 		return "salestaxrate/updateSalestaxrate";
 	}
 
 	@Override
-	@PostMapping("/salestaxrate/edit/{salestaxrate}")
+	@PostMapping("/salestaxrate/editSalestaxrate/{salestaxrate}")
 	public String updateSalestaxrate(@PathVariable("salestaxrateid") Integer salestaxrateid, @RequestParam(value = "action", required = true) String action, 
-			@Validated @ModelAttribute Salestaxrate taxrate, BindingResult bindingResult, Model model) {
+			@Validated @ModelAttribute Salestaxrate salestaxrate, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
-				model.addAttribute("taxrate", taxrate);
+				model.addAttribute("salestaxrate", salestaxrate);
 				model.addAttribute("stateprovinces", ss.findAll());
 			}
-			ts.save(taxrate);
-			model.addAttribute("taxrates", ts.findAll());
+			ts.save(salestaxrate);
+			model.addAttribute("salestaxrates", ts.findAll());
 		}
 		
 		return "redirect:/salestaxrate/";

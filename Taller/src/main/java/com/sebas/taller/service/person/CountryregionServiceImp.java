@@ -23,8 +23,8 @@ public class CountryregionServiceImp implements CountryregionService{
 	public Countryregion save(Countryregion c) {
 		if (c != null) {
 			
-			if(c.getCountryregioncode().toString().length() >= 1 && 
-					c.getCountryregioncode().toString().length() <= 4
+			if(c.getCountryregioncode().length() >= 1 && 
+					c.getCountryregioncode().length() <= 4
 					&& c.getName().length() >= 5) {
 				cr.save(c);
 			} else {
@@ -43,8 +43,8 @@ public class CountryregionServiceImp implements CountryregionService{
 			
 			real = search(c);
 			
-			if (c.getCountryregioncode().toString().length() >= 1 && 
-					c.getCountryregioncode().toString().length() <= 4
+			if (c.getCountryregioncode().length() >= 1 && 
+					c.getCountryregioncode().length() <= 4
 					&& c.getName().length() >= 5) {
 				
 				real.setCountryregioncode(c.getCountryregioncode());

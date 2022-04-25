@@ -30,7 +30,7 @@ public class AddressControllerImp implements AddressController {
 	}
 
 	@Override
-	@GetMapping("/address/add")
+	@GetMapping("/address/addAddress")
 	public String addAddress(Model model) {
 		model.addAttribute("address", new Address());
 		
@@ -64,14 +64,14 @@ public class AddressControllerImp implements AddressController {
 	}
 
 	@Override
-	@PostMapping("/address/add")
+	@PostMapping("/address/addAddress")
 	public String saveAddress(@Validated @ModelAttribute Address address, BindingResult bindingResult, Model model,
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("address", address);
 				model.addAttribute("stateprovinces", ss.findAll());
-				return "address/add";
+				return "address/addAddress";
 			}
 			as.save(address);
 		}
@@ -79,7 +79,7 @@ public class AddressControllerImp implements AddressController {
 	}
 
 	@Override
-	@GetMapping("/address/edit/{addressid}")
+	@GetMapping("/address/editAddress/{addressid}")
 	public String showUpdateForm(@PathVariable("addressid") Integer addressid, Model model) {
 		Optional<Address> address = as.findById(addressid);
 		if(address == null)
@@ -92,7 +92,7 @@ public class AddressControllerImp implements AddressController {
 	}
 
 	@Override
-	@PostMapping("/address/edit/{addressid}")
+	@PostMapping("/address/editAddress/{addressid}")
 	public String updateAddress(@PathVariable("addressid") Integer addressid, @RequestParam(value = "action", required = true) String action, 
 			@Validated @ModelAttribute Address address, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {

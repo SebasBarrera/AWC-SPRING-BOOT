@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Add Address</title>
+<title>Add State Province</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div class="container my-5">
-		<h2 class="mb-5">New Address</h2>
+		<h2 class="mb-5">New State Province</h2>
 		<div class="row">
 			<div class="col-md-6">
 				<form action="#" th:action="@{/stateprovince/addStateprovince/}"
@@ -51,17 +51,11 @@
 							<label for="territoryid" class="col-form-label">Territory id</label>
 								
 								<select class="form-control-range" th:field="*{territoryid}">
-								<option th:each="c : ${c}"
-									th:value="${c.countryregionid}" class="form-control"
-									th:text="${c.name}" th:selected="${stateprovince.countryregion=c}"></option>
-								</select> <span th:if="${#fields.hasErrors('countryregion')}"
-								th:errors="*{countryregion}" class="text-danger"></span>
-							
-							
-							
-								 <input type="number" th:field="*{territoryid}"
-								class="form-control"
-								+ id="territoryid" placeholder="territoryid">
+								<option th:each="c : ${territoryids}"
+									th:value="${c.territoryid}" class="form-control"
+									th:text="${c.territoryid}" th:selected="${stateprovince.territoryid=c}"></option>
+								</select> <span th:if="${#fields.hasErrors('territoryid')}"
+								th:errors="*{territoryid}" class="text-danger"></span>
 							<span th:if="${#fields.hasErrors('territoryid')}"
 								th:errors="*{territoryid}" class="text-danger"></span>
 						</div>

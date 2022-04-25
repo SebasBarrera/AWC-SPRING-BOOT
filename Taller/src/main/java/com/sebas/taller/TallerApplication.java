@@ -1,6 +1,8 @@
 package com.sebas.taller;
 
 
+import java.math.BigDecimal;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -10,10 +12,14 @@ import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import com.sebas.taller.model.User;
 import com.sebas.taller.model.UserType;
+import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Countryregion;
 import com.sebas.taller.model.person.Stateprovince;
+import com.sebas.taller.model.sales.Salestaxrate;
 import com.sebas.taller.model.sales.Salesterritory;
 import com.sebas.taller.service.UserServiceImp;
+import com.sebas.taller.service.person.AddressService;
+import com.sebas.taller.service.person.AddressServiceImp;
 import com.sebas.taller.service.person.CountryregionService;
 import com.sebas.taller.service.person.CountryregionServiceImp;
 import com.sebas.taller.service.person.StateprovinceService;
@@ -31,27 +37,45 @@ public class TallerApplication {
 		ConfigurableApplicationContext c = SpringApplication.run(TallerApplication.class, args);
 	
 		StateprovinceService ss = c.getBean(StateprovinceServiceImp.class);
-		SalestaxrateService ts = c.getBean(SalestaxrateServiceImp.class);
 		CountryregionService cs = c.getBean(CountryregionServiceImp.class);
 		SalesterritoryService sts = c.getBean(SalesterritoryService.class);
+		SalestaxrateService ts = c.getBean(SalestaxrateServiceImp.class);
+		AddressService as = c.getBean(AddressServiceImp.class);
 		Stateprovince s = new Stateprovince();
 		Countryregion c1 = new Countryregion();
+		Salestaxrate tax1 = new Salestaxrate();
+		c1.setCountryregioncode("COL");
+		c1.setName("Colombia");
 		Salesterritory t1 = new Salesterritory();
+		
 		sts.save(t1);
 		cs.save(c1);
 		s.setCountryregion(c1);
 		s.setTerritoryid(t1.getTerritoryid());
 		s.setStateprovincecode("98765");
 		s.setIsonlystateprovinceflag("N");
-		s.setName("Cundinamarca");
+		s.setName("Valle Del Cauca");
 		ss.save(s);
+		tax1.setStateprovince(s);
+		tax1.setTaxrate(new BigDecimal(19));
+		tax1.setName("Impuesto");
+		ts.save(tax1);
+		
+		Address a1 = new Address();
+		a1.setAddressline1("Cra 68 # 16 - 07");
+		a1.setPostalcode("760033");
+		a1.setCity("Cali");
+		a1.setStateprovince(s);
+		as.save(a1);
 		
 		UserServiceImp us = c.getBean(UserServiceImp.class);
+		
+		
 		
 		User admin = new User();
 		admin.setUsername("admin");
 		admin.setPassword("admin123");
-		admin.setType(UserType.admin);
+		admin.setType(UserType.administrator);
 		User operator = new User();
 		operator.setUsername("operator");
 		operator.setPassword("ope123");

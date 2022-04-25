@@ -13,21 +13,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sebas.taller.model.person.Countryregion;
 import com.sebas.taller.service.person.CountryregionService;
+import com.sebas.taller.service.person.StateprovinceService;
 
 @Controller
 public class CountryregionControllerImp implements CountryregionController {
 
 	CountryregionService cs;
+	StateprovinceService ss;
 	
 	@Autowired
-	public CountryregionControllerImp(CountryregionService cs) {
+	public CountryregionControllerImp(StateprovinceService ss, CountryregionService cs) {
 		this.cs = cs;
+		this.ss = ss;
 	}
 	
 	@Override
-	@GetMapping("/countryregion/add")
+	@GetMapping("/countryregion/addCountryregion")
 	public String addCountryregion(Model model) {
 		model.addAttribute("countryregion", new Countryregion());
+		model.addAttribute("stateprovinces", ss.findAll());
 		return "countryregion/addCountryregion";
 	}
 
@@ -48,13 +52,14 @@ public class CountryregionControllerImp implements CountryregionController {
 	}
 
 	@Override
-	@PostMapping("/countryregion/add")
+	@PostMapping("/countryregion/addCountryregion")
 	public String saveCountryregion(@Validated @ModelAttribute Countryregion countryregion, BindingResult bindingResult, Model model, 
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
+				model.addAttribute("stateprovinces", ss.findAll());
 				model.addAttribute("countryregion", countryregion);
-				return "countryregion/add";
+				return "countryregion/addCountryregion";
 			}
 			cs.save(countryregion);
 		}
@@ -62,20 +67,22 @@ public class CountryregionControllerImp implements CountryregionController {
 	}
 
 	@Override
-	@GetMapping("/countryregion/edit/{countryregionid}")
+	@GetMapping("/countryregion/editCountryregion/{countryregionid}")
 	public String showUpdateForm(@PathVariable("countryregionid") Integer countryregionid, Model model) {
 		Countryregion countryregion = cs.findById(countryregionid).orElseThrow(() -> new IllegalArgumentException("Invalid country region Id:" + countryregionid));
 		model.addAttribute("countryregion", countryregion);
+		model.addAttribute("stateprovinces", ss.findAll());
 		return "countryregion/updateCountryregion";
 	}
 
 	@Override
-	@PostMapping("/countryregion/edit/{countryregionid}")
+	@PostMapping("/countryregion/editCountryregion/{countryregionid}")
 	public String updateCountryregion(@PathVariable("countryregionid") Integer countryregionid, @RequestParam(value = "action", required = true) String action, 
 			@Validated @ModelAttribute Countryregion countryregion, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("countryregion", countryregion);
+				model.addAttribute("stateprovinces", ss.findAll());
 				return "countryregion/updateCountryregion";
 			}
 			cs.save(countryregion);

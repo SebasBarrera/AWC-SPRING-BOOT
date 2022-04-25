@@ -38,13 +38,11 @@ public class Address implements Serializable {
 	private String addressline2;
 	
 	@Size(min = 3, message = "City must have at least 3 characters")
-	@NotBlank(message = "City can not be in blank")
 	private String city;
 
 	private Timestamp modifieddate;
 
 	@Size(max = 6, min = 6, message = "Postal code must have 6 characters")
-	@NotBlank(message = "Postal code can not be in blank")
 	private String postalcode;
 
 	private Integer rowguid;

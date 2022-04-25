@@ -13,8 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -31,23 +30,20 @@ public class Stateprovince implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STATEPROVINCE_STATEPROVINCEID_GENERATOR")
 	private Integer stateprovinceid;
 
-	@NotBlank(message = "Flag can not be in blank")
 	@Size(min = 1, max = 1, message = "Flag must be Y or N")
 	private String isonlystateprovinceflag;
 
 	private Timestamp modifieddate;
 
-	@NotBlank(message = "Name can not be in blank")
 	@Size(min = 5, message = "Name must have at least 5 characters")
 	private String name;
 
 	private Integer rowguid;
 
-	@NotBlank(message = "State-Province code can not be in blank")
 	@Size(min = 5, max = 5, message = "State-Province must have 5 digits")
 	private String stateprovincecode;
 
-	@NotEmpty(message = "Territory id can not be Empty")
+	@NotNull(message = "Territory id can not be Empty")
 	private Integer territoryid;
 
 	// bi-directional many-to-one association to Address

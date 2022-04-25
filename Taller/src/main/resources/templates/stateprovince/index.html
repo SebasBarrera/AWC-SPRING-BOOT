@@ -43,10 +43,10 @@
 								<td th:text="${current.name}" />
 								<td th:text="${current.stateprovincecode}" />
 								<td th:text="${current.territoryid}" />
-								<td th:text="${current.countryregion}" />
-								<td><a th:href="@{'/stateprovince/edit/' + ${current.stateprovinceid}}" class="btn btn-primary"><i
+								<td th:text="${current.countryregion.name}" />
+								<td><a th:href="@{'/stateprovince/editStateprovince/' + ${current.stateprovinceid}}" class="btn btn-primary"><i
 								class="fas fa-edit mr-1 ml-1"></i></a></td>
-								<td><a th:href="@{'/stateprovince/del/' + ${current.stateprovinceid}}" class="btn btn-primary"><i
+								<td><a th:href="@{'/stateprovince/delete/' + ${current.stateprovinceid}}" class="btn btn-primary"><i
 								class="fas fa-user-minus mr-1 ml-1"></i></a></td>
 							</tr>
 						</div>
@@ -55,7 +55,7 @@
 					</table>
 				</div>
 				<p class="my-5">
-					<a href="/stateprovince/add" class="btn btn-primary"><i
+					<a href="/stateprovince/addStateprovince" class="btn btn-primary"><i
 						class="fas fa-user-plus mr-1 ml-1"></i></a>
 				</p>
 				<!--<p class="my-5">

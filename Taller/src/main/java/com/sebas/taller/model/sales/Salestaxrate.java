@@ -12,7 +12,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+
+import com.sebas.taller.model.person.Stateprovince;
 
 /**
  * The persistent class for the salestaxrate database table.
@@ -31,17 +34,14 @@ public class Salestaxrate implements Serializable {
 	private Timestamp modifieddate;
 
 	@Size(min = 5, message = "Name must have at least 5 characters")
-	@NotBlank(message = "Name can not be in blank")
 	private String name;
 
 	private Integer rowguid;
 
-	@NotBlank(message = "State-Province can not be in blank")
-	@Min(1)
-	private Integer stateprovinceid;
+	
+	private Stateprovince stateprovince;
 
-	@Min(0)
-	@NotBlank(message = "Tax rate can not be in blank")
+	@Positive(message = "min 0")
 	private BigDecimal taxrate;
 
 	private Integer taxtype;
@@ -65,8 +65,8 @@ public class Salestaxrate implements Serializable {
 		return this.salestaxrateid;
 	}
 
-	public Integer getStateprovinceid() {
-		return this.stateprovinceid;
+	public Stateprovince getStateprovinceid() {
+		return this.stateprovince;
 	}
 
 	public BigDecimal getTaxrate() {
@@ -93,8 +93,8 @@ public class Salestaxrate implements Serializable {
 		this.salestaxrateid = salestaxrateid;
 	}
 
-	public void setStateprovinceid(Integer stateprovinceid) {
-		this.stateprovinceid = stateprovinceid;
+	public void setStateprovince(Stateprovince stateprovince) {
+		this.stateprovince = stateprovince;
 	}
 
 	public void setTaxrate(BigDecimal taxrate) {

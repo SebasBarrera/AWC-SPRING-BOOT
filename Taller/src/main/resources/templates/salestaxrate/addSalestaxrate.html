@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<form action="#" th:action="@{/salestaxrate/addSalestaxrate/}"
-					th:object="${taxrate}" method="post">
+					th:object="${salestaxrate}" method="post">
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label for="name" class="col-form-label">Name</label> 
@@ -31,14 +31,7 @@
 								th:if="${#fields.hasErrors('name')}"
 								th:errors="*{name}" class="text-danger"></span>
 						</div>
-						<div class="form-group col-md-6">
-							<label for="stateprovinceid" class="col-form-label">State province id
-								</label> <input type="text" th:field="*{stateprovinceid}"
-								class="form-control" id="stateprovinceid"
-								placeholder="stateprovinceid"> <span
-								th:if="${#fields.hasErrors('stateprovinceid')}"
-								th:errors="*{stateprovinceid}" class="text-danger"></span>
-						</div>
+						
 						<div class="form-group col-md-6">
 							<label for="taxrate" class="col-form-label">Tax Rate</label>
 							 <input
@@ -54,15 +47,15 @@
 							<span th:if="${#fields.hasErrors('taxtype')}"
 								th:errors="*{taxtype}" class="text-danger"></span>
 						</div>
-
+ 
 						<div class="form-group col-md-6">
 							<label for="stateprovince" class="col-form-label">State-Province</label>
 							<select class="form-control-range" th:field="*{stateprovinceid}">
 								<option th:each="s : ${stateprovinces}"
-									th:value="${s.stateprovinceId}" class="form-control"
-									th:text="${s.stateprovinceid}" th:selected="${salestaxrate.stateprovince=s}"></option>
+									th:value="${s.stateprovinceid}" class="form-control"
+									th:text="${s.name}" th:selected="${salestaxrate.stateprovince=s}"></option>
 							</select> <span th:if="${#fields.hasErrors('stateprovinceid')}"
-								th:errors="*{stateprovinceid}" class="text-danger"></span>
+								th:errors="*{stateprovince}" class="text-danger"></span>
 						</div>
 
 						<div></div>

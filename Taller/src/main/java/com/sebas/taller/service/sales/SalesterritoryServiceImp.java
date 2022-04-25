@@ -1,10 +1,14 @@
 package com.sebas.taller.service.sales;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sebas.taller.model.sales.Salesterritory;
 import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
+@Service
 public class SalesterritoryServiceImp implements SalesterritoryService {
 	
 	@Autowired
@@ -24,14 +28,28 @@ public class SalesterritoryServiceImp implements SalesterritoryService {
 
 	@Override
 	public Salesterritory update(Salesterritory s) {
-		// TODO Auto-generated method stub
+		sr.save(s);
 		return null;
 	}
 
 	@Override
 	public Salesterritory Search(Salesterritory s) {
-		// TODO Auto-generated method stub
-		return null;
+		return sr.findById(s.getTerritoryid()).get();
+	}
+
+	@Override
+	public Optional<Salesterritory> findById(Integer id) {
+		return sr.findById(id);
+	}
+
+	@Override
+	public Iterable<Salesterritory> findAll() {
+		return sr.findAll();
+	}
+
+	@Override
+	public void delete(Salesterritory s) {
+		sr.delete(s);
 	}
 
 }

@@ -16,24 +16,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.service.person.CountryregionService;
 import com.sebas.taller.service.person.StateprovinceService;
+import com.sebas.taller.service.sales.SalesterritoryService;
 
 @Controller
 public class StateprovinceControllerImp implements StateprovinceController {
 
 	StateprovinceService ss;
 	CountryregionService cs;
+	SalesterritoryService ts;
 	
 	@Autowired
-	public StateprovinceControllerImp(StateprovinceService ss, CountryregionService cs) {
+	public StateprovinceControllerImp(SalesterritoryService ts, StateprovinceService ss, CountryregionService cs) {
 		this.ss = ss;
+		this.ts = ts;
 		this.cs = cs;
 	}
 	
 	@Override
-	@GetMapping("/stateprovince/add")
+	@GetMapping("/stateprovince/addStateprovince")
 	public String addStateProvince(Model model) {
 		model.addAttribute("stateprovince", new Stateprovince());
 		
+		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", cs.findAll());
 		return "stateprovince/addStateprovince";
 	}
@@ -56,12 +60,13 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	}
 
 	@Override
-	@PostMapping("/stateprovince/add")
+	@PostMapping("/stateprovince/addStateprovince")
 	public String saveStateProvince(@Validated @ModelAttribute Stateprovince stateprovince, BindingResult bindingResult, Model model, 
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel") ) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);
+				model.addAttribute("territoryids", ts.findAll());
 				model.addAttribute("countryregions", cs.findAll());
 				return "stateprovince/addStateprovince";
 			}
@@ -71,24 +76,25 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	}
 
 	@Override
-	@GetMapping("/stateprovince/edit/{stateprovinceid}")
+	@GetMapping("/stateprovince/editStateprovince/{stateprovinceid}")
 	public String showUpdateForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
 		Optional<Stateprovince> stateprovince = ss.findById(stateprovinceid);
 		if (stateprovince == null) 
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
 		model.addAttribute("stateprovince", stateprovince.get());
-		
+		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", cs.findAll());
 		return "stateprovince/updateStateprovince";
 	}
 
 	@Override
-	@PostMapping("/stateprovince/edit/{stateprovinceid}")
+	@PostMapping("/stateprovince/editStateprovince/{stateprovinceid}")
 	public String updateStateProvince(@PathVariable("stateprovinceid") Integer stateprovinceid, @RequestParam(value = "action", required = true) String action, 
 			@Validated @ModelAttribute Stateprovince stateprovince, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);
+				model.addAttribute("territoryids", ts.findAll());
 				model.addAttribute("countryregions", cs.findAll());
 				return "stateprovince/updateStateprovince";
 			}

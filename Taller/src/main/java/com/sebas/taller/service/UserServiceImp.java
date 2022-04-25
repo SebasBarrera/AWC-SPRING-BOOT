@@ -37,7 +37,7 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public Iterable<User> findAllAdmins() {
-		return ur.findByType(UserType.admin);
+		return ur.findByType(UserType.administrator);
 	}
 
 	@Override

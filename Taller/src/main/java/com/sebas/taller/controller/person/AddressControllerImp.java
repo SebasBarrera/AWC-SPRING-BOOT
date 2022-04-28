@@ -88,7 +88,7 @@ public class AddressControllerImp implements AddressController {
 
 
 		model.addAttribute("stateprovinces", ss.findAll());
-		return "address/updateAddress";
+		return "address/editAddress";
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class AddressControllerImp implements AddressController {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("address", address);
 				model.addAttribute("stateprovinces", ss.findAll());
-				return "address/updateAddress";
+				return "address/editAddress";
 			}
 			as.save(address);
 			model.addAttribute("addresss", as.findAll());

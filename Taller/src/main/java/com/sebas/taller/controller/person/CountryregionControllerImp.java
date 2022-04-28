@@ -72,7 +72,7 @@ public class CountryregionControllerImp implements CountryregionController {
 		Countryregion countryregion = cs.findById(countryregionid).orElseThrow(() -> new IllegalArgumentException("Invalid country region Id:" + countryregionid));
 		model.addAttribute("countryregion", countryregion);
 		model.addAttribute("stateprovinces", ss.findAll());
-		return "countryregion/updateCountryregion";
+		return "countryregion/editCountryregion";
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class CountryregionControllerImp implements CountryregionController {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("countryregion", countryregion);
 				model.addAttribute("stateprovinces", ss.findAll());
-				return "countryregion/updateCountryregion";
+				return "countryregion/editCountryregion";
 			}
 			cs.save(countryregion);
 			model.addAttribute("countryregions", cs.findAll());

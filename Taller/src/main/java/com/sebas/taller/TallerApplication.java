@@ -47,8 +47,15 @@ public class TallerApplication {
 		c1.setCountryregioncode("COL");
 		c1.setName("Colombia");
 		Salesterritory t1 = new Salesterritory();
-		
+		Salesterritory t2 = new Salesterritory();
+		Salesterritory t3 = new Salesterritory();
+		Salesterritory t4 = new Salesterritory();
+		Salesterritory t5 = new Salesterritory();
 		sts.save(t1);
+		sts.save(t2);
+		sts.save(t3);
+		sts.save(t4);
+		sts.save(t5);
 		cs.save(c1);
 		s.setCountryregion(c1);
 		s.setTerritoryid(t1.getTerritoryid());

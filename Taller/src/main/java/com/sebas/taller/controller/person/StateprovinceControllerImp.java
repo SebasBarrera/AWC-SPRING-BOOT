@@ -84,7 +84,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		model.addAttribute("stateprovince", stateprovince.get());
 		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", cs.findAll());
-		return "stateprovince/updateStateprovince";
+		return "stateprovince/editStateprovince";
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 				model.addAttribute("stateprovince", stateprovince);
 				model.addAttribute("territoryids", ts.findAll());
 				model.addAttribute("countryregions", cs.findAll());
-				return "stateprovince/updateStateprovince";
+				return "stateprovince/editStateprovince";
 			}
 			ss.save(stateprovince);
 			model.addAttribute("stateprovinces", ss.findAll());

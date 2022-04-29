@@ -39,7 +39,7 @@
 							<tr>
 								<td th:text="${current.salestaxrateid}" />
 								<td th:text="${current.name}" />
-								<td th:text="${current.stateprovince}" />
+								<td th:text="${current.stateprovince.name}" />
 								<td th:text="${current.taxrate}" />
 								<td th:text="${current.taxtype}" />
 								<td><a th:href="@{'/salestaxrate/editSalestaxrate/' + ${current.salestaxrateid}}" class="btn btn-primary"><i

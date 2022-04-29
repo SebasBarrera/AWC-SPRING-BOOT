@@ -27,14 +27,14 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 	@Transactional
 	public void save(Salestaxrate s) {
 		if (s != null) {
-			if (s.getStateprovinceid() != null) {
+			if (s.getStateprovince() != null) {
 				
-				if (spr.existsById(s.getStateprovinceid().getStateprovinceid())) {
+				if (spr.existsById(s.getStateprovince().getStateprovinceid())) {
 					
 					if ((s.getTaxrate().compareTo(new BigDecimal(0)) >= 0)
 							&& s.getName().length() >= 5) {
 					
-						s.setStateprovince(s.getStateprovinceid());
+						s.setStateprovince(spr.findById(s.getStateprovince().getStateprovinceid()).get());
 						sr.save(s);
 						
 					} else {
@@ -60,9 +60,9 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 		Salestaxrate real = null;
 		if (s != null) {
 			
-			if (s.getStateprovinceid() != null) {
+			if (s.getStateprovince() != null) {
 				
-				if (spr.existsById(s.getStateprovinceid().getStateprovinceid())) {
+				if (spr.existsById(s.getStateprovince().getStateprovinceid())) {
 					
 					real = search(s);
 					
@@ -72,7 +72,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 						real.setModifieddate(s.getModifieddate());
 						real.setName(s.getName());
 						real.setRowguid(s.getRowguid());
-						real.setStateprovince(s.getStateprovinceid());
+						real.setStateprovince(s.getStateprovince());
 						real.setTaxrate(s.getTaxrate());
 						real.setTaxtype(s.getTaxtype());
 						

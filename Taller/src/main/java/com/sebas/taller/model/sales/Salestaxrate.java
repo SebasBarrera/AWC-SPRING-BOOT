@@ -8,8 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -36,10 +39,11 @@ public class Salestaxrate implements Serializable {
 
 	private Integer rowguid;
 
-	
+	@ManyToOne
+	@JoinColumn(name = "stateprovinceid")
 	private Stateprovince stateprovince;
 
-	@Positive(message = "min 0")
+	@Min(0)
 	private BigDecimal taxrate;
 
 	private Integer taxtype;
@@ -63,7 +67,8 @@ public class Salestaxrate implements Serializable {
 		return this.salestaxrateid;
 	}
 
-	public Stateprovince getStateprovinceid() {
+	
+	public Stateprovince getStateprovince() {
 		return this.stateprovince;
 	}
 

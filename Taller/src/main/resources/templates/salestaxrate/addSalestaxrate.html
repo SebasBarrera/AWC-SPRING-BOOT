@@ -50,11 +50,11 @@
  
 						<div class="form-group col-md-6">
 							<label for="stateprovince" class="col-form-label">State-Province</label>
-							<select class="form-control-range" th:field="*{stateprovinceid}">
+							<select class="form-control-range" th:field="*{stateprovince}" id=stateprovinceid>
 								<option th:each="s : ${stateprovinces}"
 									th:value="${s.stateprovinceid}" class="form-control"
 									th:text="${s.name}" th:selected="${salestaxrate.stateprovince=s}"></option>
-							</select> <span th:if="${#fields.hasErrors('stateprovinceid')}"
+							</select> <span th:if="${#fields.hasErrors('stateprovince')}"
 								th:errors="*{stateprovince}" class="text-danger"></span>
 						</div>
 

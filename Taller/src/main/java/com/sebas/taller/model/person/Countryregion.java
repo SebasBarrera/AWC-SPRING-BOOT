@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Size;
 
+
 /**
  * The persistent class for the countryregion database table.
  *
@@ -21,18 +22,22 @@ import javax.validation.constraints.Size;
 @NamedQuery(name = "Countryregion.findAll", query = "SELECT c FROM Countryregion c")
 public class Countryregion implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public interface Validation {
+		
+	}
 
 	@Id
 	@SequenceGenerator(name = "COUNTRYREGION_COUNTRYREGIONCODE_GENERATOR", allocationSize = 1, sequenceName = "COUNTRYREGION_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COUNTRYREGION_COUNTRYREGIONCODE_GENERATOR")
 	private Integer countryregionid;
 	
-	@Size(min = 1, max = 4, message = "Country-Region code must have min 1 max 4 characters")
+	@Size(min = 1, max = 4, message = "Country-Region code must have min 1 max 4 characters", groups = {Validation.class})
 	private String countryregioncode;
 
 	private Timestamp modifieddate;
 
-	@Size(min = 5, message = "Country-Region name must have at least 5 characters")
+	@Size(min = 5, message = "Country-Region name must have at least 5 characters", groups = {Validation.class})
 	private String name;
 
 	// bi-directional many-to-one association to Stateprovince

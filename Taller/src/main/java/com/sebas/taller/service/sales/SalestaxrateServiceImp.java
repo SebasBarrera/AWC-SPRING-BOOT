@@ -1,6 +1,5 @@
 package com.sebas.taller.service.sales;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 				
 				if (spr.existsById(s.getStateprovince().getStateprovinceid())) {
 					
-					if ((s.getTaxrate().compareTo(new BigDecimal(0)) >= 0)
+					if ((s.getTaxrate() >= 0.0)
 							&& s.getName().length() >= 5) {
 					
 						s.setStateprovince(spr.findById(s.getStateprovince().getStateprovinceid()).get());
@@ -66,7 +65,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 					
 					real = search(s);
 					
-					if ((s.getTaxrate().compareTo(new BigDecimal(0)) == 0 ||s.getTaxrate().compareTo(new BigDecimal(0)) == 1)
+					if ((s.getTaxrate() > 0.0)
 							&& s.getName().length() >= 5) {
 						
 						real.setModifieddate(s.getModifieddate());

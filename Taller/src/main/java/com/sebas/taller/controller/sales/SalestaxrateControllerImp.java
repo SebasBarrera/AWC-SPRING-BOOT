@@ -39,7 +39,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 	}
 
 	@Override
-	@GetMapping("/salestaxrate/delete/{addressid}")
+	@GetMapping("/salestaxrate/delete/{salestaxrateid}")
 	public String deleteSalestaxrate(@PathVariable("salestaxrateid") Integer salestaxrateid, Model model) {
 		Salestaxrate salestaxrate = ts.findById(salestaxrateid)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid tax rate id: " + salestaxrateid));
@@ -57,7 +57,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 
 	@Override
 	@PostMapping("/salestaxrate/addSalestaxrate")
-	public String saveSalestaxrate(@Validated @ModelAttribute Salestaxrate salestaxrate, BindingResult bindingResult, Model model,
+	public String saveSalestaxrate(@Validated(Salestaxrate.Validation.class) @ModelAttribute Salestaxrate salestaxrate, BindingResult bindingResult, Model model,
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
@@ -82,9 +82,9 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 	}
 
 	@Override
-	@PostMapping("/salestaxrate/editSalestaxrate/{salestaxrate}")
+	@PostMapping("/salestaxrate/editSalestaxrate/{salestaxrateid}")
 	public String updateSalestaxrate(@PathVariable("salestaxrateid") Integer salestaxrateid, @RequestParam(value = "action", required = true) String action, 
-			@Validated @ModelAttribute Salestaxrate salestaxrate, BindingResult bindingResult, Model model) {
+			@Validated(Salestaxrate.Validation.class) @ModelAttribute Salestaxrate salestaxrate, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("salestaxrate", salestaxrate);

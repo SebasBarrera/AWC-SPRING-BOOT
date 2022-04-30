@@ -61,7 +61,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 
 	@Override
 	@PostMapping("/stateprovince/addStateprovince")
-	public String saveStateProvince(@Validated @ModelAttribute Stateprovince stateprovince, BindingResult bindingResult, Model model, 
+	public String saveStateProvince(@Validated(Stateprovince.Validation.class) @ModelAttribute Stateprovince stateprovince, BindingResult bindingResult, Model model, 
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel") ) {
 			if (bindingResult.hasErrors()) {
@@ -90,7 +90,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	@Override
 	@PostMapping("/stateprovince/editStateprovince/{stateprovinceid}")
 	public String updateStateProvince(@PathVariable("stateprovinceid") Integer stateprovinceid, @RequestParam(value = "action", required = true) String action, 
-			@Validated @ModelAttribute Stateprovince stateprovince, BindingResult bindingResult, Model model) {
+			@Validated(Stateprovince.Validation.class) @ModelAttribute Stateprovince stateprovince, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);

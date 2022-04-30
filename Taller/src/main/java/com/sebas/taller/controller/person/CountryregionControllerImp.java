@@ -53,7 +53,7 @@ public class CountryregionControllerImp implements CountryregionController {
 
 	@Override
 	@PostMapping("/countryregion/addCountryregion")
-	public String saveCountryregion(@Validated @ModelAttribute Countryregion countryregion, BindingResult bindingResult, Model model, 
+	public String saveCountryregion(@Validated(Countryregion.Validation.class) @ModelAttribute Countryregion countryregion, BindingResult bindingResult, Model model, 
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
@@ -78,7 +78,7 @@ public class CountryregionControllerImp implements CountryregionController {
 	@Override
 	@PostMapping("/countryregion/editCountryregion/{countryregionid}")
 	public String updateCountryregion(@PathVariable("countryregionid") Integer countryregionid, @RequestParam(value = "action", required = true) String action, 
-			@Validated @ModelAttribute Countryregion countryregion, BindingResult bindingResult, Model model) {
+			@Validated(Countryregion.Validation.class) @ModelAttribute Countryregion countryregion, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("countryregion", countryregion);

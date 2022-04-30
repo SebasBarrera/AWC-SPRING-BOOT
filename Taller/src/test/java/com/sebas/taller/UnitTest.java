@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Tag;
@@ -1024,7 +1023,7 @@ class UnitTest {
 		setUpT();
 		tax1 = new Salestaxrate();
 		tax1.setSalestaxrateid(1);
-		tax1.setTaxrate(new BigDecimal(1));
+		tax1.setTaxrate(1.1);
 		tax1.setName("Impuesto al consumo");
 		tax1.setStateprovince(p1);
 		when(pr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
@@ -1041,7 +1040,7 @@ class UnitTest {
 		
 		Salestaxrate t = new Salestaxrate();
 		t.setStateprovince(p1);
-		t.setTaxrate(new BigDecimal(1));
+		t.setTaxrate(1.1);
 		t.setName("Impuesto al consumo");
 		
 		//when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
@@ -1078,7 +1077,7 @@ class UnitTest {
 		
 		Salestaxrate t = new Salestaxrate();
 		t.setStateprovince(null);
-		t.setTaxrate(new BigDecimal(1));
+		t.setTaxrate(1.1);
 		t.setName("Impuesto al consumo");
 		
 		//when(pr.existsById(t.getStateprovinceid())).thenReturn(false);
@@ -1096,7 +1095,7 @@ class UnitTest {
 		
 		Salestaxrate t = new Salestaxrate();
 		t.setStateprovince(p1);
-		t.setTaxrate(new BigDecimal(1));
+		t.setTaxrate(1.1);
 		t.setName("Impuesto al consumo");
 		
 		//when(pr.existsById(t.getStateprovinceid())).thenReturn(false);
@@ -1115,7 +1114,7 @@ class UnitTest {
 		
 		Salestaxrate t = new Salestaxrate();
 		t.setStateprovince(p1);
-		t.setTaxrate(new BigDecimal(-1));
+		t.setTaxrate(-1.1);
 		t.setName("Impuesto al consumo");
 		
 		//when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
@@ -1134,7 +1133,7 @@ class UnitTest {
 		
 		Salestaxrate t = new Salestaxrate();
 		t.setStateprovince(p1);
-		t.setTaxrate(new BigDecimal(1));
+		t.setTaxrate(1.1);
 		t.setName("IVA");
 		
 		//when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
@@ -1153,7 +1152,7 @@ class UnitTest {
 		setUpUpdateT();
 		
 		tax1.setStateprovince(p1);
-		tax1.setTaxrate(new BigDecimal(0));
+		tax1.setTaxrate(0.0);
 		tax1.setName("Impuesto al valor agregado");
 		
 		
@@ -1188,7 +1187,7 @@ class UnitTest {
 		setUpUpdateT();
 		
 		tax1.setStateprovince(null);
-		tax1.setTaxrate(new BigDecimal(0));
+		tax1.setTaxrate(0.0);
 		tax1.setName("Impuesto al valor agregado");
 		
 		assertThrows(NullPointerException.class, () -> ts.update(tax1));
@@ -1201,7 +1200,7 @@ class UnitTest {
 		setUpUpdateT();
 		
 		tax1.setStateprovince(p1);
-		tax1.setTaxrate(new BigDecimal(0));
+		tax1.setTaxrate(0.0);
 		tax1.setName("Impuesto al valor agregado");
 		
 		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(false);
@@ -1218,7 +1217,7 @@ class UnitTest {
 		setUpUpdateT();
 		
 		tax1.setStateprovince(p1);
-		tax1.setTaxrate(new BigDecimal(0));
+		tax1.setTaxrate(0.0);
 		tax1.setName("Impuesto al valor agregado");
 		
 		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
@@ -1235,7 +1234,7 @@ class UnitTest {
 		setUpUpdateT();
 		
 		tax1.setStateprovince(p1);
-		tax1.setTaxrate(new BigDecimal(-1));
+		tax1.setTaxrate(-1.1);
 		tax1.setName("Impuesto al valor agregado");
 		
 		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
@@ -1252,7 +1251,7 @@ class UnitTest {
 		setUpUpdateT();
 		
 		tax1.setStateprovince(p1);
-		tax1.setTaxrate(new BigDecimal(-1));
+		tax1.setTaxrate(-1.1);
 		tax1.setName("IVA");
 		
 		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);

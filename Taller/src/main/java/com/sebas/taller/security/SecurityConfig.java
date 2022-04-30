@@ -12,12 +12,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private LoggingAccessDeniedHandler access;
 	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/address/**").access("hasRole('administrator')").and().
+		http.authorizeRequests().antMatchers("/stateprovince/**").access("hasRole('administrator')").and().
 		authorizeRequests().antMatchers("/countryregion/**").access("hasRole('administrator')").and().
 		authorizeRequests().antMatchers("/salestaxrate/**").access("hasRole('operator')").and().
-		authorizeRequests().antMatchers("/stateprovince/**").access("hasRole('operator')").
+		authorizeRequests().antMatchers("/address/**").access("hasRole('operator')").
 		anyRequest().permitAll().and().
 		formLogin().loginPage("/login").permitAll().and().
 		logout().invalidateHttpSession(true).clearAuthentication(true).

@@ -65,7 +65,7 @@ public class AddressControllerImp implements AddressController {
 
 	@Override
 	@PostMapping("/address/addAddress")
-	public String saveAddress(@Validated @ModelAttribute Address address, BindingResult bindingResult, Model model,
+	public String saveAddress(@Validated(Address.Validation.class) @ModelAttribute Address address, BindingResult bindingResult, Model model,
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
@@ -94,7 +94,7 @@ public class AddressControllerImp implements AddressController {
 	@Override
 	@PostMapping("/address/editAddress/{addressid}")
 	public String updateAddress(@PathVariable("addressid") Integer addressid, @RequestParam(value = "action", required = true) String action, 
-			@Validated @ModelAttribute Address address, BindingResult bindingResult, Model model) {
+			@Validated(Address.Validation.class) @ModelAttribute Address address, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("address", address);

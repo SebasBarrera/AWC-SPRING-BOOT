@@ -33,14 +33,14 @@
 
 						<div class="form-group col-md-6">
 							<label for="taxrate" class="col-form-label">Tax Rate</label> <input
-								type="text" th:field="*{taxrate}" class="form-control"
+								type="number" step="0.001" th:field="*{taxrate}" class="form-control"
 								id="taxrate" placeholder="taxrate"> <span
 								th:if="${#fields.hasErrors('taxrate')}" th:errors="*{taxrate}"
 								class="text-danger"></span>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="taxtype" class="col-form-label"> Tax Type </label> <input
-								type="text" th:field="*{taxtype}" class="form-control"
+								type="number" th:field="*{taxtype}" class="form-control"
 								id="taxtype" placeholder="taxtype"> <span
 								th:if="${#fields.hasErrors('taxtype')}" th:errors="*{taxtype}"
 								class="text-danger"></span>

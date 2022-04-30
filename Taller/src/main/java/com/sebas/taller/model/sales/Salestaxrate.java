@@ -1,7 +1,6 @@
 package com.sebas.taller.model.sales;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -13,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.sebas.taller.model.person.Stateprovince;
@@ -26,6 +25,10 @@ import com.sebas.taller.model.person.Stateprovince;
 @NamedQuery(name = "Salestaxrate.findAll", query = "SELECT s FROM Salestaxrate s")
 public class Salestaxrate implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public interface Validation {
+		
+	}
 
 	@Id
 	@SequenceGenerator(name = "SALESTAXRATE_SALESTAXRATEID_GENERATOR", allocationSize = 1, sequenceName = "SALESTAXRATE_SEQ")
@@ -34,17 +37,19 @@ public class Salestaxrate implements Serializable {
 
 	private Timestamp modifieddate;
 
-	@Size(min = 5, message = "Name must have at least 5 characters")
+	@Size(min = 5, message = "Name must have at least 5 characters", groups = {Validation.class})
 	private String name;
 
 	private Integer rowguid;
 
 	@ManyToOne
 	@JoinColumn(name = "stateprovinceid")
+	@NotNull(message = "You must choose one State-Province", groups = {Validation.class})
 	private Stateprovince stateprovince;
 
-	@Min(0)
-	private BigDecimal taxrate;
+	@Min(groups = {Validation.class}, value = 0)
+	@NotNull(message = "This field can not be in blank", groups ={Validation.class})
+	private Double taxrate;
 
 	private Integer taxtype;
 
@@ -72,7 +77,7 @@ public class Salestaxrate implements Serializable {
 		return this.stateprovince;
 	}
 
-	public BigDecimal getTaxrate() {
+	public Double getTaxrate() {
 		return this.taxrate;
 	}
 
@@ -100,7 +105,7 @@ public class Salestaxrate implements Serializable {
 		this.stateprovince = stateprovince;
 	}
 
-	public void setTaxrate(BigDecimal taxrate) {
+	public void setTaxrate(Double taxrate) {
 		this.taxrate = taxrate;
 	}
 

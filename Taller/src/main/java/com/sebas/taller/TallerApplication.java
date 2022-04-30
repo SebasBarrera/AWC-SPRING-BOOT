@@ -1,7 +1,6 @@
-package com.sebas.taller;
+       package com.sebas.taller;
 
 
-import java.math.BigDecimal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +26,7 @@ import com.sebas.taller.service.person.StateprovinceServiceImp;
 import com.sebas.taller.service.sales.SalestaxrateService;
 import com.sebas.taller.service.sales.SalestaxrateServiceImp;
 import com.sebas.taller.service.sales.SalesterritoryService;
+import com.sebas.taller.service.sales.SalesterritoryServiceImp;
 
 
 @SpringBootApplication
@@ -38,7 +38,7 @@ public class TallerApplication {
 	
 		StateprovinceService ss = c.getBean(StateprovinceServiceImp.class);
 		CountryregionService cs = c.getBean(CountryregionServiceImp.class);
-		SalesterritoryService sts = c.getBean(SalesterritoryService.class);
+		SalesterritoryService sts = c.getBean(SalesterritoryServiceImp.class);
 		SalestaxrateService ts = c.getBean(SalestaxrateServiceImp.class);
 		AddressService as = c.getBean(AddressServiceImp.class);
 		Stateprovince s = new Stateprovince();
@@ -46,7 +46,9 @@ public class TallerApplication {
 		Salestaxrate tax1 = new Salestaxrate();
 		c1.setCountryregioncode("COL");
 		c1.setName("Colombia");
+		
 		Salesterritory t1 = new Salesterritory();
+		
 		Salesterritory t2 = new Salesterritory();
 		Salesterritory t3 = new Salesterritory();
 		Salesterritory t4 = new Salesterritory();
@@ -56,6 +58,7 @@ public class TallerApplication {
 		sts.save(t3);
 		sts.save(t4);
 		sts.save(t5);
+		
 		cs.save(c1);
 		s.setCountryregion(c1);
 		s.setTerritoryid(t1.getTerritoryid());
@@ -64,7 +67,7 @@ public class TallerApplication {
 		s.setName("Valle Del Cauca");
 		ss.save(s);
 		tax1.setStateprovince(s);
-		tax1.setTaxrate(new BigDecimal(19));
+		tax1.setTaxrate(19.0);
 		tax1.setName("Impuesto");
 		ts.save(tax1);
 		
@@ -81,11 +84,11 @@ public class TallerApplication {
 		
 		User admin = new User();
 		admin.setUsername("admin");
-		admin.setPassword("admin123");
+		admin.setPassword("{noop}admin123");
 		admin.setType(UserType.administrator);
 		User operator = new User();
 		operator.setUsername("operator");
-		operator.setPassword("ope123");
+		operator.setPassword("{noop}ope123");
 		operator.setType(UserType.operator);
 		us.save(operator);
 		us.save(admin);
@@ -95,26 +98,5 @@ public class TallerApplication {
 	public Java8TimeDialect java8TimeDialect() {
 		return new Java8TimeDialect();
 	}
-	
-	/*
-	@Bean
-	public CommandLineRunner address(AddressService as, StateprovinceRepository sr) {
-		return (args) -> {
-			Stateprovince s1 = new Stateprovince();
-			sr.save(s1);
-			
-			
-			Address a1 = new Address();
-			a1.setAddressid(1);
-			a1.setAddressline1("Cra 68 # 16 - 07");
-			a1.setCity("Cali");
-			a1.setPostalcode("330076");
-			a1.setStateprovince(s1);
-			
-			as.save(a1);
-			log.info(as.search(a1).getAddressline1());
-		};
-	}
-	*/
 
 }

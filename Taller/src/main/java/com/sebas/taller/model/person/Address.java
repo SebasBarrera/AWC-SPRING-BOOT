@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
+
 /**
  * The persistent class for the address database table.
  *
@@ -26,23 +27,27 @@ import javax.validation.constraints.Size;
 @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a")
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public interface Validation {
+		
+	}
 
 	@Id
 	@SequenceGenerator(name = "ADDRESS_ADDRESSID_GENERATOR", allocationSize = 1, sequenceName = "ADDRESS_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ADDRESSID_GENERATOR")
 	private Integer addressid;
 	
-	@NotBlank(message = "Address line 1 can not be in blank")
+	@NotBlank(message = "Address line 1 can not be in blank", groups = {Validation.class})
 	private String addressline1;
 
 	private String addressline2;
 	
-	@Size(min = 3, message = "City must have at least 3 characters")
+	@Size(min = 3, message = "City must have at least 3 characters", groups = {Validation.class})
 	private String city;
 
 	private Timestamp modifieddate;
 
-	@Size(max = 6, min = 6, message = "Postal code must have 6 characters")
+	@Size(max = 6, min = 6, message = "Postal code must have 6 characters", groups = {Validation.class})
 	private String postalcode;
 
 	private Integer rowguid;
@@ -52,7 +57,7 @@ public class Address implements Serializable {
 	// bi-directional many-to-one association to Stateprovince
 	@ManyToOne
 	@JoinColumn(name = "stateprovinceid")
-	@NotNull(message = "You must choose one State-Province")
+	@NotNull(message = "You must choose one State-Province", groups = {Validation.class})
 	private Stateprovince stateprovince;
 
 	// bi-directional many-to-one association to Businessentityaddress

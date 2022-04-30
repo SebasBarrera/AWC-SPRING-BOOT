@@ -24,26 +24,30 @@ import javax.validation.constraints.Size;
 @NamedQuery(name = "Stateprovince.findAll", query = "SELECT s FROM Stateprovince s")
 public class Stateprovince implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public interface Validation {
+		
+	}
 
 	@Id
 	@SequenceGenerator(name = "STATEPROVINCE_STATEPROVINCEID_GENERATOR", allocationSize = 1, sequenceName = "STATEPROVINCE_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STATEPROVINCE_STATEPROVINCEID_GENERATOR")
 	private Integer stateprovinceid;
 
-	@Size(min = 1, max = 1, message = "Flag must be Y or N")
+	@Size(min = 1, max = 1, message = "Flag must be Y or N", groups = {Validation.class})
 	private String isonlystateprovinceflag;
 
 	private Timestamp modifieddate;
 
-	@Size(min = 5, message = "Name must have at least 5 characters")
+	@Size(min = 5, message = "Name must have at least 5 characters", groups = {Validation.class})
 	private String name;
 
 	private Integer rowguid;
 
-	@Size(min = 5, max = 5, message = "State-Province must have 5 digits")
+	@Size(min = 5, max = 5, message = "State-Province must have 5 digits", groups = {Validation.class})
 	private String stateprovincecode;
 
-	@NotNull(message = "Territory id can not be Empty")
+	@NotNull(message = "Territory id can not be Empty", groups = {Validation.class})
 	private Integer territoryid;
 
 	// bi-directional many-to-one association to Address

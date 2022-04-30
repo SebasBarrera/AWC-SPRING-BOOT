@@ -80,15 +80,15 @@ public class TallerApplication {
 		
 		
 		User admin = new User();
-//		admin.setUsername("admin");
-//		admin.setPassword("admin123");
-//		admin.setType(UserType.administrator);
-//		User operator = new User();
-//		operator.setUsername("operator");
-//		operator.setPassword("ope123");
-//		operator.setType(UserType.operator);
-//		us.save(operator);
-//		us.save(admin);
+		admin.setUsername("admin");
+		admin.setPassword("admin123");
+		admin.setType(UserType.administrator);
+		User operator = new User();
+		operator.setUsername("operator");
+		operator.setPassword("ope123");
+		operator.setType(UserType.operator);
+		us.save(operator);
+		us.save(admin);
 	}
 	
 	@Bean

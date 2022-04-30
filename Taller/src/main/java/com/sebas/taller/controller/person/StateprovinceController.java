@@ -21,4 +21,6 @@ public interface StateprovinceController {
 
 	public String updateStateProvince(@PathVariable("stateprovinceid") Integer stateprovinceid,
 			@RequestParam(value = "action", required = true) String action, Stateprovince s, BindingResult b, Model model);
+
+	String showInfoForm(Integer stateprovinceid, Model model);
 }

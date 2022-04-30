@@ -22,6 +22,8 @@ public interface CountryregionController {
 
 	public String updateCountryregion(@PathVariable("countryregionid") Integer countryregionid,
 			@RequestParam(value = "action", required = true) String action, Countryregion c, BindingResult b, Model model);
+
+	String showInfoForm(Integer countryregionid, Model model);
 }
 
 

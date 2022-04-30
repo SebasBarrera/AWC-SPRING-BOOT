@@ -77,8 +77,8 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 		if (salestaxrate == null)
 			throw new IllegalArgumentException("Invalid salestaxrate id: " + salestaxrateid);
 		model.addAttribute("salestaxrate", salestaxrate.get());
-		model.addAttribute("stateprovinces", ts.findAll());
-		return "salestaxrate/updateSalestaxrate";
+		model.addAttribute("stateprovinces", ss.findAll());
+		return "salestaxrate/editSalestaxrate";
 	}
 
 	@Override
@@ -89,6 +89,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("salestaxrate", salestaxrate);
 				model.addAttribute("stateprovinces", ss.findAll());
+				return "salestaxrate/editSalestaxrate";
 			}
 			ts.save(salestaxrate);
 			model.addAttribute("salestaxrates", ts.findAll());

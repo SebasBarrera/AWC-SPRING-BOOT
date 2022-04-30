@@ -103,5 +103,17 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		}
 		return "redirect:/stateprovince/";
 	}
+	
+	@Override
+	@GetMapping("/stateprovince/info/{stateprovinceid}")
+	public String showInfoForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
+		Optional<Stateprovince> stateprovince = ss.findById(stateprovinceid);
+		if (stateprovince == null) 
+			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
+		model.addAttribute("stateprovince", stateprovince.get());
+		model.addAttribute("territoryids", ts.findAll());
+		model.addAttribute("countryregions", cs.findAll());
+		return "stateprovince/info";
+	}
 
 }

@@ -1164,7 +1164,7 @@ class UnitTest {
 		Salestaxrate updated = ts.update(tax1);
 		
 		assertAll("saved", 
-				() -> assertEquals(tax1.getStateprovinceid(), updated.getStateprovinceid()),
+				() -> assertEquals(tax1.getStateprovince(), updated.getStateprovince()),
 				() -> assertEquals(tax1.getTaxrate(), updated.getTaxrate()),
 				() -> assertEquals(tax1.getName(), updated.getName())
 				);

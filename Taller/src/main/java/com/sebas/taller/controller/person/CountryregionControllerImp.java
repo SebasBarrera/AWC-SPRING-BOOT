@@ -91,6 +91,13 @@ public class CountryregionControllerImp implements CountryregionController {
 		return "redirect:/countryregion/";
 	}
 
-
+	@Override
+	@GetMapping("/countryregion/info/{countryregionid}")
+	public String showInfoForm(@PathVariable("countryregionid") Integer countryregionid, Model model) {
+		Countryregion countryregion = cs.findById(countryregionid).orElseThrow(() -> new IllegalArgumentException("Invalid country region Id:" + countryregionid));
+		model.addAttribute("countryregion", countryregion);
+		model.addAttribute("stateprovinces", ss.findAll());
+		return "countryregion/info";
+	}
 
 }

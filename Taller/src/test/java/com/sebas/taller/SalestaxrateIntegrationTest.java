@@ -75,7 +75,7 @@ class SalestaxrateIntegrationTest {
 		t.setName("Impuesto al valor agregado");
 		Salestaxrate updated = ts.update(t);
 		assertAll("Sales tax rate update",
-				() -> assertEquals(s.getStateprovinceid(), updated.getStateprovinceid()),
+				() -> assertEquals(s.getStateprovinceid(), updated.getStateprovince().getStateprovinceid()),
 				() -> assertEquals(new BigDecimal(1), updated.getTaxrate()),
 				() -> assertEquals("Impuesto al valor agregado", updated.getName())
 				);

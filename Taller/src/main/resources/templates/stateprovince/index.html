@@ -44,7 +44,7 @@
 								<td th:text="${current.stateprovincecode}" />
 								<td th:text="${current.territoryid}" />
 								<td><a th:text="${current.countryregion.name}"
-									th:href="@{/countryregion/info/{id}(id=${current.countryregion.countryregionid})}"></a></td>
+									th:href="@{/info/countryregion/{id}(id=${current.countryregion.countryregionid})}"></a></td>
 								<td><a
 									th:href="@{'/stateprovince/editStateprovince/' + ${current.stateprovinceid}}"
 									class="btn btn-primary"><i class="fas fa-edit mr-1 ml-1"></i></a></td>

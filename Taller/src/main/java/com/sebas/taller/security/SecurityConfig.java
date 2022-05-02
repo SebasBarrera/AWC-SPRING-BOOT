@@ -15,9 +15,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/stateprovince/**").access("hasRole('administrator')").and().
+		http.authorizeRequests().antMatchers("/stateprovince/**").access("hasRole('operator')").and().
 		authorizeRequests().antMatchers("/countryregion/**").access("hasRole('administrator')").and().
-		authorizeRequests().antMatchers("/salestaxrate/**").access("hasRole('operator')").and().
+		authorizeRequests().antMatchers("/salestaxrate/**").access("hasRole('administrator')").and().
 		authorizeRequests().antMatchers("/address/**").access("hasRole('operator')").
 		anyRequest().permitAll().and().
 		formLogin().loginPage("/login").permitAll().and().

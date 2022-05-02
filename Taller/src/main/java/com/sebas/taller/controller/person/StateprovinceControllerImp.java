@@ -105,7 +105,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	}
 	
 	@Override
-	@GetMapping("/stateprovince/info/{stateprovinceid}")
+	@GetMapping("/info/stateprovince/{stateprovinceid}")
 	public String showInfoForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
 		Optional<Stateprovince> stateprovince = ss.findById(stateprovinceid);
 		if (stateprovince == null) 
@@ -113,7 +113,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		model.addAttribute("stateprovince", stateprovince.get());
 		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", cs.findAll());
-		return "stateprovince/info";
+		return "info/stateprovince";
 	}
 
 }

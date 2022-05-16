@@ -8,21 +8,21 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.sebas.taller.dao.interfaces.CountryregionDao;
 import com.sebas.taller.model.person.Countryregion;
-import com.sebas.taller.repository.person.CountryregionRepository;
 import com.sebas.taller.service.person.CountryregionService;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(classes = {TallerApplication.class})
 class CountryregionIntegrationTest {
 	
-	CountryregionRepository cr;
+	CountryregionDao cr;
 	
 	CountryregionService cs;
 	
 	Countryregion c;
 	@Autowired
-	public CountryregionIntegrationTest(CountryregionService cs, CountryregionRepository cr) {
+	public CountryregionIntegrationTest(CountryregionService cs, CountryregionDao cr) {
 		this.cs = cs;
 		this.cr = cr;
 	}

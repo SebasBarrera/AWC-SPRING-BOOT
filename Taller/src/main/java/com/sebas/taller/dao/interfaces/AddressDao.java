@@ -13,4 +13,5 @@ public interface AddressDao {
 	public List<Address> findByStateprovinceId(Integer id);
 	public List<Address> findByCity(String city);
 	public List<Address> findByAtLeastTwoSalesorderheaders();
+	public boolean existsById(Integer id);
 }

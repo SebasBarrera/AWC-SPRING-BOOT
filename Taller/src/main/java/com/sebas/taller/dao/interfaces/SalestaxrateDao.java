@@ -13,4 +13,5 @@ public interface SalestaxrateDao {
 	public Salestaxrate findById(Integer id);
 	public List<Salestaxrate> findByStateprovinceId(Integer id);
 	public List<Salestaxrate> findByName(String name);
+	public boolean existsById(Integer id);
 }

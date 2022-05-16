@@ -1,26 +1,26 @@
 package com.sebas.taller.service.person;
 
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sebas.taller.dao.interfaces.AddressDao;
+import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Address;
-import com.sebas.taller.repository.person.AddressRepository;
-import com.sebas.taller.repository.person.StateprovinceRepository;
 
 @Service
 
 public class AddressServiceImp implements AddressService{
 	
 	
-	private AddressRepository ar;
+	private AddressDao ar;
 	
-	private StateprovinceRepository sr;
+	private StateprovinceDao sr;
 	
 	@Autowired
-	public AddressServiceImp(AddressRepository ar, StateprovinceRepository sr) {
+	public AddressServiceImp(AddressDao ar, StateprovinceDao sr) {
 		this.ar = ar;
 		this.sr = sr;
 	}
@@ -37,7 +37,7 @@ public class AddressServiceImp implements AddressService{
 					if (a.getAddressline1() != null && a.getCity().length() >= 3 && 
 							a.getPostalcode().length() == 6 && a.getPostalcode().chars().allMatch(Character::isDigit)) {
 						
-						a.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()).get());
+						a.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()));
 						ar.save(a);
 						
 					} else {
@@ -56,7 +56,7 @@ public class AddressServiceImp implements AddressService{
 			throw new NullPointerException();
 		}
 		
-		return ar.findById(a.getAddressid()).get();
+		return ar.findById(a.getAddressid());
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class AddressServiceImp implements AddressService{
 					if (a.getAddressline1() != null && a.getCity().length() >= 3 && a.getPostalcode().length() == 6
 							 && a.getPostalcode().chars().allMatch(Character::isDigit)) {
 						
-						real.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()).get());
+						real.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()));
 						real.setAddressline1(a.getAddressline1());
 						real.setAddressline2(a.getAddressline2());
 						real.setBusinessentityaddresses(a.getBusinessentityaddresses());
@@ -110,7 +110,7 @@ public class AddressServiceImp implements AddressService{
 		Address searched = null;
 		if (ar.existsById(a.getAddressid())) {
 			
-			searched = ar.findById(a.getAddressid()).get();
+			searched = ar.findById(a.getAddressid());
 			
 		} else {
 			
@@ -122,7 +122,7 @@ public class AddressServiceImp implements AddressService{
 	}
 
 	@Override
-	public Optional<Address> findById(Integer id) {
+	public Address findById(Integer id) {
 		return ar.findById(id);
 	}
 

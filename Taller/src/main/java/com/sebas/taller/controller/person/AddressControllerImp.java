@@ -1,6 +1,6 @@
 package com.sebas.taller.controller.person;
 
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,8 +41,8 @@ public class AddressControllerImp implements AddressController {
 	@Override
 	@GetMapping("/address/delete/{addressid}")
 	public String deleteAddress(@PathVariable("addressid") Integer addressid, Model model) {
-		Address address = as.findById(addressid)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid address Id:" + addressid));
+		Address address = as.findById(addressid);
+				
 		as.delete(address);
 		model.addAttribute("addresss", as.findAll());
 		return "address/index";
@@ -81,10 +81,10 @@ public class AddressControllerImp implements AddressController {
 	@Override
 	@GetMapping("/address/editAddress/{addressid}")
 	public String showUpdateForm(@PathVariable("addressid") Integer addressid, Model model) {
-		Optional<Address> address = as.findById(addressid);
+		Address address = as.findById(addressid);
 		if(address == null)
 			throw new IllegalArgumentException("Invalid user Id: " + addressid);
-		model.addAttribute("address", address.get());
+		model.addAttribute("address", address);
 
 
 		model.addAttribute("stateprovinces", ss.findAll());

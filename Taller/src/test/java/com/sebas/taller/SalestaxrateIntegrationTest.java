@@ -8,19 +8,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.sebas.taller.dao.interfaces.SalestaxrateDao;
+import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.model.sales.Salestaxrate;
-import com.sebas.taller.repository.person.StateprovinceRepository;
-import com.sebas.taller.repository.sales.SalestaxrateRepository;
 import com.sebas.taller.service.sales.SalestaxrateService;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(classes = {TallerApplication.class})
 class SalestaxrateIntegrationTest {
 
-	SalestaxrateRepository tr;
+	SalestaxrateDao tr;
 	
-	StateprovinceRepository sr;
+	StateprovinceDao sr;
 	
 	SalestaxrateService ts;
 	
@@ -29,7 +29,7 @@ class SalestaxrateIntegrationTest {
 	Stateprovince s;
 	
 	@Autowired
-	public SalestaxrateIntegrationTest(SalestaxrateRepository tr, StateprovinceRepository sr, SalestaxrateService ts) {
+	public SalestaxrateIntegrationTest(SalestaxrateDao tr, StateprovinceDao sr, SalestaxrateService ts) {
 		this.tr = tr;
 		this.sr = sr;
 		this.ts = ts;

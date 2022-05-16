@@ -8,19 +8,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.sebas.taller.dao.interfaces.AddressDao;
+import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Stateprovince;
-import com.sebas.taller.repository.person.AddressRepository;
-import com.sebas.taller.repository.person.StateprovinceRepository;
 import com.sebas.taller.service.person.AddressService;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(classes = {TallerApplication.class})
 class AddressIntegrationTest {
 	
-	AddressRepository ar;
+	AddressDao ar;
 	
-	StateprovinceRepository sr;
+	StateprovinceDao sr;
 	
 	AddressService as;
 	
@@ -31,7 +31,7 @@ class AddressIntegrationTest {
 	Stateprovince s1;
 	
 	@Autowired
-	public AddressIntegrationTest(AddressRepository ar, StateprovinceRepository sr, AddressService as) {
+	public AddressIntegrationTest(AddressDao ar, StateprovinceDao sr, AddressService as) {
 		this.as = as;
 		this.ar = ar;
 		this.sr = sr;

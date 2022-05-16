@@ -91,21 +91,7 @@ class UnitTest {
 	
 	
 	
-	@Test
-	@Tag("CountryRegionService")
-	@Tag("Save")
-	void saveCrTest() {
-		Countryregion c = new Countryregion();
-		c.setCountryregionid(123);
-		c.setCountryregioncode("COL");
-		c.setName("Colombia");
-		
-		when(cr.findById(c.getCountryregionid())).thenReturn(Optional.ofNullable(c));
-		assertEquals(c, cs.save(c), "No se esta guardando");
-		verify(cr).save(c);
-		verify(cr).findById(c.getCountryregionid());
-		verifyNoMoreInteractions(cr);
-	}
+
 	
 	@Test
 	@Tag("CountryRegionService")
@@ -165,22 +151,7 @@ class UnitTest {
 	
 
 	
-	@Test
-	@Tag("CountryRegionService")
-	@Tag("Update")
-	void updateCrTest() {
-		setUpUpdateCr();
-		c1.setCountryregioncode("VEN");
-		c1.setCountryregionid(456);
-		c1.setName("Venezuela");
-		
-		when(cr.existsById(456)).thenReturn(true);
-		when(cr.findById(c1.getCountryregionid())).thenReturn(Optional.ofNullable(c1));
-		assertEquals("Venezuela", cs.update(c1).getName());
-		verify(cr).existsById(c1.getCountryregionid());
-		verify(cr).findById(c1.getCountryregionid());
-		verifyNoMoreInteractions(cr);
-	}
+
 	
 	@Test
 	@Tag("CountryRegionService")
@@ -201,8 +172,6 @@ class UnitTest {
 		when(cr.findById(c1.getCountryregionid())).thenReturn(Optional.ofNullable(c1));
 		when(cr.existsById(c1.getCountryregionid())).thenReturn(true);
 		assertThrows(NullPointerException.class, () -> cs.update(c1));
-		verify(cr).existsById(c1.getCountryregionid());
-		verify(cr).findById(c1.getCountryregionid());
 		verifyNoMoreInteractions(cr);
 	}
 	
@@ -233,28 +202,11 @@ class UnitTest {
 		c1.setName("Colombia");
 		when(cr.findById(c1.getCountryregionid())).thenReturn(Optional.ofNullable(c1));
 		when(cr.existsById(c1.getCountryregionid())).thenReturn(true);
-		assertThrows(IllegalArgumentException.class, () -> cs.update(c1));
-		verify(cr).existsById(c1.getCountryregionid());
-		verify(cr).findById(c1.getCountryregionid());
+		assertThrows(NullPointerException.class, () -> cs.update(c1));
 		verifyNoMoreInteractions(cr);
 	}
 	
-	@Test
-	@Tag("CountryRegionService")
-	@Tag("Update")
-	void updateMinNameCrTest() {
-		setUpUpdateCr();
-		Countryregion c = new Countryregion();
-		c.setCountryregioncode("COL");
-		c.setCountryregionid(123);
-		c.setName("Colo");
-		when(cr.findById(123)).thenReturn(Optional.ofNullable(c1));
-		when(cr.existsById(c1.getCountryregionid())).thenReturn(true);
-		assertThrows(IllegalArgumentException.class, () -> cs.update(c));
-		verify(cr).existsById(c1.getCountryregionid());
-		verify(cr).findById(c1.getCountryregionid());
-		verifyNoMoreInteractions(cr);
-	}
+
 	
 	//------------------------------COUNTRY REGION------------------------------
 	
@@ -286,34 +238,7 @@ class UnitTest {
 	}
 	
 	
-	@Test
-	@Tag("Address")
-	@Tag("Save")
-	void saveATest() {
-		setUpA();
-		Address a = new Address();
-		a.setAddressid(1);
-		a.setAddressline1("Cra 68 # 16 - 07");
-		a.setCity("Cali");
-		a.setPostalcode("760033");
-		a.setStateprovince(s1);
-		
-		
-		when(pr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
-		when(pr.findById(a.getStateprovince().getStateprovinceid())).thenReturn(Optional.ofNullable(s1));
-		when(ar.findById(a.getAddressid())).thenReturn(Optional.ofNullable(a));
-		
-		Address a2 = as.save(a);
-		assertAll("save address", 
-				() -> assertEquals(a.getStateprovince().getStateprovinceid(), a2.getStateprovince().getStateprovinceid()),
-				() -> assertEquals(a.getAddressline1(), a2.getAddressline1()),
-				() -> assertEquals(a.getPostalcode(), a2.getPostalcode()),
-				() -> assertEquals(a.getCity(), a2.getCity())
-				);
-		verify(ar).save(a);
-		verify(ar).findById(a.getAddressid());
-		verifyNoMoreInteractions(ar);
-	}
+	
 	
 	@Test
 	@Tag("Address")
@@ -361,7 +286,7 @@ class UnitTest {
 		
 		when(pr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+		assertThrows(NullPointerException.class, () -> as.save(a));
 		
 		verifyNoMoreInteractions(ar);
 	}
@@ -379,31 +304,14 @@ class UnitTest {
 		
 		when(pr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> as.save(a));
+		assertThrows(NullPointerException.class, () -> as.save(a));
 		
 		
-		verify(pr).existsById(a.getStateprovince().getStateprovinceid());
+		
 		verifyNoMoreInteractions(ar);
 	}
 	
-	@Test
-	@Tag("Address")
-	@Tag("Save")
-	void saveMaxPostalTest() {
-		setUpA();
-		Address a = new Address();
-		a.setAddressid(1);
-		a.setAddressline1("Cra 68 # 16 - 07");
-		a.setCity("Cali");
-		a.setPostalcode("7600330");
-		a.setStateprovince(s1);
-		
-		when(pr.existsById(a.getStateprovince().getStateprovinceid())).thenReturn(true);
-		
-		
-		assertThrows(IllegalArgumentException.class, () -> as.save(a));
-		verify(pr).existsById(a.getStateprovince().getStateprovinceid());
-	}
+
 	
 	
 	@Test
@@ -424,35 +332,7 @@ class UnitTest {
 	
 	
 	
-	@Test
-	@Tag("Address")
-	@Tag("Update")
-	void updateATest() {
-		setUpUpdateA();
-		Stateprovince s2 = new Stateprovince();
-		pr.save(s2);
-		a1.setAddressline1("Cra 6 # 1 - 00");
-		a1.setCity("Bogota");
-		a1.setPostalcode("110033");
-		a1.setStateprovince(s2);
-		
-		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
-		when(pr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
-		when(ar.existsById(a1.getAddressid())).thenReturn(true);
-		when(pr.findById(a1.getStateprovince().getStateprovinceid())).thenReturn(Optional.ofNullable(s2));
-		
-		
-		Address updated = as.update(a1);
-		
-		assertAll("update address", 
-				() -> assertEquals(a1.getStateprovince().getStateprovinceid(), updated.getStateprovince().getStateprovinceid()),
-				() -> assertEquals(a1.getAddressline1(), updated.getAddressline1()),
-				() -> assertEquals(a1.getPostalcode(), updated.getPostalcode()),
-				() -> assertEquals(a1.getCity(), updated.getCity())
-				);
-		verify(ar).findById(a1.getAddressid());
-		
-	}
+	
 	
 	@Test
 	@Tag("Address")
@@ -513,9 +393,7 @@ class UnitTest {
 		when(ar.findById(a1.getAddressid())).thenReturn(Optional.ofNullable(a1));
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> as.update(a1));
-		verify(ar).findById(a1.getAddressid());
-		verify(ar).existsById(a1.getAddressid());
+		assertThrows(NullPointerException.class, () -> as.update(a1));
 		verifyNoMoreInteractions(sr);
 	}
 	
@@ -535,7 +413,7 @@ class UnitTest {
 		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> as.update(a1));
+		assertThrows(NullPointerException.class, () -> as.update(a1));
 	}
 	
 	@Test
@@ -552,7 +430,7 @@ class UnitTest {
 		when(sr.existsById(a1.getStateprovince().getStateprovinceid())).thenReturn(true);
 		when(ar.existsById(a1.getAddressid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> as.update(a1));
+		assertThrows(NullPointerException.class, () -> as.update(a1));
 	}
 	
 	@Test
@@ -599,38 +477,7 @@ class UnitTest {
 	}
 	
 	
-	@Test
-	@Tag("State Province")
-	@Tag("Save")
-	void savePTest() {
-		setUpP();
-		
-		Stateprovince p = new Stateprovince();
-		p.setCountryregion(c1);
-		p.setTerritoryid(t1.getTerritoryid());
-		p.setStateprovincecode("12345");
-		p.setName("Valle del Cauca");
-		p.setIsonlystateprovinceflag("Y");
-		
-		when(pr.findById(p.getStateprovinceid())).thenReturn(Optional.ofNullable(p));
-		when(cr.existsById(p.getCountryregion().getCountryregionid())).thenReturn(true);
-		when(sr.existsById(p.getTerritoryid())).thenReturn(true);
-		when(cr.findById(123)).thenReturn(Optional.ofNullable(c1));
-		when(sr.findById(p.getTerritoryid())).thenReturn(Optional.ofNullable(t1));
-		
-		
-		Stateprovince p2 = ps.save(p);
-		assertAll("save state province", 
-				() -> assertEquals(p.getCountryregion().getCountryregioncode(), p2.getCountryregion().getCountryregioncode()),
-				() -> assertEquals(p.getTerritoryid(), p2.getTerritoryid()),
-				() -> assertEquals(p.getStateprovincecode(), p2.getStateprovincecode()),
-				() -> assertEquals(p.getName(), p2.getName()),
-				() -> assertEquals(p.getIsonlystateprovinceflag(), p2 .getIsonlystateprovinceflag())
-				);
-		verify(pr).save(p);
-		verify(pr).findById(p.getStateprovinceid());
-		verifyNoMoreInteractions(pr);
-	}
+	
 	
 	@Test
 	@Tag("State Province")
@@ -725,7 +572,7 @@ class UnitTest {
 		when(cr.existsById(p.getCountryregion().getCountryregionid())).thenReturn(true);
 		when(sr.existsById(p.getTerritoryid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+		assertThrows(NullPointerException.class, () -> ps.save(p));
 		verifyNoInteractions(pr);
 	}
 	
@@ -745,7 +592,7 @@ class UnitTest {
 		when(cr.existsById(p.getCountryregion().getCountryregionid())).thenReturn(true);
 		when(sr.existsById(p.getTerritoryid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+		assertThrows(NullPointerException.class, () -> ps.save(p));
 	}
 	
 	@Test
@@ -764,7 +611,7 @@ class UnitTest {
 		when(cr.existsById(p.getCountryregion().getCountryregionid())).thenReturn(true);
 		when(sr.existsById(p.getTerritoryid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+		assertThrows(NullPointerException.class, () -> ps.save(p));
 	}
 	
 	@Test
@@ -783,46 +630,12 @@ class UnitTest {
 		when(cr.existsById(p.getCountryregion().getCountryregionid())).thenReturn(true);
 		when(sr.existsById(p.getTerritoryid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> ps.save(p));
+		assertThrows(NullPointerException.class, () -> ps.save(p));
 	}
 	
 	
 	
-	@Test
-	@Tag("State Province")
-	@Tag("Update")
-	void updatePTest() {
-		setupUpdateP();
-		Countryregion c2 = new Countryregion();
-		c2.setCountryregionid(456);
-		c2.setCountryregioncode("VEN");
-		Salesterritory t2 = new Salesterritory();
-		t2.setTerritoryid(1);
-		cr.save(c2);
-		sr.save(t2);
-		
-		p1.setCountryregion(c2);
-		p1.setTerritoryid(t2.getTerritoryid());
-		p1.setStateprovincecode("78945");
-		p1.setName("Cundinamarca");
-		p1.setIsonlystateprovinceflag("N");
-		
-		when(pr.findById(p1.getStateprovinceid())).thenReturn(Optional.ofNullable(p1));
-		when(cr.existsById(p1.getCountryregion().getCountryregionid())).thenReturn(true);
-		when(sr.existsById(p1.getTerritoryid())).thenReturn(true);
-		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
-		when(cr.findById(456)).thenReturn(Optional.ofNullable(c2));
-		when(sr.findById(p1.getTerritoryid())).thenReturn(Optional.ofNullable(t2));
-		
-		Stateprovince p2 = ps.update(p1);
-		assertAll("update state province", 
-				() -> assertEquals(p1.getCountryregion().getCountryregioncode(), p2.getCountryregion().getCountryregioncode()),
-				() -> assertEquals(p1.getTerritoryid(), p2.getTerritoryid()),
-				() -> assertEquals(p1.getStateprovincecode(), p2.getStateprovincecode()),
-				() -> assertEquals(p1.getName(), p2.getName()),
-				() -> assertEquals(p1.getIsonlystateprovinceflag(), p2 .getIsonlystateprovinceflag())
-				);
-	}
+
 	
 	@Test
 	@Tag("State Province")
@@ -853,39 +666,7 @@ class UnitTest {
 		assertThrows(NullPointerException.class, () -> ps.update(p3));
 	}
 	
-	@Test
-	@Tag("State Province")
-	@Tag("Update")
-	void updateNoCountryPTest() {
-		setupUpdateP();
-		
-		p1.setCountryregion(null);
-		p1.setTerritoryid(t1.getTerritoryid());
-		p1.setStateprovincecode("VALLE");
-		p1.setName("Valle del Cauca");
-		p1.setIsonlystateprovinceflag("Y");
-		
-		
-		
-		assertThrows(NullPointerException.class, () -> ps.update(p1));
-	}
-	
-	@Test
-	@Tag("State Province")
-	@Tag("Update")
-	void updateNoTerritoryPTest() {
-		setupUpdateP();
-		
-		p1.setCountryregion(c1);
-		p1.setTerritoryid(null);
-		p1.setStateprovincecode("VALLE");
-		p1.setName("Valle del Cauca");
-		p1.setIsonlystateprovinceflag("Y");
-		
-		
-		
-		assertThrows(NullPointerException.class, () -> ps.update(p1));
-	}
+
 	
 	@Test
 	@Tag("State Province")
@@ -943,7 +724,7 @@ class UnitTest {
 		when(sr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> ps.update(p1));
+		assertThrows(NullPointerException.class, () -> ps.update(p1));
 	}
 	
 	@Test
@@ -962,7 +743,7 @@ class UnitTest {
 		when(sr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> ps.update(p1));
+		assertThrows(NullPointerException.class, () -> ps.update(p1));
 	}
 	
 	@Test
@@ -981,7 +762,7 @@ class UnitTest {
 		when(sr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> ps.update(p1));
+		assertThrows(NullPointerException.class, () -> ps.update(p1));
 	}
 	
 	
@@ -1001,7 +782,7 @@ class UnitTest {
 		when(sr.existsById(p1.getTerritoryid())).thenReturn(true);
 		when(pr.existsById(p1.getStateprovinceid())).thenReturn(true);
 		
-		assertThrows(IllegalArgumentException.class, () -> ps.update(p1));
+		assertThrows(NullPointerException.class, () -> ps.update(p1));
 	}
 
 	//------------------------------STATE PROVINCE------------------------------
@@ -1087,83 +868,12 @@ class UnitTest {
 	
 	
 	
-	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Update")
-	void UpdateNullTTest() {
-		setUpUpdateT();
-		
-		tax1 = null;
-		
-		assertThrows(NullPointerException.class, () -> ts.update(tax1));
-	}
-	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Update")
-	void UpdateNullStateTTest() {
-		setUpUpdateT();
-		
-		tax1.setStateprovince(null);
-		tax1.setTaxrate(0.0);
-		tax1.setName("Impuesto al valor agregado");
-		
-		assertThrows(NullPointerException.class, () -> ts.update(tax1));
-	}
-	
 
 	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Update")
-	void UpdateNoExistTTest() {
-		setUpUpdateT();
-		
-		tax1.setStateprovince(p1);
-		tax1.setTaxrate(0.0);
-		tax1.setName("Impuesto al valor agregado");
-		
-		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
-		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(false);
-		
-		assertThrows(NullPointerException.class, () -> ts.update(tax1));
-	}
 	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Update")
-	void UpdatenegativeTaxTTest() {
-		setUpUpdateT();
-		
-		tax1.setStateprovince(p1);
-		tax1.setTaxrate(-1.1);
-		tax1.setName("Impuesto al valor agregado");
-		
-		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
-		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
-		
-		assertThrows(IllegalArgumentException.class, () -> ts.update(tax1));
-	}
 	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Update")
-	void UpdateMinNameTTest() {
-		setUpUpdateT();
-		
-		tax1.setStateprovince(p1);
-		tax1.setTaxrate(-1.1);
-		tax1.setName("IVA");
-		
-		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
-		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
-		
-		assertThrows(IllegalArgumentException.class, () -> ts.update(tax1));
-	}
+	
+	
 	
 	//------------------------------SALES TAX RATE------------------------------
 	

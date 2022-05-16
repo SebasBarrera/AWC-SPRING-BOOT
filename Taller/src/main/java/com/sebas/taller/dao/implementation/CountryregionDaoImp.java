@@ -50,4 +50,11 @@ public class CountryregionDaoImp implements CountryregionDao {
 		return em.find(Countryregion.class, countryregionId);
 	}
 
+	@Override
+	public boolean existsById(Integer id) {
+		if (em.find(Countryregion.class, id) != null) {
+			return true;
+		}
+		return false;
+	}
 }

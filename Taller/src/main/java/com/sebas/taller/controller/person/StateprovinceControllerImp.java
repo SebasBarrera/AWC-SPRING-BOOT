@@ -1,6 +1,5 @@
 package com.sebas.taller.controller.person;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,8 +44,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	@Override
 	@GetMapping("/stateprovince/delete/{stateprovinceid}")
 	public String deleteStateProvince(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
-		Stateprovince stateprovince = ss.findById(stateprovinceid)
-				.orElseThrow(() -> new IllegalArgumentException("invalid Stateprovince id: " + stateprovinceid));
+		Stateprovince stateprovince = ss.findById(stateprovinceid);
 		ss.delete(stateprovince);
 		model.addAttribute("stateprovinces", ss.findAll());
 		return "stateprovince/index";
@@ -78,10 +76,10 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	@Override
 	@GetMapping("/stateprovince/editStateprovince/{stateprovinceid}")
 	public String showUpdateForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
-		Optional<Stateprovince> stateprovince = ss.findById(stateprovinceid);
+		Stateprovince stateprovince = ss.findById(stateprovinceid);
 		if (stateprovince == null) 
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
-		model.addAttribute("stateprovince", stateprovince.get());
+		model.addAttribute("stateprovince", stateprovince);
 		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", cs.findAll());
 		return "stateprovince/editStateprovince";
@@ -107,10 +105,10 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	@Override
 	@GetMapping("/info/stateprovince/{stateprovinceid}")
 	public String showInfoForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
-		Optional<Stateprovince> stateprovince = ss.findById(stateprovinceid);
+		Stateprovince stateprovince = ss.findById(stateprovinceid);
 		if (stateprovince == null) 
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
-		model.addAttribute("stateprovince", stateprovince.get());
+		model.addAttribute("stateprovince", stateprovince);
 		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", cs.findAll());
 		return "info/stateprovince";

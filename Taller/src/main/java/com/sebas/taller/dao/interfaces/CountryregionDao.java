@@ -10,4 +10,5 @@ public interface CountryregionDao {
 	public void delete (Countryregion c);
 	public List<Countryregion> findAll();
 	public Countryregion findById(Integer id);
+	public boolean existsById(Integer id);
 }

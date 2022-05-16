@@ -38,8 +38,7 @@ public class CountryregionControllerImp implements CountryregionController {
 	@Override
 	@GetMapping("/countryregion/delete/{countryregionid}")
 	public String deleteCountryregion(@PathVariable("countryregionid") Integer countryregionid, Model model) {
-		Countryregion countryregion = cs.findById(countryregionid)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid country region Id:" + countryregionid));
+		Countryregion countryregion = cs.findById(countryregionid);
 		cs.delete(countryregion);
 		return "redirect:/countryregion/";
 	}
@@ -69,7 +68,7 @@ public class CountryregionControllerImp implements CountryregionController {
 	@Override
 	@GetMapping("/countryregion/editCountryregion/{countryregionid}")
 	public String showUpdateForm(@PathVariable("countryregionid") Integer countryregionid, Model model) {
-		Countryregion countryregion = cs.findById(countryregionid).orElseThrow(() -> new IllegalArgumentException("Invalid country region Id:" + countryregionid));
+		Countryregion countryregion = cs.findById(countryregionid);
 		model.addAttribute("countryregion", countryregion);
 		model.addAttribute("stateprovinces", ss.findAll());
 		return "countryregion/editCountryregion";
@@ -94,7 +93,7 @@ public class CountryregionControllerImp implements CountryregionController {
 	@Override
 	@GetMapping("/info/countryregion/{countryregionid}")
 	public String showInfoForm(@PathVariable("countryregionid") Integer countryregionid, Model model) {
-		Countryregion countryregion = cs.findById(countryregionid).orElseThrow(() -> new IllegalArgumentException("Invalid country region Id:" + countryregionid));
+		Countryregion countryregion = cs.findById(countryregionid);
 		model.addAttribute("countryregion", countryregion);
 		model.addAttribute("stateprovinces", ss.findAll());
 		return "info/countryregion";

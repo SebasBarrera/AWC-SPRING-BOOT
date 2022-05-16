@@ -1,23 +1,22 @@
 package com.sebas.taller.service.sales;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sebas.taller.dao.interfaces.SalestaxrateDao;
+import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.sales.Salestaxrate;
-import com.sebas.taller.repository.person.StateprovinceRepository;
-import com.sebas.taller.repository.sales.SalestaxrateRepository;
 
 @Service
 public class SalestaxrateServiceImp implements SalestaxrateService{
 	
-	private SalestaxrateRepository sr;
-	private StateprovinceRepository spr;
+	private SalestaxrateDao sr;
+	private StateprovinceDao spr;
 	
 	@Autowired
-	public SalestaxrateServiceImp(SalestaxrateRepository sr, StateprovinceRepository spr) {
+	public SalestaxrateServiceImp(SalestaxrateDao sr, StateprovinceDao spr) {
 		this.sr = sr;
 		this.spr = spr;
 	}
@@ -33,7 +32,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 					if ((s.getTaxrate() >= 0.0)
 							&& s.getName().length() >= 5) {
 					
-						s.setStateprovince(spr.findById(s.getStateprovince().getStateprovinceid()).get());
+						s.setStateprovince(spr.findById(s.getStateprovince().getStateprovinceid()));
 						sr.save(s);
 						
 					} else {
@@ -99,7 +98,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 		Salestaxrate searched = null;
 		if (sr.existsById(s.getSalestaxrateid())) {
 			
-			searched = sr.findById(s.getSalestaxrateid()).get();
+			searched = sr.findById(s.getSalestaxrateid());
 			
 		} else {
 			throw new NullPointerException();
@@ -108,7 +107,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 	}
 
 	@Override
-	public Optional<Salestaxrate> findById(Integer id) {
+	public Salestaxrate findById(Integer id) {
 		return sr.findById(id);
 	}
 

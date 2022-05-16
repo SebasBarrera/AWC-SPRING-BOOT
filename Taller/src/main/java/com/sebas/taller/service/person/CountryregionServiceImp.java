@@ -1,21 +1,20 @@
 package com.sebas.taller.service.person;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sebas.taller.dao.interfaces.CountryregionDao;
 import com.sebas.taller.model.person.Countryregion;
-import com.sebas.taller.repository.person.CountryregionRepository;
 
 @Service
 @Transactional
 public class CountryregionServiceImp implements CountryregionService{
 
-	private CountryregionRepository cr;
+	private CountryregionDao cr;
 	@Autowired
-	public CountryregionServiceImp(CountryregionRepository cr) {
+	public CountryregionServiceImp(CountryregionDao cr) {
 		this.cr = cr;
 	}
 	
@@ -33,7 +32,7 @@ public class CountryregionServiceImp implements CountryregionService{
 		} else {
 			throw new NullPointerException();
 		}
-		return cr.findById(c.getCountryregionid()).get();
+		return cr.findById(c.getCountryregionid());
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public class CountryregionServiceImp implements CountryregionService{
 		Countryregion searched = null;
 		if (cr.existsById(c.getCountryregionid())) {
 			
-			searched = cr.findById(c.getCountryregionid()).get();
+			searched = cr.findById(c.getCountryregionid());
 			
 		} else {
 			
@@ -86,7 +85,7 @@ public class CountryregionServiceImp implements CountryregionService{
 	}
 
 	@Override
-	public Optional<Countryregion> findById(Integer id) {
+	public Countryregion findById(Integer id) {
 		return cr.findById(id);
 	}
 	

@@ -8,11 +8,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.sebas.taller.dao.interfaces.CountryregionDao;
+import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Countryregion;
 import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.model.sales.Salesterritory;
-import com.sebas.taller.repository.person.CountryregionRepository;
-import com.sebas.taller.repository.person.StateprovinceRepository;
 import com.sebas.taller.repository.sales.SalesterritoryRepository;
 import com.sebas.taller.service.person.StateprovinceService;
 
@@ -20,9 +20,9 @@ import com.sebas.taller.service.person.StateprovinceService;
 @SpringBootTest(classes = {TallerApplication.class})
 class StateprovinceIntegrationTest {
 	
-	StateprovinceRepository sr;
+	StateprovinceDao sr;
 	
-	CountryregionRepository cr;
+	CountryregionDao cr;
 	
 	SalesterritoryRepository tr;
 	
@@ -35,7 +35,7 @@ class StateprovinceIntegrationTest {
 	StateprovinceService ss;
 	
 	@Autowired
-	public StateprovinceIntegrationTest(StateprovinceService ss, StateprovinceRepository sr, CountryregionRepository cr, SalesterritoryRepository tr) {
+	public StateprovinceIntegrationTest(StateprovinceService ss, StateprovinceDao sr, CountryregionDao cr, SalesterritoryRepository tr) {
 		this.sr = sr;
 		this.ss = ss;
 		this.cr = cr;

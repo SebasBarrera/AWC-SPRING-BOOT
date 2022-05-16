@@ -1,6 +1,5 @@
 package com.sebas.taller.controller.sales;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,8 +40,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 	@Override
 	@GetMapping("/salestaxrate/delete/{salestaxrateid}")
 	public String deleteSalestaxrate(@PathVariable("salestaxrateid") Integer salestaxrateid, Model model) {
-		Salestaxrate salestaxrate = ts.findById(salestaxrateid)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid tax rate id: " + salestaxrateid));
+		Salestaxrate salestaxrate = ts.findById(salestaxrateid);
 		ts.delete(salestaxrate);
 		model.addAttribute("salestaxrates", ts.findAll());
 		return "salestaxrate/index";
@@ -73,10 +71,10 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 	@Override
 	@GetMapping("/salestaxrate/editSalestaxrate/{salestaxrateid}")
 	public String showUpdateForm(@PathVariable("salestaxrateid") Integer salestaxrateid, Model model) {
-		Optional<Salestaxrate> salestaxrate = ts.findById(salestaxrateid);
+		Salestaxrate salestaxrate = ts.findById(salestaxrateid);
 		if (salestaxrate == null)
 			throw new IllegalArgumentException("Invalid salestaxrate id: " + salestaxrateid);
-		model.addAttribute("salestaxrate", salestaxrate.get());
+		model.addAttribute("salestaxrate", salestaxrate);
 		model.addAttribute("stateprovinces", ss.findAll());
 		return "salestaxrate/editSalestaxrate";
 	}

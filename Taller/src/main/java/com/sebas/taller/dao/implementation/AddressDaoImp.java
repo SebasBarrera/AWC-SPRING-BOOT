@@ -74,5 +74,13 @@ public class AddressDaoImp implements AddressDao {
 		// no encontre la relacion entre Address y Salesorderheader
 		return null;
 	}
+
+	@Override
+	public boolean existsById(Integer id) {
+		if (em.find(Address.class, id) != null) {
+			return true;
+		}
+		return false;
+	}
 	
 }

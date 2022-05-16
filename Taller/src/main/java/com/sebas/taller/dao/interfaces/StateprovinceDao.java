@@ -13,6 +13,6 @@ public interface StateprovinceDao {
 	public List<Stateprovince> findByCountryregionId(Integer id);
 	public List<Stateprovince> findByTerritoryId(Integer id);
 	public List<Stateprovince> findByName(String name);
-	
+	public boolean existsById(Integer id);
 	public List<Stateprovince> findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(Integer id);
 }

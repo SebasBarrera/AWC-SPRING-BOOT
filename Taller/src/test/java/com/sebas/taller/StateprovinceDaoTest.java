@@ -2,6 +2,8 @@ package com.sebas.taller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -275,6 +277,54 @@ class StateprovinceDaoTest {
 		assertEquals("65432", dao.findByName("Maracaibo").get(0).getStateprovincecode());
 		assertEquals("12345", dao.findByName("Valle del cauca").get(0).getStateprovincecode());
 	}
+	
+//	@Test
+//	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+//	public void findByfindByTerritoryIdAtLeastOneSalestaxrateOrderedByNameTest() {
+//
+//		assertNotNull(dao);
+//		
+//		assertNotNull(daoCountryregion);
+//		
+//		Salesterritory t1= new Salesterritory();
+//		t1.setTerritoryid(1);
+//		Salesterritory t2= new Salesterritory();
+//		t2.setTerritoryid(1);
+//		Salesterritory t3= new Salesterritory();
+//		t3.setTerritoryid(1);
+//		Salesterritory t4= new Salesterritory();
+//		t4.setTerritoryid(1);
+//		
+//		Countryregion c = new Countryregion();
+//		c.setCountryregioncode("COL");
+//		Countryregion c1 = new Countryregion();
+//		c1.setCountryregioncode("VEN");
+//		daoCountryregion.save(c);
+//		daoCountryregion.save(c1);
+//		Stateprovince a1 = new Stateprovince();
+//		a1.setStateprovincecode("65432");
+//		a1.setIsonlystateprovinceflag("N");
+//		a1.setName("A"); 
+//		a1.setCountryregion(c1);
+//		
+//		Stateprovince a2 = new Stateprovince();
+//		a2.setStateprovincecode("64815");
+//		a2.setIsonlystateprovinceflag("N");
+//		a2.setName("B"); 
+//		a2.setCountryregion(c);
+//		
+//		
+//		
+//		a1.setTerritoryid(1);
+//		a2.setTerritoryid(1);
+//		
+//		
+//		dao.save(a1);
+//		dao.save(a2);
+//		ArrayList<Stateprovince> a = (ArrayList) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(1).get(0);
+//		assertEquals("Cundinamarca", "");
+//		assertEquals("Maracaibo", dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(2).get(1));
+//		}
 	
 	
 }

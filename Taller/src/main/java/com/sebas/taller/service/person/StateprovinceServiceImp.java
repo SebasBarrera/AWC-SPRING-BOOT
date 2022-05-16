@@ -1,26 +1,25 @@
 package com.sebas.taller.service.person;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sebas.taller.dao.interfaces.CountryregionDao;
+import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Stateprovince;
-import com.sebas.taller.repository.person.CountryregionRepository;
-import com.sebas.taller.repository.person.StateprovinceRepository;
 import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
 @Service
 
 public class StateprovinceServiceImp implements StateprovinceService {
 
-	private StateprovinceRepository sr;
-	private CountryregionRepository cr;
+	private StateprovinceDao sr;
+	private CountryregionDao cr;
 	private SalesterritoryRepository tr;
 	
 	@Autowired
-	public StateprovinceServiceImp(StateprovinceRepository sr, CountryregionRepository cr, SalesterritoryRepository tr) {
+	public StateprovinceServiceImp(StateprovinceDao sr, CountryregionDao cr, SalesterritoryRepository tr) {
 		this.sr = sr;
 		this.cr = cr;
 		this.tr = tr;
@@ -42,7 +41,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))
 					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
-				s.setCountryregion(cr.findById(s.getCountryregion().getCountryregionid()).get());
+				s.setCountryregion(cr.findById(s.getCountryregion().getCountryregionid()));
 				s.setTerritoryid(tr.findById(s.getTerritoryid()).get().getTerritoryid());
 				
 				sr.save(s);
@@ -55,7 +54,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 		} else {
 			throw new NullPointerException();
 		}
-		return sr.findById(s.getStateprovinceid()).get();
+		return sr.findById(s.getStateprovinceid());
 	}
 
 	@Override
@@ -77,7 +76,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
 				real.setAddresses(s.getAddresses()); //TODO este address deberia asignarse por repositorio o así esta bien
-				real.setCountryregion(cr.findById(s.getCountryregion().getCountryregionid()).get());
+				real.setCountryregion(cr.findById(s.getCountryregion().getCountryregionid()));
 				real.setIsonlystateprovinceflag(s.getIsonlystateprovinceflag());
 				real.setModifieddate(s.getModifieddate());
 				real.setName(s.getName());
@@ -99,7 +98,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 		Stateprovince searched = null;
 		if (sr.existsById(s.getStateprovinceid())) {
 			
-			searched = sr.findById(s.getStateprovinceid()).get();
+			searched = sr.findById(s.getStateprovinceid());
 			
 		} else {
 			
@@ -109,7 +108,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 	}
 
 	@Override
-	public Optional<Stateprovince> findById(Integer id) {
+	public Stateprovince findById(Integer id) {
 		return sr.findById(id);
 	}
 

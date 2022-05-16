@@ -68,5 +68,13 @@ public class SalestaxrateDaoImp implements SalestaxrateDao {
 	query.setParameter("name", name);
 	return query.getResultList();
 	}
+	
+	@Override
+	public boolean existsById(Integer id) {
+		if (em.find(Salestaxrate.class, id) != null) {
+			return true;
+		}
+		return false;
+	}
 
 }

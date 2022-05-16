@@ -48,7 +48,7 @@ public class AddressDaoImp implements AddressDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Address> findByStateprovinceId(Integer id) {
-		String jpql = "SELECT a FROM Address a, Stateprovince s WHERE a MEMBER OF p.addresses AND p.stateprovinceid:=id";
+		String jpql = "SELECT a FROM Address a, Stateprovince s WHERE a MEMBER OF s.addresses AND s.stateprovinceid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", id);
 		return query.getResultList();

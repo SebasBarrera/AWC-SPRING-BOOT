@@ -53,7 +53,7 @@ public class SalestaxrateDaoImp implements SalestaxrateDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Salestaxrate> findByStateprovinceId(Integer id) {
-		String jpql = "SELECT s FROM Salestaxrate s LEFT JOIN Stateprovince sp ON s.stateprovinceid = sp.stateprovinceid WHERE sp.stateprovinceid=:id";
+		String jpql = "SELECT s FROM Salestaxrate s LEFT JOIN Stateprovince sp ON s.stateprovince.stateprovinceid = sp.stateprovinceid WHERE sp.stateprovinceid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", id);
 		return query.getResultList();

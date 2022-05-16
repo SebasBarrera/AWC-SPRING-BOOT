@@ -53,7 +53,7 @@ public class StateprovinceDaoImp implements StateprovinceDao{
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Stateprovince> findByCountryregionId(Integer id) {
-		String jpql = "SELECT s FROM Stateprovince s, Countryregion c WHERE s MEMBER OF c.stateprovinces AND c.countryregionid:=id";
+		String jpql = "SELECT s FROM Stateprovince s, Countryregion c WHERE s MEMBER OF c.stateprovinces AND c.countryregionid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", id);
 		return query.getResultList();

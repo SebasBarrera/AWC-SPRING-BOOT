@@ -146,12 +146,58 @@ class AddressDaoTest {
 		a1.setPostalcode("123456");
 		a1.setStateprovince(s);
 		
+		Address a2 = new Address();
+		a2.setAddressline1("otra nueva");
+		a2.setCity("adfdsdf");
+		a2.setPostalcode("523456");
+		a2.setStateprovince(s);
+		
 		setUpSave();
 		
 		dao.save(a);
 		dao.save(a1);
+		dao.save(a2);
+		
 		
 		assertEquals("nuevaaaa", dao.findByStateprovinceId(s.getStateprovinceid()).get(0).getAddressline1());
+		assertEquals("otra nueva", dao.findByStateprovinceId(s.getStateprovinceid()).get(1).getAddressline1());
+		
+	}
+	
+	@Test
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void findByCityTest() {
+
+		assertNotNull(dao);
+		
+		assertNotNull(daoStateprovince);
+		
+		Stateprovince s = new Stateprovince();
+		
+		daoStateprovince.save(s);
+		
+		Address a1 = new Address();
+		a1.setAddressline1("Soy de otra ciudad");
+		a1.setCity("Bogota");
+		a1.setPostalcode("123456");
+		a1.setStateprovince(s);
+		
+		Address a2 = new Address();
+		a2.setAddressline1("Esta tambien es de Cali");
+		a2.setCity("Cali");
+		a2.setPostalcode("523456");
+		a2.setStateprovince(s);
+		
+		setUpSave();
+		
+		dao.save(a);
+		dao.save(a1);
+		dao.save(a2);
+		
+		
+		assertEquals("Cra 68 # 16 - 07", dao.findByCity("Cali").get(0).getAddressline1());
+		assertEquals("Esta tambien es de Cali", dao.findByCity("Cali").get(1).getAddressline1());
+		assertEquals("Soy de otra ciudad", dao.findByCity("Bogota").get(0).getAddressline1());
 		
 	}
 	

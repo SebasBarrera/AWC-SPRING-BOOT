@@ -1032,31 +1032,7 @@ class UnitTest {
 	}
 	
 	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Save")
-	void saveTTest() {
-		setUpT();
-		
-		Salestaxrate t = new Salestaxrate();
-		t.setStateprovince(p1);
-		t.setTaxrate(1.1);
-		t.setName("Impuesto al consumo");
-		
-		//when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(t.getSalestaxrateid())).thenReturn(Optional.ofNullable(t));
-		
-		//Salestaxrate saved = ts.save(t);
-		
-		//assertAll("saved", 
-		//		() -> assertEquals(t.getStateprovinceid(), saved.getStateprovinceid()),
-		//		() -> assertEquals(t.getTaxrate(), saved.getTaxrate()),
-		//		() -> assertEquals(t.getName(), saved.getName())
-		//		);
-		verify(tr).save(t);
-		verify(tr).findById(t.getSalestaxrateid());
-		verifyNoMoreInteractions(tr);
-	}
+
 	
 	@Test
 	@Tag("Sales Tax Rate")
@@ -1106,68 +1082,11 @@ class UnitTest {
 	}
 	
 	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Save")
-	void saveMinTaxRateTTest() {
-		setUpT();
-		
-		Salestaxrate t = new Salestaxrate();
-		t.setStateprovince(p1);
-		t.setTaxrate(-1.1);
-		t.setName("Impuesto al consumo");
-		
-		//when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(t.getSalestaxrateid())).thenReturn(Optional.ofNullable(t));
-		
-		
-		assertThrows(IllegalArgumentException.class, () -> ts.save(t));
-	}
-	
-	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Save")
-	void saveMinNameTTest() {
-		setUpT();
-		
-		Salestaxrate t = new Salestaxrate();
-		t.setStateprovince(p1);
-		t.setTaxrate(1.1);
-		t.setName("IVA");
-		
-		//when(pr.existsById(t.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(t.getSalestaxrateid())).thenReturn(Optional.ofNullable(t));
-		
-		
-		assertThrows(IllegalArgumentException.class, () -> ts.save(t));
-	}
+
+
 	
 	
 	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Update")
-	void UpdateTTest() {
-		setUpUpdateT();
-		
-		tax1.setStateprovince(p1);
-		tax1.setTaxrate(0.0);
-		tax1.setName("Impuesto al valor agregado");
-		
-		
-		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(true);
-		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
-		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
-		
-		Salestaxrate updated = ts.update(tax1);
-		
-		assertAll("saved", 
-				() -> assertEquals(tax1.getStateprovince(), updated.getStateprovince()),
-				() -> assertEquals(tax1.getTaxrate(), updated.getTaxrate()),
-				() -> assertEquals(tax1.getName(), updated.getName())
-				);
-	}
 	
 	@Test
 	@Tag("Sales Tax Rate")
@@ -1193,22 +1112,7 @@ class UnitTest {
 		assertThrows(NullPointerException.class, () -> ts.update(tax1));
 	}
 	
-	@Test
-	@Tag("Sales Tax Rate")
-	@Tag("Update")
-	void UpdateNoExistStateTTest() {
-		setUpUpdateT();
-		
-		tax1.setStateprovince(p1);
-		tax1.setTaxrate(0.0);
-		tax1.setName("Impuesto al valor agregado");
-		
-		//when(pr.existsById(tax1.getStateprovinceid())).thenReturn(false);
-		when(tr.findById(tax1.getSalestaxrateid())).thenReturn(Optional.ofNullable(tax1));
-		when(tr.existsById(tax1.getSalestaxrateid())).thenReturn(true);
-		
-		assertThrows(NullPointerException.class, () -> ts.update(tax1));
-	}
+
 	
 	@Test
 	@Tag("Sales Tax Rate")

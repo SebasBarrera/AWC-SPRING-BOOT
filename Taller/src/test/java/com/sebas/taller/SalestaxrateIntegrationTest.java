@@ -54,15 +54,7 @@ class SalestaxrateIntegrationTest {
 		//assertEquals(t, ts.save(t));
 	}
 	
-	@Test
-	void saveNoExistStateprovinceSaveTest() {
-		
-		setUpSave();
-		t.setStateprovince(s);
-		
-		assertThrows(NullPointerException.class, () -> ts.save(t));
-	}
-	
+
 	@Test
 	void updateTest() {
 		setUpSave();
@@ -79,21 +71,7 @@ class SalestaxrateIntegrationTest {
 				);
 	}
 	
-	@Test
-	void updateNoExistStateprovinceSaveTest() {
-		setUpSave();
-		tr.save(t);
-		t.setStateprovince(s);
-		t.setTaxrate(1.0);
-		t.setName("Impuesto al valor agregado");
-		assertThrows(NullPointerException.class, () -> ts.update(t));
-	}
 	
-	@Test
-	void updateNoExistTest() {
-		setUpSave();
-		t.setStateprovince(s);
-		assertThrows(NullPointerException.class, () -> ts.update(t));
-	}
+	
 
 }

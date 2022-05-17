@@ -1,4 +1,4 @@
-package com.sebas.taller.dao.implementation;
+ package com.sebas.taller.dao.implementation;
 
 import java.util.List;
 
@@ -70,9 +70,15 @@ public class AddressDaoImp implements AddressDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Address> findByAtLeastTwoSalesorderheaders() {
-		// no encontre la relacion entre Address y Salesorderheader
-		return null;
+		String jpql = "SELECT a FROM Address a, Sateprovince s, Salesterritory t, Salesorderheader h "
+				+ "WHERE a MEMBER OF s.addresses "
+				+ "AND t.salesterritoryid=s.salesterritoryid "
+				+ "AND h.salesterritory.salesterritoryid=t.salesterritoryid "
+				+ "AND (SELECT COUNT(amount) FROM t.salesorderheaders amount) >= 2";
+		Query query = em.createQuery(jpql);
+		return query.getResultList();
 	}
 
 	@Override

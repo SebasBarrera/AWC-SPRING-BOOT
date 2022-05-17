@@ -81,7 +81,7 @@ public class StateprovinceDaoImp implements StateprovinceDao{
 	}
 
 	@Override
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "rawtypes" })
 	public ArrayList findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(Integer id) {
 		String jpql = "SELECT s, COUNT(a) FROM Address a, Stateprovince s LEFT JOIN Salestaxrate st ON s.stateprovinceid=st.stateprovince.stateprovinceid WHERE s.territoryid=:id ORDER BY s.name";
 		Query query = em.createQuery(jpql);

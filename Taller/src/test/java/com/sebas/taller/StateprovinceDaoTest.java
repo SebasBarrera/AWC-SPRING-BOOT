@@ -2,6 +2,7 @@ package com.sebas.taller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 //import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -282,6 +283,20 @@ class StateprovinceDaoTest {
 //	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 //	public void findByfindByTerritoryIdAtLeastOneSalestaxrateOrderedByNameTest() {
 //
+//		Address city = new Address();
+//		Address city1 = new Address();
+//		Address city2 = new Address();
+//		Address city3 = new Address();
+//		Address city4 = new Address();
+//		Address city5 = new Address();
+//		Address city6 = new Address();
+//		Address city7 = new Address();
+//		Address city8 = new Address();
+//		Address city9 = new Address();
+//		Address city10 = new Address();
+//		
+//		Salestaxrate s1 =new Salestaxrate();
+//		
 //		assertNotNull(dao);
 //		
 //		assertNotNull(daoCountryregion);
@@ -304,27 +319,67 @@ class StateprovinceDaoTest {
 //		Stateprovince a1 = new Stateprovince();
 //		a1.setStateprovincecode("65432");
 //		a1.setIsonlystateprovinceflag("N");
-//		a1.setName("A"); 
+//		a1.setName("Z"); 
 //		a1.setCountryregion(c1);
 //		
 //		Stateprovince a2 = new Stateprovince();
 //		a2.setStateprovincecode("64815");
 //		a2.setIsonlystateprovinceflag("N");
-//		a2.setName("B"); 
+//		a2.setName("X"); 
 //		a2.setCountryregion(c);
 //		
 //		
-//		
+//		setUpSave();
+//		s.setCountryregion(c);
+//		s.setTerritoryid(1);
 //		a1.setTerritoryid(1);
 //		a2.setTerritoryid(1);
 //		
+//		Stateprovince a3 = new Stateprovince();
+//		a3.setTerritoryid(3);
+//		a3.setName("M");
+//		Stateprovince a4 = new Stateprovince();
+//		a4.setTerritoryid(3);
+//		a4.setName("AAAAA");;
+//		Stateprovince a5 = new Stateprovince();
+//		a5.setName("A");
+//		a5.setTerritoryid(3);
 //		
+//		s1.setStateprovince(a5);
+//		
+//		s1.setStateprovince(s);
+//		s1.setStateprovince(a2);
+//		
+//		city.setStateprovince(s);
+//		city1.setStateprovince(s);
+//		city2.setStateprovince(a1);
+//		city3.setStateprovince(a2);
+//		city4.setStateprovince(a2);
+//		city5.setStateprovince(a3);
+//		city6.setStateprovince(a4);
+//		city7.setStateprovince(a5);
+//		city8.setStateprovince(a4);
+//		city9.setStateprovince(a3);
+//		city10.setStateprovince(a2);
+//		
+//		dao.save(a5);
+//		dao.save(a4);
+//		dao.save(s);
+//		dao.save(a3);
 //		dao.save(a1);
 //		dao.save(a2);
-//		ArrayList<Stateprovince> a = (ArrayList) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(1).get(0);
-//		assertEquals("Cundinamarca", "");
-//		assertEquals("Maracaibo", dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(2).get(1));
-//		}
+//		
+//		ArrayList<Stateprovince> territory1SateprovinceList =  (ArrayList<Stateprovince>) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(1).get(0);
+//		ArrayList<Stateprovince> territory3SateprovinceList =  (ArrayList<Stateprovince>) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(3).get(0);
+//		Integer territory1CitiesAmount = (Integer) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(1).get(1);
+//		Integer territory3CitiesAmount = (Integer) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(3).get(1);
+//		
+//		assertEquals(5, territory1CitiesAmount);
+//	
+//	}
 	
 	
+	
+
+
 }

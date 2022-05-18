@@ -84,7 +84,7 @@ public class CountryregionControllerImp implements CountryregionController {
 				model.addAttribute("stateprovinces", ss.findAll());
 				return "countryregion/editCountryregion";
 			}
-			cs.save(countryregion);
+			cs.update(countryregion);
 			model.addAttribute("countryregions", cs.findAll());
 		}
 		return "redirect:/countryregion/";

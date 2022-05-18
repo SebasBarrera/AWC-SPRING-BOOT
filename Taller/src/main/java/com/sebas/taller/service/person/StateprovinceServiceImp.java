@@ -11,7 +11,6 @@ import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
 @Service
-
 public class StateprovinceServiceImp implements StateprovinceService {
 
 	private StateprovinceDao sr;
@@ -75,14 +74,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))
 					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
-				real.setAddresses(s.getAddresses()); //TODO este address deberia asignarse por repositorio o así esta bien
-				real.setCountryregion(cr.findById(s.getCountryregion().getCountryregionid()));
-				real.setIsonlystateprovinceflag(s.getIsonlystateprovinceflag());
-				real.setModifieddate(s.getModifieddate());
-				real.setName(s.getName());
-				real.setRowguid(s.getRowguid());
-				real.setStateprovincecode(s.getStateprovincecode());
-				real.setTerritoryid(tr.findById(s.getTerritoryid()).get().getTerritoryid());
+				sr.update(s);
 				
 			} else {
 				throw new IllegalArgumentException();

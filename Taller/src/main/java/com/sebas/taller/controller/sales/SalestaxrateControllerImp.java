@@ -89,7 +89,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 				model.addAttribute("stateprovinces", ss.findAll());
 				return "salestaxrate/editSalestaxrate";
 			}
-			ts.save(salestaxrate);
+			ts.update(salestaxrate);
 			model.addAttribute("salestaxrates", ts.findAll());
 		}
 		

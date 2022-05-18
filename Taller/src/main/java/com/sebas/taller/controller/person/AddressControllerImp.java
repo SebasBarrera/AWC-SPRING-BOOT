@@ -101,7 +101,7 @@ public class AddressControllerImp implements AddressController {
 				model.addAttribute("stateprovinces", ss.findAll());
 				return "address/editAddress";
 			}
-			as.save(address);
+			as.update(address);
 			model.addAttribute("addresss", as.findAll());
 		}
 		return "redirect:/address/";

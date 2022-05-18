@@ -46,10 +46,7 @@ public class CountryregionServiceImp implements CountryregionService{
 					c.getCountryregioncode().length() <= 4
 					&& c.getName().length() >= 5) {
 				
-				real.setCountryregioncode(c.getCountryregioncode());
-				real.setModifieddate(c.getModifieddate());
-				real.setName(c.getName());
-				real.setStateprovinces(c.getStateprovinces());
+				cr.update(c);
 			} else {
 				throw new IllegalArgumentException();
 			}

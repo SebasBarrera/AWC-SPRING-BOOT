@@ -14,5 +14,6 @@ public interface StateprovinceDao {
 	public List<Stateprovince> findByTerritoryId(Integer id);
 	public List<Stateprovince> findByName(String name);
 	public boolean existsById(Integer id);
-	public List<Object[]> findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(Integer id);
+	@SuppressWarnings("rawtypes")
+	public List findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(Integer id);
 }

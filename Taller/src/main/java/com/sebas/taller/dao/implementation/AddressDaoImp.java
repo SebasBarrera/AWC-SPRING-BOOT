@@ -72,11 +72,10 @@ public class AddressDaoImp implements AddressDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Address> findByAtLeastTwoSalesorderheaders() {
-		String jpql = "SELECT a FROM Address a, Sateprovince s, Salesterritory t, Salesorderheader h "
-				+ "WHERE a MEMBER OF s.addresses "
-				+ "AND t.salesterritoryid=s.salesterritoryid "
-				+ "AND h.salesterritory.salesterritoryid=t.salesterritoryid "
-				+ "AND (SELECT COUNT(amount) FROM t.salesorderheaders amount) >= 2";
+		String jpql = "SELECT a FROM Address a, Stateprovince s, Salesterritory t "
+				+ "WHERE s.stateprovinceid=a.stateprovince.stateprovinceid "
+				+ "AND t.territoryid=s.territoryid "
+				+ "AND t.salesorderheaders.size >= 2";
 		Query query = em.createQuery(jpql);
 		return query.getResultList();
 	}

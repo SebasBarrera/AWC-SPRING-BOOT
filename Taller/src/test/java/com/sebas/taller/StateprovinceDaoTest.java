@@ -2,6 +2,8 @@ package com.sebas.taller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 //import java.util.ArrayList;
 
@@ -13,10 +15,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sebas.taller.dao.implementation.CountryregionDaoImp;
+import com.sebas.taller.dao.implementation.SalestaxrateDaoImp;
 import com.sebas.taller.dao.implementation.StateprovinceDaoImp;
+import com.sebas.taller.dao.interfaces.AddressDao;
+import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Countryregion;
 import com.sebas.taller.model.person.Stateprovince;
+import com.sebas.taller.model.sales.Salestaxrate;
 import com.sebas.taller.model.sales.Salesterritory;
+import com.sebas.taller.repository.sales.SalestaxrateRepository;
+import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
 @SpringBootTest
 @ContextConfiguration(classes = {TallerApplication.class}) 
@@ -27,6 +35,15 @@ class StateprovinceDaoTest {
 	
 	@Autowired 
 	private CountryregionDaoImp daoCountryregion;
+	
+	@Autowired
+	private SalesterritoryRepository tr;
+	
+	@Autowired
+	private SalestaxrateDaoImp taxDao;
+	
+	@Autowired
+	private AddressDao addDao;
 	
 	private Stateprovince s;
 	
@@ -279,104 +296,126 @@ class StateprovinceDaoTest {
 		assertEquals("12345", dao.findByName("Valle del cauca").get(0).getStateprovincecode());
 	}
 	
-//	@Test
-//	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-//	public void findByfindByTerritoryIdAtLeastOneSalestaxrateOrderedByNameTest() {
-//
-//		Address city = new Address();
-//		Address city1 = new Address();
-//		Address city2 = new Address();
-//		Address city3 = new Address();
-//		Address city4 = new Address();
-//		Address city5 = new Address();
-//		Address city6 = new Address();
-//		Address city7 = new Address();
-//		Address city8 = new Address();
-//		Address city9 = new Address();
-//		Address city10 = new Address();
-//		
-//		Salestaxrate s1 =new Salestaxrate();
-//		
-//		assertNotNull(dao);
-//		
-//		assertNotNull(daoCountryregion);
-//		
-//		Salesterritory t1= new Salesterritory();
-//		t1.setTerritoryid(1);
-//		Salesterritory t2= new Salesterritory();
-//		t2.setTerritoryid(1);
-//		Salesterritory t3= new Salesterritory();
-//		t3.setTerritoryid(1);
-//		Salesterritory t4= new Salesterritory();
-//		t4.setTerritoryid(1);
-//		
-//		Countryregion c = new Countryregion();
-//		c.setCountryregioncode("COL");
-//		Countryregion c1 = new Countryregion();
-//		c1.setCountryregioncode("VEN");
-//		daoCountryregion.save(c);
-//		daoCountryregion.save(c1);
-//		Stateprovince a1 = new Stateprovince();
-//		a1.setStateprovincecode("65432");
-//		a1.setIsonlystateprovinceflag("N");
-//		a1.setName("Z"); 
-//		a1.setCountryregion(c1);
-//		
-//		Stateprovince a2 = new Stateprovince();
-//		a2.setStateprovincecode("64815");
-//		a2.setIsonlystateprovinceflag("N");
-//		a2.setName("X"); 
-//		a2.setCountryregion(c);
-//		
-//		
-//		setUpSave();
-//		s.setCountryregion(c);
-//		s.setTerritoryid(1);
-//		a1.setTerritoryid(1);
-//		a2.setTerritoryid(1);
-//		
-//		Stateprovince a3 = new Stateprovince();
-//		a3.setTerritoryid(3);
-//		a3.setName("M");
-//		Stateprovince a4 = new Stateprovince();
-//		a4.setTerritoryid(3);
-//		a4.setName("AAAAA");;
-//		Stateprovince a5 = new Stateprovince();
-//		a5.setName("A");
-//		a5.setTerritoryid(3);
-//		
-//		s1.setStateprovince(a5);
-//		
-//		s1.setStateprovince(s);
-//		s1.setStateprovince(a2);
-//		
-//		city.setStateprovince(s);
-//		city1.setStateprovince(s);
-//		city2.setStateprovince(a1);
-//		city3.setStateprovince(a2);
-//		city4.setStateprovince(a2);
-//		city5.setStateprovince(a3);
-//		city6.setStateprovince(a4);
-//		city7.setStateprovince(a5);
-//		city8.setStateprovince(a4);
-//		city9.setStateprovince(a3);
-//		city10.setStateprovince(a2);
-//		
-//		dao.save(a5);
-//		dao.save(a4);
-//		dao.save(s);
-//		dao.save(a3);
-//		dao.save(a1);
-//		dao.save(a2);
-//		
-//		ArrayList<Stateprovince> territory1SateprovinceList =  (ArrayList<Stateprovince>) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(1).get(0);
-//		ArrayList<Stateprovince> territory3SateprovinceList =  (ArrayList<Stateprovince>) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(3).get(0);
-//		Integer territory1CitiesAmount = (Integer) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(1).get(1);
-//		Integer territory3CitiesAmount = (Integer) dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(3).get(1);
-//		
-//		assertEquals(5, territory1CitiesAmount);
-//	
-//	}
+	@Test
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void findByfindByTerritoryIdAtLeastOneSalestaxrateOrderedByNameTest() {
+		
+		assertNotNull(dao);
+		
+		assertNotNull(daoCountryregion);
+		
+		Address city = new Address();
+		addDao.save(city);
+		Address city1 = new Address();
+		addDao.save(city1);
+		Address city2 = new Address();
+		addDao.save(city2);
+		Address city3 = new Address();
+		addDao.save(city3);
+		Address city4 = new Address();
+		addDao.save(city4);
+		Address city5 = new Address();
+		addDao.save(city5);
+		Address city6 = new Address();
+		addDao.save(city6);
+		Address city7 = new Address();
+		addDao.save(city7);
+		Address city8 = new Address();
+		addDao.save(city8);
+		Address city9 = new Address();
+		addDao.save(city9);
+		Address city10 = new Address();
+		addDao.save(city10);
+		
+		Salestaxrate tax1 =new Salestaxrate();
+		taxDao.save(tax1);
+		Salestaxrate tax2 =new Salestaxrate();
+		taxDao.save(tax2);
+		Salestaxrate tax3 =new Salestaxrate();
+		taxDao.save(tax3);
+		Salestaxrate tax4 =new Salestaxrate();
+		taxDao.save(tax4);
+		
+		Salesterritory t1= new Salesterritory();
+		tr.save(t1);
+		Salesterritory t2= new Salesterritory();
+		tr.save(t2);
+		Salesterritory t3= new Salesterritory();
+		tr.save(t3);
+		Salesterritory t4= new Salesterritory();
+		tr.save(t4);
+		
+		Stateprovince s1 = new Stateprovince();
+		s1.setName("Valle del Cauca");
+		dao.save(s1);
+		Stateprovince s2 = new Stateprovince();
+		s2.setName("Cundinamarca");
+		dao.save(s2);
+		Stateprovince s3 = new Stateprovince();
+		s3.setName("Boyaca");
+		dao.save(s3);
+		Stateprovince s4 = new Stateprovince();
+		s4.setName("Atlantico");
+		dao.save(s4);
+		Stateprovince s5 = new Stateprovince();
+		s5.setName("Antioquia");
+		dao.save(s5);
+		
+		s1.setTerritoryid(t1.getTerritoryid());
+		s2.setTerritoryid(t2.getTerritoryid());
+		s3.setTerritoryid(t1.getTerritoryid());
+		s4.setTerritoryid(t2.getTerritoryid());
+		
+		tax1.setStateprovince(s5);
+		tax2.setStateprovince(s4);
+		tax3.setStateprovince(s3);
+		tax4.setStateprovince(s2);
+		
+		List<Address> la = new ArrayList<Address>();
+		la.add(city);
+		List<Address> la1 = new ArrayList<Address>();
+		la1.add(city1);
+		
+		s1.setAddresses(la);
+		s5.setAddresses(la1);
+		
+		List<Address> la2 = new ArrayList<Address>();
+		la2.add(city2);
+		la2.add(city3);
+		la2.add(city4);
+		List<Address> la3 = new ArrayList<Address>();
+		la3.add(city5);
+		la3.add(city6);
+		la3.add(city7);
+		la3.add(city8);
+		List<Address> la4 = new ArrayList<Address>();
+		la4.add(city9);
+		la4.add(city10);
+		
+		s2.setAddresses(la2);
+		s3.setAddresses(la3);
+		s4.setAddresses(la4);
+		
+		city.setStateprovince(s1);
+		city1.setStateprovince(s5);
+		
+		city2.setStateprovince(s2);
+		city3.setStateprovince(s2);
+		city4.setStateprovince(s2);
+		
+		city5.setStateprovince(s3);
+		city6.setStateprovince(s3);
+		city7.setStateprovince(s3);
+		city8.setStateprovince(s3);
+		
+		city9.setStateprovince(s4);
+		city10.setStateprovince(s4);
+		
+		Object stAd = dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(t2.getTerritoryid());
+		
+		
+	
+	}
 	
 	
 	

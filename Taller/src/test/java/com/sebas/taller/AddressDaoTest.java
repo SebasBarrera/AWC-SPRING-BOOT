@@ -2,6 +2,9 @@ package com.sebas.taller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +16,10 @@ import com.sebas.taller.dao.implementation.AddressDaoImp;
 import com.sebas.taller.dao.implementation.StateprovinceDaoImp;
 import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Stateprovince;
+import com.sebas.taller.model.sales.Salesorderheader;
+import com.sebas.taller.model.sales.Salesterritory;
+import com.sebas.taller.repository.sales.SalesorderheaderRepository;
+import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
 @SpringBootTest
 @ContextConfiguration(classes = {TallerApplication.class})
@@ -23,6 +30,12 @@ class AddressDaoTest {
 	
 	@Autowired 
 	private StateprovinceDaoImp daoStateprovince;
+	
+	@Autowired
+	private SalesterritoryRepository sr;
+	
+	@Autowired
+	private SalesorderheaderRepository hr;
 	
 	private Address a;
 	
@@ -201,7 +214,51 @@ class AddressDaoTest {
 		
 	}
 	
-	
+	@Test
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void findByAtLeastTwoSalesorderheadersTest() {
+
+		assertNotNull(dao);
+		
+		assertNotNull(daoStateprovince);
+		
+		Address a = new Address();
+		a.setAddressline1("si sirve");
+		dao.save(a);
+		
+		Stateprovince s = new Stateprovince();
+		s.setName("Valle del Cauca");
+		daoStateprovince.save(s);
+		
+		a.setStateprovince(s);
+		
+		List<Address> ls = new ArrayList<Address>();
+		ls.add(a);
+		s.setAddresses(ls);
+		
+		Salesterritory st = new Salesterritory();
+		st.setTerritoryid(1);
+		sr.save(st);
+		
+		
+		s.setTerritoryid(st.getTerritoryid());
+		
+		Salesorderheader h = new Salesorderheader();
+		hr.save(h);
+		Salesorderheader h2 = new Salesorderheader();
+		hr.save(h2);
+		List<Salesorderheader> lh = new ArrayList<Salesorderheader>();
+		lh.add(h2);
+		lh.add(h);
+		
+		h.setSalesterritory(st);
+		h2.setSalesterritory(st);
+		
+		st.setSalesorderheaders(lh);
+		
+		assertEquals("si sirve", dao.findByAtLeastTwoSalesorderheaders().get(0).getAddressline1());
+		
+	}
 	
 
 }

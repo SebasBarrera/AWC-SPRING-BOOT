@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.sebas.taller.model.hr.Employee;
 import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Countryregion;
+import com.sebas.taller.model.person.Person;
 import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.model.sales.Salestaxrate;
 
@@ -19,7 +21,8 @@ public class BusinessDelegateImp implements BusinessDelegate {
 	private final static String COUNTRYREGION_URL = URL + "/countryregion";
 	private final static String SALESTAXRATE_URL = URL + "/salestaxrate";
 	private final static String STATEPROVINCE_URL = URL + "/stateprovince";
-	
+	private final static String PERSON_URL = URL + "/person";
+	private final static String EMPLOYEE_URL = URL + "/employee";
 	
 	private RestTemplate restTemplate = new RestTemplate();
 	
@@ -122,6 +125,56 @@ public class BusinessDelegateImp implements BusinessDelegate {
 	@Override
 	public void deleteStateprovince(Integer id) {
 		restTemplate.delete(STATEPROVINCE_URL, Integer.class);
+	}
+
+	@Override
+	public List<Person> findAllPerson() {
+		return Arrays.asList(restTemplate.getForObject(PERSON_URL, Person[].class));
+	}
+
+	@Override
+	public List<Employee> findAllEmployee() {
+		return Arrays.asList(restTemplate.getForObject(EMPLOYEE_URL, Employee[].class));
+	}
+
+	@Override
+	public Person findPersonById(Integer id) {
+		return restTemplate.getForObject(PERSON_URL + "/" + id, Person.class);
+	}
+
+	@Override
+	public Employee findEmployeeById(Integer id) {
+		return restTemplate.getForObject(EMPLOYEE_URL + "/" + id, Employee.class);
+	}
+
+	@Override
+	public Person addPerson(Person p) {
+		return restTemplate.postForObject(PERSON_URL, p, Person.class);
+	}
+
+	@Override
+	public Employee addEmployee(Employee e) {
+		return restTemplate.postForObject(EMPLOYEE_URL, e, Employee.class);
+	}
+
+	@Override
+	public void updatePerson(Person p) {
+		restTemplate.put(PERSON_URL, p);
+	}
+
+	@Override
+	public void updateEmployee(Employee e) {
+		restTemplate.put(EMPLOYEE_URL, e);
+	}
+
+	@Override
+	public void deletePerson(Integer id) {
+		restTemplate.delete(PERSON_URL, Integer.class);
+	}
+
+	@Override
+	public void deleteEmployee(Integer id) {
+		restTemplate.delete(EMPLOYEE_URL, Integer.class);
 	}
 
 }

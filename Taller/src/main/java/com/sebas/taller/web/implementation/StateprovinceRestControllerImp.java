@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Stateprovince;
+import com.sebas.taller.service.person.StateprovinceService;
 import com.sebas.taller.web.interfaces.StateprovinceRestController;
 
 @RestController
@@ -19,36 +19,36 @@ import com.sebas.taller.web.interfaces.StateprovinceRestController;
 public class StateprovinceRestControllerImp implements StateprovinceRestController {
 
 	@Autowired
-	private StateprovinceDao dao;
+	private StateprovinceService ss;
 	
 	@Override
 	@GetMapping
 	public Iterable<Stateprovince> findAll() {
-		return dao.findAll();
+		return ss.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public Stateprovince findById(@PathVariable("id") Integer id) {
-		return dao.findById(id);
+		return ss.findById(id);
 	}
 
 	@Override
 	@PostMapping
 	public void save(@RequestBody Stateprovince s) {
-		dao.save(s);
+		ss.save(s);
 	}
 
 	@Override
 	@PutMapping
 	public void update(@RequestBody Stateprovince s) {
-		dao.update(s);
+		ss.update(s);
 	}
 
 	@Override
 	@DeleteMapping("/id")
 	public void delete(@PathVariable("id") Integer id) {
-		dao.delete(dao.findById(id));
+		ss.delete(ss.findById(id));
 	}
 
 }

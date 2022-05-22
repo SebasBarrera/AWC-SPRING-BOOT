@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebas.taller.dao.interfaces.CountryregionDao;
 import com.sebas.taller.model.person.Countryregion;
+import com.sebas.taller.service.person.CountryregionService;
 import com.sebas.taller.web.interfaces.CountryregionRestController;
 
 @RestController
@@ -19,7 +19,7 @@ import com.sebas.taller.web.interfaces.CountryregionRestController;
 public class CountryregionRestControllerImp implements CountryregionRestController {
 
 	@Autowired
-	private CountryregionDao dao;
+	private CountryregionService dao;
 	
 	@Override
 	@GetMapping

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebas.taller.dao.interfaces.SalestaxrateDao;
 import com.sebas.taller.model.sales.Salestaxrate;
+import com.sebas.taller.service.sales.SalestaxrateService;
 import com.sebas.taller.web.interfaces.SalestaxrateRestController;
 
 @RestController
@@ -19,36 +19,36 @@ import com.sebas.taller.web.interfaces.SalestaxrateRestController;
 public class SalestaxrateRestControllerImp implements SalestaxrateRestController {
 
 	@Autowired
-	private SalestaxrateDao dao;
+	private SalestaxrateService ss;
 	
 	@Override
 	@GetMapping
 	public Iterable<Salestaxrate> findAll() {
-		return dao.findAll();
+		return ss.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public Salestaxrate findById(@PathVariable("id") Integer id) {
-		return dao.findById(id);
+		return ss.findById(id);
 	}
 
 	@Override
 	@PostMapping
 	public void save(@RequestBody Salestaxrate s) {
-		dao.save(s);
+		ss.save(s);
 	}
 
 	@Override
 	@PutMapping
 	public void update(@RequestBody Salestaxrate s) {
-		dao.update(s);
+		ss.update(s);
 	}
 
 	@Override
 	@DeleteMapping("/id")
 	public void delete(@PathVariable("id") Integer id) {
-		dao.delete(dao.findById(id));
+		ss.delete(ss.findById(id));
 	}
 
 }

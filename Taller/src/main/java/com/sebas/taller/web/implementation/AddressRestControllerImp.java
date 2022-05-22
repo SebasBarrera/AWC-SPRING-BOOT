@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebas.taller.dao.interfaces.AddressDao;
 import com.sebas.taller.model.person.Address;
+import com.sebas.taller.service.person.AddressService;
 import com.sebas.taller.web.interfaces.AddressRestController;
 
 @RestController
@@ -19,36 +19,36 @@ import com.sebas.taller.web.interfaces.AddressRestController;
 public class AddressRestControllerImp implements AddressRestController {
 
 	@Autowired
-	private AddressDao dao;
+	private AddressService as;
 	
 	@Override
 	@GetMapping
 	public Iterable<Address> findAll() {
-		return dao.findAll();
+		return as.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public Address findById(@PathVariable("id") Integer id) {
-		return dao.findById(id);
+		return as.findById(id);
 	}
 
 	@Override
 	@PostMapping
 	public void save(@RequestBody Address a) {
-		dao.save(a);
+		as.save(a);
 	}
 
 	@Override
 	@PutMapping
 	public void update(@RequestBody Address a) {
-		dao.update(a);
+		as.update(a);
 	}
 
 	@Override
 	@DeleteMapping("/id")
 	public void delete(@PathVariable("id") Integer id) {
-		dao.delete(dao.findById(id));
+		as.delete(as.findById(id));
 	}
 
 }

@@ -65,7 +65,10 @@ public class PersonControllerImp implements PersonController {
 	@GetMapping("/person/editPerson/{personid}")
 	public String showUpdateForm(@PathVariable("personid") Integer personid, Model model) {
 		Person person = bd.findPersonById(personid);
-		return null;
+		if (person == null)
+			throw new IllegalAccessError("Invalid person Id: " + personid);
+		model.addAttribute("person", person);
+		return "employee/editEmployee";
 	}
 
 	@Override

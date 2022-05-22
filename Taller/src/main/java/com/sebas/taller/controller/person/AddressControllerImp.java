@@ -80,7 +80,7 @@ public class AddressControllerImp implements AddressController {
 	public String showUpdateForm(@PathVariable("addressid") Integer addressid, Model model) {
 		Address address = bd.findAddressById(addressid);
 		if(address == null)
-			throw new IllegalArgumentException("Invalid user Id: " + addressid);
+			throw new IllegalArgumentException("Invalid address Id: " + addressid);
 		model.addAttribute("address", address);
 
 

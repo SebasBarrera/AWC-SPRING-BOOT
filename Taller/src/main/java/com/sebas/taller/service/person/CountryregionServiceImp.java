@@ -12,10 +12,10 @@ import com.sebas.taller.model.person.Countryregion;
 @Transactional
 public class CountryregionServiceImp implements CountryregionService{
 
-	private CountryregionDao cr;
+	private CountryregionDao countryregionDao;
 	@Autowired
 	public CountryregionServiceImp(CountryregionDao cr) {
-		this.cr = cr;
+		this.countryregionDao = cr;
 	}
 	
 	@Override
@@ -25,14 +25,14 @@ public class CountryregionServiceImp implements CountryregionService{
 			if(c.getCountryregioncode().length() >= 1 && 
 					c.getCountryregioncode().length() <= 4
 					&& c.getName().length() >= 5) {
-				cr.save(c);
+				countryregionDao.save(c);
 			} else {
 				throw new IllegalArgumentException();
 			}
 		} else {
 			throw new NullPointerException();
 		}
-		return cr.findById(c.getCountryregionid());
+		return countryregionDao.findById(c.getCountryregionid());
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class CountryregionServiceImp implements CountryregionService{
 					c.getCountryregioncode().length() <= 4
 					&& c.getName().length() >= 5) {
 				
-				cr.update(c);
+				countryregionDao.update(c);
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -58,9 +58,9 @@ public class CountryregionServiceImp implements CountryregionService{
 	@Override
 	public Countryregion search(Countryregion c) {
 		Countryregion searched = null;
-		if (cr.existsById(c.getCountryregionid())) {
+		if (countryregionDao.existsById(c.getCountryregionid())) {
 			
-			searched = cr.findById(c.getCountryregionid());
+			searched = countryregionDao.findById(c.getCountryregionid());
 			
 		} else {
 			
@@ -73,17 +73,17 @@ public class CountryregionServiceImp implements CountryregionService{
 
 	@Override
 	public Iterable<Countryregion> findAll() {
-		return cr.findAll();
+		return countryregionDao.findAll();
 	}
 
 	@Override
 	public void delete(Countryregion c) {
-		cr.delete(c);
+		countryregionDao.delete(c);
 	}
 
 	@Override
 	public Countryregion findById(Integer id) {
-		return cr.findById(id);
+		return countryregionDao.findById(id);
 	}
 	
 	

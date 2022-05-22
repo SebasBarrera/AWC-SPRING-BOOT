@@ -13,14 +13,14 @@ import com.sebas.taller.repository.sales.SalesterritoryRepository;
 @Service
 public class StateprovinceServiceImp implements StateprovinceService {
 
-	private StateprovinceDao sr;
-	private CountryregionDao cr;
+	private StateprovinceDao stateprovinceDao;
+	private CountryregionDao countryregionDao;
 	private SalesterritoryRepository tr;
 	
 	@Autowired
 	public StateprovinceServiceImp(StateprovinceDao sr, CountryregionDao cr, SalesterritoryRepository tr) {
-		this.sr = sr;
-		this.cr = cr;
+		this.stateprovinceDao = sr;
+		this.countryregionDao = cr;
 		this.tr = tr;
 	}
 
@@ -32,7 +32,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			if (s.getCountryregion() == null || s.getTerritoryid() == null) {
 				throw new NullPointerException();
 				
-			} else if (!cr.existsById(s.getCountryregion().getCountryregionid()) || !tr.existsById(s.getTerritoryid())) {
+			} else if (!countryregionDao.existsById(s.getCountryregion().getCountryregionid()) || !tr.existsById(s.getTerritoryid())) {
 				throw new NullPointerException();
 			}
 			
@@ -40,10 +40,10 @@ public class StateprovinceServiceImp implements StateprovinceService {
 					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))
 					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
-				s.setCountryregion(cr.findById(s.getCountryregion().getCountryregionid()));
+				s.setCountryregion(countryregionDao.findById(s.getCountryregion().getCountryregionid()));
 				s.setTerritoryid(tr.findById(s.getTerritoryid()).get().getTerritoryid());
 				
-				sr.save(s);
+				stateprovinceDao.save(s);
 				
 				
 			} else {
@@ -53,7 +53,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 		} else {
 			throw new NullPointerException();
 		}
-		return sr.findById(s.getStateprovinceid());
+		return stateprovinceDao.findById(s.getStateprovinceid());
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 			if (s.getCountryregion() == null || s.getTerritoryid() == null) {
 				throw new NullPointerException();
 				
-			} else if (!cr.existsById(s.getCountryregion().getCountryregionid()) || !tr.existsById(s.getTerritoryid())) {
+			} else if (!countryregionDao.existsById(s.getCountryregion().getCountryregionid()) || !tr.existsById(s.getTerritoryid())) {
 				throw new NullPointerException();
 			}
 			
@@ -74,7 +74,7 @@ public class StateprovinceServiceImp implements StateprovinceService {
 					(s.getIsonlystateprovinceflag().equals("Y") || s.getIsonlystateprovinceflag().equals("N"))
 					&& s.getStateprovincecode().chars().allMatch(Character::isDigit)) {
 				
-				sr.update(s);
+				stateprovinceDao.update(s);
 				
 			} else {
 				throw new IllegalArgumentException();
@@ -88,9 +88,9 @@ public class StateprovinceServiceImp implements StateprovinceService {
 	@Override
 	public Stateprovince search(Stateprovince s) {
 		Stateprovince searched = null;
-		if (sr.existsById(s.getStateprovinceid())) {
+		if (stateprovinceDao.existsById(s.getStateprovinceid())) {
 			
-			searched = sr.findById(s.getStateprovinceid());
+			searched = stateprovinceDao.findById(s.getStateprovinceid());
 			
 		} else {
 			
@@ -101,17 +101,17 @@ public class StateprovinceServiceImp implements StateprovinceService {
 
 	@Override
 	public Stateprovince findById(Integer id) {
-		return sr.findById(id);
+		return stateprovinceDao.findById(id);
 	}
 
 	@Override
 	public Iterable<Stateprovince> findAll() {
-		return sr.findAll();
+		return stateprovinceDao.findAll();
 	}
 
 	@Override
 	public void delete(Stateprovince s) {
-		sr.delete(s);
+		stateprovinceDao.delete(s);
 	}
 	
 	

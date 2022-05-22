@@ -15,14 +15,14 @@ import com.sebas.taller.model.person.Address;
 public class AddressServiceImp implements AddressService{
 	
 	
-	private AddressDao ar;
+	private AddressDao addressDao;
 	
-	private StateprovinceDao sr;
+	private StateprovinceDao stateprovinceDao;
 	
 	@Autowired
 	public AddressServiceImp(AddressDao ar, StateprovinceDao sr) {
-		this.ar = ar;
-		this.sr = sr;
+		this.addressDao = ar;
+		this.stateprovinceDao = sr;
 	}
 
 	@Override
@@ -32,13 +32,13 @@ public class AddressServiceImp implements AddressService{
 			
 			if (a.getStateprovince() != null) {
 				
-				if (sr.existsById(a.getStateprovince().getStateprovinceid())) {
+				if (stateprovinceDao.existsById(a.getStateprovince().getStateprovinceid())) {
 				
 					if (a.getAddressline1() != null && a.getCity().length() >= 3 && 
 							a.getPostalcode().length() == 6 && a.getPostalcode().chars().allMatch(Character::isDigit)) {
 						
-						a.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()));
-						ar.save(a);
+						a.setStateprovince(stateprovinceDao.findById(a.getStateprovince().getStateprovinceid()));
+						addressDao.save(a);
 						
 					} else {
 						throw new IllegalArgumentException();
@@ -56,7 +56,7 @@ public class AddressServiceImp implements AddressService{
 			throw new NullPointerException();
 		}
 		
-		return ar.findById(a.getAddressid());
+		return addressDao.findById(a.getAddressid());
 	}
 
 	@Override
@@ -67,14 +67,14 @@ public class AddressServiceImp implements AddressService{
 			
 			if (a.getStateprovince() != null) {
 				
-				if ( sr.existsById(a.getStateprovince().getStateprovinceid()) ) {
+				if ( stateprovinceDao.existsById(a.getStateprovince().getStateprovinceid()) ) {
 					
 					real = search(a);
 					
 					if (a.getAddressline1() != null && a.getCity().length() >= 3 && a.getPostalcode().length() == 6
 							 && a.getPostalcode().chars().allMatch(Character::isDigit)) {
 						
-						real.setStateprovince(sr.findById(a.getStateprovince().getStateprovinceid()));
+						real.setStateprovince(stateprovinceDao.findById(a.getStateprovince().getStateprovinceid()));
 						real.setAddressline1(a.getAddressline1());
 						real.setAddressline2(a.getAddressline2());
 						real.setBusinessentityaddresses(a.getBusinessentityaddresses());
@@ -108,9 +108,9 @@ public class AddressServiceImp implements AddressService{
 	@Override
 	public Address search(Address a) {
 		Address searched = null;
-		if (ar.existsById(a.getAddressid())) {
+		if (addressDao.existsById(a.getAddressid())) {
 			
-			searched = ar.findById(a.getAddressid());
+			searched = addressDao.findById(a.getAddressid());
 			
 		} else {
 			
@@ -123,17 +123,17 @@ public class AddressServiceImp implements AddressService{
 
 	@Override
 	public Address findById(Integer id) {
-		return ar.findById(id);
+		return addressDao.findById(id);
 	}
 
 	@Override
 	public Iterable<Address> findAll() {
-		return ar.findAll();
+		return addressDao.findAll();
 	}
 
 	@Override
 	public void delete(Address a) {
-		ar.delete(a);
+		addressDao.delete(a);
 		
 	}
 

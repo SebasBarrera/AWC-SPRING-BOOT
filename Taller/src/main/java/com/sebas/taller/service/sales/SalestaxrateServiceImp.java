@@ -12,13 +12,13 @@ import com.sebas.taller.model.sales.Salestaxrate;
 @Service
 public class SalestaxrateServiceImp implements SalestaxrateService{
 	
-	private SalestaxrateDao sr;
-	private StateprovinceDao spr;
+	private SalestaxrateDao salestaxrateDao;
+	private StateprovinceDao stateprovinceDao;
 	
 	@Autowired
 	public SalestaxrateServiceImp(SalestaxrateDao sr, StateprovinceDao spr) {
-		this.sr = sr;
-		this.spr = spr;
+		this.salestaxrateDao = sr;
+		this.stateprovinceDao = spr;
 	}
 
 	@Override
@@ -27,13 +27,13 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 		if (s != null) {
 			if (s.getStateprovince() != null) {
 				
-				if (spr.existsById(s.getStateprovince().getStateprovinceid())) {
+				if (stateprovinceDao.existsById(s.getStateprovince().getStateprovinceid())) {
 					
 					if ((s.getTaxrate() >= 0.0)
 							&& s.getName().length() >= 5) {
 					
-						s.setStateprovince(spr.findById(s.getStateprovince().getStateprovinceid()));
-						sr.save(s);
+						s.setStateprovince(stateprovinceDao.findById(s.getStateprovince().getStateprovinceid()));
+						salestaxrateDao.save(s);
 						
 					} else {
 						throw new IllegalArgumentException();
@@ -60,7 +60,7 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 			
 			if (s.getStateprovince() != null) {
 				
-				if (spr.existsById(s.getStateprovince().getStateprovinceid())) {
+				if (stateprovinceDao.existsById(s.getStateprovince().getStateprovinceid())) {
 					
 					real = search(s);
 					
@@ -96,9 +96,9 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 	@Override
 	public Salestaxrate search(Salestaxrate s) {
 		Salestaxrate searched = null;
-		if (sr.existsById(s.getSalestaxrateid())) {
+		if (salestaxrateDao.existsById(s.getSalestaxrateid())) {
 			
-			searched = sr.findById(s.getSalestaxrateid());
+			searched = salestaxrateDao.findById(s.getSalestaxrateid());
 			
 		} else {
 			throw new NullPointerException();
@@ -108,17 +108,17 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 
 	@Override
 	public Salestaxrate findById(Integer id) {
-		return sr.findById(id);
+		return salestaxrateDao.findById(id);
 	}
 
 	@Override
 	public Iterable<Salestaxrate> findAll() {
-		return sr.findAll();
+		return salestaxrateDao.findAll();
 	}
 
 	@Override
 	public void delete(Salestaxrate s) {
-		sr.delete(s);
+		salestaxrateDao.delete(s);
 	}
 
 }

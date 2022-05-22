@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sebas.taller.bussinessDelegate.BusinessDelegate;
 import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.service.person.CountryregionService;
 import com.sebas.taller.service.person.StateprovinceService;
@@ -20,15 +21,11 @@ import com.sebas.taller.service.sales.SalesterritoryService;
 @Controller
 public class StateprovinceControllerImp implements StateprovinceController {
 
-	StateprovinceService ss;
-	CountryregionService cs;
-	SalesterritoryService ts;
+	BusinessDelegate bd;
 	
 	@Autowired
-	public StateprovinceControllerImp(SalesterritoryService ts, StateprovinceService ss, CountryregionService cs) {
-		this.ss = ss;
-		this.ts = ts;
-		this.cs = cs;
+	public StateprovinceControllerImp(BusinessDelegate bd) {
+		this.bd = bd;
 	}
 	
 	@Override
@@ -37,23 +34,23 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		model.addAttribute("stateprovince", new Stateprovince());
 		
 		model.addAttribute("territoryids", ts.findAll());
-		model.addAttribute("countryregions", cs.findAll());
+		model.addAttribute("countryregions", bd.findAllCountryregion());
 		return "stateprovince/addStateprovince";
 	}
 
 	@Override
 	@GetMapping("/stateprovince/delete/{stateprovinceid}")
 	public String deleteStateProvince(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
-		Stateprovince stateprovince = ss.findById(stateprovinceid);
-		ss.delete(stateprovince);
-		model.addAttribute("stateprovinces", ss.findAll());
+//		Stateprovince stateprovince = bd.findStateprovinceById(stateprovinceid);
+		bd.deleteStateprovince(stateprovinceid);
+		model.addAttribute("stateprovinces", bd.findAllStateprovince());
 		return "stateprovince/index";
 	}
 
 	@Override
 	@GetMapping("/stateprovince/")
 	public String indexStateProvince(Model model) {
-		model.addAttribute("stateprovinces", ss.findAll());
+		model.addAttribute("stateprovinces", bd.findAllStateprovince());
 		return "stateprovince/index";
 	}
 
@@ -65,10 +62,10 @@ public class StateprovinceControllerImp implements StateprovinceController {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);
 				model.addAttribute("territoryids", ts.findAll());
-				model.addAttribute("countryregions", cs.findAll());
+				model.addAttribute("countryregions", bd.findAllCountryregion());
 				return "stateprovince/addStateprovince";
 			}
-			ss.save(stateprovince);
+			bd.addStateprovince(stateprovince);
 		}
 		return "redirect:/stateprovince/";
 	}
@@ -76,12 +73,12 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	@Override
 	@GetMapping("/stateprovince/editStateprovince/{stateprovinceid}")
 	public String showUpdateForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
-		Stateprovince stateprovince = ss.findById(stateprovinceid);
+		Stateprovince stateprovince = bd.findStateprovinceById(stateprovinceid);
 		if (stateprovince == null) 
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
 		model.addAttribute("stateprovince", stateprovince);
 		model.addAttribute("territoryids", ts.findAll());
-		model.addAttribute("countryregions", cs.findAll());
+		model.addAttribute("countryregions", bd.findAllCountryregion());
 		return "stateprovince/editStateprovince";
 	}
 
@@ -93,11 +90,11 @@ public class StateprovinceControllerImp implements StateprovinceController {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);
 				model.addAttribute("territoryids", ts.findAll());
-				model.addAttribute("countryregions", cs.findAll());
+				model.addAttribute("countryregions", bd.findAllCountryregion());
 				return "stateprovince/editStateprovince";
 			}
-			ss.update(stateprovince);
-			model.addAttribute("stateprovinces", ss.findAll());
+			bd.updateStateprovince(stateprovince);
+			model.addAttribute("stateprovinces", bd.findAllStateprovince());
 		}
 		return "redirect:/stateprovince/";
 	}
@@ -105,12 +102,12 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	@Override
 	@GetMapping("/info/stateprovince/{stateprovinceid}")
 	public String showInfoForm(@PathVariable("stateprovinceid") Integer stateprovinceid, Model model) {
-		Stateprovince stateprovince = ss.findById(stateprovinceid);
+		Stateprovince stateprovince = bd.findStateprovinceById(stateprovinceid);
 		if (stateprovince == null) 
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
 		model.addAttribute("stateprovince", stateprovince);
 		model.addAttribute("territoryids", ts.findAll());
-		model.addAttribute("countryregions", cs.findAll());
+		model.addAttribute("countryregions", bd.findAllCountryregion());
 		return "info/stateprovince";
 	}
 

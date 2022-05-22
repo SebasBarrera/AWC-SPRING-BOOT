@@ -1,4 +1,4 @@
-package com.sebas.taller.backRestController.implementation;
+package com.sebas.taller.web.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,39 +10,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebas.taller.backRestController.interfaces.AddressRestController;
-import com.sebas.taller.dao.interfaces.AddressDao;
-import com.sebas.taller.model.person.Address;
+import com.sebas.taller.dao.interfaces.SalestaxrateDao;
+import com.sebas.taller.model.sales.Salestaxrate;
+import com.sebas.taller.web.interfaces.SalestaxrateRestController;
 
 @RestController
-@RequestMapping("/address")
-public class AddressRestControllerImp implements AddressRestController {
+@RequestMapping("/salestaxrate")
+public class SalestaxrateRestControllerImp implements SalestaxrateRestController {
 
 	@Autowired
-	private AddressDao dao;
+	private SalestaxrateDao dao;
 	
 	@Override
 	@GetMapping
-	public Iterable<Address> findAll() {
+	public Iterable<Salestaxrate> findAll() {
 		return dao.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
-	public Address findById(@PathVariable("id") Integer id) {
+	public Salestaxrate findById(@PathVariable("id") Integer id) {
 		return dao.findById(id);
 	}
 
 	@Override
 	@PostMapping
-	public void save(@RequestBody Address a) {
-		dao.save(a);
+	public void save(@RequestBody Salestaxrate s) {
+		dao.save(s);
 	}
 
 	@Override
 	@PutMapping
-	public void update(@RequestBody Address a) {
-		dao.update(a);
+	public void update(@RequestBody Salestaxrate s) {
+		dao.update(s);
 	}
 
 	@Override

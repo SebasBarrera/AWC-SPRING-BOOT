@@ -1,4 +1,4 @@
-package com.sebas.taller.backRestController.interfaces;
+package com.sebas.taller.web.interfaces;
 
 import com.sebas.taller.model.sales.Salestaxrate;
 

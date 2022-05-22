@@ -11,42 +11,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sebas.taller.bussinessDelegate.BusinessDelegate;
 import com.sebas.taller.model.person.Countryregion;
-import com.sebas.taller.service.person.CountryregionService;
-import com.sebas.taller.service.person.StateprovinceService;
 
 @Controller
 public class CountryregionControllerImp implements CountryregionController {
 
-	CountryregionService cs;
-	StateprovinceService ss;
+	BusinessDelegate bd;
 	
 	@Autowired
-	public CountryregionControllerImp(StateprovinceService ss, CountryregionService cs) {
-		this.cs = cs;
-		this.ss = ss;
+	public CountryregionControllerImp(BusinessDelegate bd) {
+		this.bd = bd;
 	}
 	
 	@Override
 	@GetMapping("/countryregion/addCountryregion")
 	public String addCountryregion(Model model) {
 		model.addAttribute("countryregion", new Countryregion());
-		model.addAttribute("stateprovinces", ss.findAll());
+		model.addAttribute("stateprovinces", bd.findAllStateprovince());
 		return "countryregion/addCountryregion";
 	}
 
 	@Override
 	@GetMapping("/countryregion/delete/{countryregionid}")
 	public String deleteCountryregion(@PathVariable("countryregionid") Integer countryregionid, Model model) {
-		Countryregion countryregion = cs.findById(countryregionid);
-		cs.delete(countryregion);
+//		Countryregion countryregion = cs.findById(countryregionid);
+		bd.deleteCountryregion(countryregionid);
 		return "redirect:/countryregion/";
 	}
 
 	@Override
 	@GetMapping("/countryregion")
 	public String indexCountryregion(Model model) {
-		model.addAttribute("countryregions", cs.findAll());
+		model.addAttribute("countryregions", bd.findAllCountryregion());
 		return "countryregion/index";
 	}
 
@@ -56,11 +53,11 @@ public class CountryregionControllerImp implements CountryregionController {
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
-				model.addAttribute("stateprovinces", ss.findAll());
+				model.addAttribute("stateprovinces", bd.findAllStateprovince());
 				model.addAttribute("countryregion", countryregion);
 				return "countryregion/addCountryregion";
 			}
-			cs.save(countryregion);
+			bd.addCountryregion(countryregion);
 		}
 		return "redirect:/countryregion/";
 	}
@@ -68,9 +65,9 @@ public class CountryregionControllerImp implements CountryregionController {
 	@Override
 	@GetMapping("/countryregion/editCountryregion/{countryregionid}")
 	public String showUpdateForm(@PathVariable("countryregionid") Integer countryregionid, Model model) {
-		Countryregion countryregion = cs.findById(countryregionid);
+		Countryregion countryregion = bd.findCountryregionById(countryregionid);
 		model.addAttribute("countryregion", countryregion);
-		model.addAttribute("stateprovinces", ss.findAll());
+		model.addAttribute("stateprovinces", bd.findAllStateprovince());
 		return "countryregion/editCountryregion";
 	}
 
@@ -81,11 +78,11 @@ public class CountryregionControllerImp implements CountryregionController {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("countryregion", countryregion);
-				model.addAttribute("stateprovinces", ss.findAll());
+				model.addAttribute("stateprovinces", bd.findAllStateprovince());
 				return "countryregion/editCountryregion";
 			}
-			cs.update(countryregion);
-			model.addAttribute("countryregions", cs.findAll());
+			bd.updateCountryregion(countryregion);
+			model.addAttribute("countryregions", bd.findAllCountryregion());
 		}
 		return "redirect:/countryregion/";
 	}
@@ -93,9 +90,9 @@ public class CountryregionControllerImp implements CountryregionController {
 	@Override
 	@GetMapping("/info/countryregion/{countryregionid}")
 	public String showInfoForm(@PathVariable("countryregionid") Integer countryregionid, Model model) {
-		Countryregion countryregion = cs.findById(countryregionid);
+		Countryregion countryregion = bd.findCountryregionById(countryregionid);
 		model.addAttribute("countryregion", countryregion);
-		model.addAttribute("stateprovinces", ss.findAll());
+		model.addAttribute("stateprovinces", bd.findAllStateprovince());
 		return "info/countryregion";
 	}
 

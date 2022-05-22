@@ -23,7 +23,6 @@ import com.sebas.taller.model.person.Countryregion;
 import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.model.sales.Salestaxrate;
 import com.sebas.taller.model.sales.Salesterritory;
-import com.sebas.taller.repository.sales.SalestaxrateRepository;
 import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
 @SpringBootTest
@@ -411,7 +410,7 @@ class StateprovinceDaoTest {
 		city9.setStateprovince(s4);
 		city10.setStateprovince(s4);
 		
-		Object stAd = dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(t2.getTerritoryid());
+		//Object stAd = dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(t2.getTerritoryid());
 		
 		
 	

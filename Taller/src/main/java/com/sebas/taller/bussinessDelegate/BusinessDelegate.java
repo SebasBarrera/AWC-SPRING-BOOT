@@ -1,6 +1,6 @@
 package com.sebas.taller.bussinessDelegate;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Countryregion;
@@ -9,20 +9,20 @@ import com.sebas.taller.model.sales.Salestaxrate;
 
 public interface BusinessDelegate {
 
-	public ResponseEntity<Address[]> findAllAddress();
-	public ResponseEntity<Countryregion[]> findAllCountryregion();
-	public ResponseEntity<Salestaxrate[]> findAllSalestaxrate();
-	public ResponseEntity<Stateprovince[]> findAllStateprovince();
+	public List<Address> findAllAddress();
+	public List<Countryregion> findAllCountryregion();
+	public List<Salestaxrate> findAllSalestaxrate();
+	public List<Stateprovince> findAllStateprovince();
 	
-	public ResponseEntity<Address> findAddressById(Integer id);
-	public ResponseEntity<Countryregion> findCountryregionById(Integer id);
-	public ResponseEntity<Salestaxrate> findSalestaxrateById(Integer id);
-	public ResponseEntity<Stateprovince> findStateprovinceById(Integer id);
+	public Address findAddressById(Integer id);
+	public Countryregion findCountryregionById(Integer id);
+	public Salestaxrate findSalestaxrateById(Integer id);
+	public Stateprovince findStateprovinceById(Integer id);
 	
-	public ResponseEntity<Address> addAddress(Address a);
-	public ResponseEntity<Countryregion> addCountryregion(Countryregion c);
-	public ResponseEntity<Salestaxrate> addSalestaxrate(Salestaxrate s);
-	public ResponseEntity<Stateprovince> addStateprovince(Stateprovince s);
+	public Address addAddress(Address a);
+	public Countryregion addCountryregion(Countryregion c);
+	public Salestaxrate addSalestaxrate(Salestaxrate s);
+	public Stateprovince addStateprovince(Stateprovince s);
 	
 	public void updateAddress(Address a);
 	public void updateCountryregion(Countryregion c);

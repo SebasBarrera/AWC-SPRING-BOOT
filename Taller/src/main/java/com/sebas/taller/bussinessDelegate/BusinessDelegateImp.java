@@ -1,6 +1,9 @@
 package com.sebas.taller.bussinessDelegate;
 
-import org.springframework.http.ResponseEntity;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.sebas.taller.model.person.Address;
@@ -8,6 +11,7 @@ import com.sebas.taller.model.person.Countryregion;
 import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.model.sales.Salestaxrate;
 
+@Component
 public class BusinessDelegateImp implements BusinessDelegate {
 
 	private final static String URL = "http://localhost:8080/";
@@ -21,63 +25,63 @@ public class BusinessDelegateImp implements BusinessDelegate {
 	
 	
 	@Override
-	public ResponseEntity<Address[]> findAllAddress() {
-		return restTemplate.getForEntity(ADDRESS_URL, Address[].class);
+	public List<Address> findAllAddress() {
+		return Arrays.asList(restTemplate.getForObject(ADDRESS_URL, Address[].class));
 	}
 
 	@Override
-	public ResponseEntity<Countryregion[]> findAllCountryregion() {
-		return restTemplate.getForEntity(COUNTRYREGION_URL, Countryregion[].class);
+	public List<Countryregion> findAllCountryregion() {
+		return Arrays.asList(restTemplate.getForObject(COUNTRYREGION_URL, Countryregion[].class));
 	}
 
 	@Override
-	public ResponseEntity<Salestaxrate[]> findAllSalestaxrate() {
-		return restTemplate.getForEntity(SALESTAXRATE_URL, Salestaxrate[].class);
+	public List<Salestaxrate> findAllSalestaxrate() {
+		return Arrays.asList(restTemplate.getForObject(SALESTAXRATE_URL, Salestaxrate[].class));
 	}
 
 	@Override
-	public ResponseEntity<Stateprovince[]> findAllStateprovince() {
-		return restTemplate.getForEntity(STATEPROVINCE_URL, Stateprovince[].class);
+	public List<Stateprovince> findAllStateprovince() {
+		return Arrays.asList(restTemplate.getForObject(STATEPROVINCE_URL, Stateprovince[].class));
 	}
 
 	@Override
-	public ResponseEntity<Address> findAddressById(Integer id) {
-		return restTemplate.getForEntity(ADDRESS_URL + "/" + id, Address.class);
+	public Address findAddressById(Integer id) {
+		return restTemplate.getForObject(ADDRESS_URL + "/" + id, Address.class);
 	}
 
 	@Override
-	public ResponseEntity<Countryregion> findCountryregionById(Integer id) {
-		return restTemplate.getForEntity(COUNTRYREGION_URL + "/" + id, Countryregion.class);
+	public Countryregion findCountryregionById(Integer id) {
+		return restTemplate.getForObject(COUNTRYREGION_URL + "/" + id, Countryregion.class);
 	}
 
 	@Override
-	public ResponseEntity<Salestaxrate> findSalestaxrateById(Integer id) {
-		return restTemplate.getForEntity(SALESTAXRATE_URL + "/" + id, Salestaxrate.class);
+	public Salestaxrate findSalestaxrateById(Integer id) {
+		return restTemplate.getForObject(SALESTAXRATE_URL + "/" + id, Salestaxrate.class);
 	}
 
 	@Override
-	public ResponseEntity<Stateprovince> findStateprovinceById(Integer id) {
-		return restTemplate.getForEntity(STATEPROVINCE_URL + "/" + id, Stateprovince.class);
+	public Stateprovince findStateprovinceById(Integer id) {
+		return restTemplate.getForObject(STATEPROVINCE_URL + "/" + id, Stateprovince.class);
 	}
 
 	@Override
-	public ResponseEntity<Address> addAddress(Address a) {
-		return restTemplate.postForEntity(ADDRESS_URL, a, Address.class);
+	public Address addAddress(Address a) {
+		return restTemplate.postForObject(ADDRESS_URL, a, Address.class);
 	}
 
 	@Override
-	public ResponseEntity<Countryregion> addCountryregion(Countryregion c) {
-		return restTemplate.postForEntity(COUNTRYREGION_URL, c, Countryregion.class);
+	public Countryregion addCountryregion(Countryregion c) {
+		return restTemplate.postForObject(COUNTRYREGION_URL, c, Countryregion.class);
 	}
 
 	@Override
-	public ResponseEntity<Salestaxrate> addSalestaxrate(Salestaxrate s) {
-		return restTemplate.postForEntity(SALESTAXRATE_URL, s, Salestaxrate.class);
+	public Salestaxrate addSalestaxrate(Salestaxrate s) {
+		return restTemplate.postForObject(SALESTAXRATE_URL, s, Salestaxrate.class);
 	}
 
 	@Override
-	public ResponseEntity<Stateprovince> addStateprovince(Stateprovince s) {
-		return restTemplate.postForEntity(STATEPROVINCE_URL, s, Stateprovince.class);
+	public Stateprovince addStateprovince(Stateprovince s) {
+		return restTemplate.postForObject(STATEPROVINCE_URL, s, Stateprovince.class);
 	}
 
 	@Override

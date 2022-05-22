@@ -1,4 +1,4 @@
-package com.sebas.taller.backRestController.implementation;
+package com.sebas.taller.web.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebas.taller.backRestController.interfaces.StateprovinceRestController;
 import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Stateprovince;
+import com.sebas.taller.web.interfaces.StateprovinceRestController;
 
 @RestController
 @RequestMapping("/stateprovince")

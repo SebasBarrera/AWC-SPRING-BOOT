@@ -46,7 +46,7 @@ public class SalestaxrateRestControllerImp implements SalestaxrateRestController
 	}
 
 	@Override
-	@DeleteMapping("/id")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		ss.delete(ss.findById(id));
 	}

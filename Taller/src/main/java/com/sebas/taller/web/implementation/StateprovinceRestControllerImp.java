@@ -46,7 +46,7 @@ public class StateprovinceRestControllerImp implements StateprovinceRestControll
 	}
 
 	@Override
-	@DeleteMapping("/id")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		ss.delete(ss.findById(id));
 	}

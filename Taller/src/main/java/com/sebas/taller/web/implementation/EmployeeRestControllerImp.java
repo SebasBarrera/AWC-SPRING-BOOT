@@ -10,45 +10,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebas.taller.model.person.Countryregion;
-import com.sebas.taller.service.person.CountryregionService;
-import com.sebas.taller.web.interfaces.CountryregionRestController;
+import com.sebas.taller.model.hr.Employee;
+import com.sebas.taller.service.hr.EmployeeService;
+import com.sebas.taller.web.interfaces.EmployeeRestController;
 
 @RestController
-@RequestMapping("/countryregion")
-public class CountryregionRestControllerImp implements CountryregionRestController {
+@RequestMapping("/employee")
+public class EmployeeRestControllerImp implements EmployeeRestController {
 
 	@Autowired
-	private CountryregionService dao;
+	private EmployeeService es;
 	
 	@Override
 	@GetMapping
-	public Iterable<Countryregion> findAll() {
-		return dao.findAll();
+	public Iterable<Employee> findAll() {
+		return es.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
-	public Countryregion findById(@PathVariable("id") Integer id) {
-		return dao.findById(id);
+	public Employee findById(@PathVariable("id") Integer id) {
+		return es.findById(id);
 	}
 
 	@Override
 	@PostMapping
-	public void save(@RequestBody Countryregion c) {
-		dao.save(c);
+	public void save(@RequestBody Employee e) {
+		es.save(e);
 	}
 
 	@Override
 	@PutMapping
-	public void update(@RequestBody Countryregion c) {
-		dao.update(c);
+	public void update(@RequestBody Employee e) {
+		es.update(e);
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
-		dao.delete(dao.findById(id));
+		es.delete(es.findById(id));
 	}
 
 }

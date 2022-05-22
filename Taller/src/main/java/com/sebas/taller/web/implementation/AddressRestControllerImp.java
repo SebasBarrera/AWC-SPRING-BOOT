@@ -46,7 +46,7 @@ public class AddressRestControllerImp implements AddressRestController {
 	}
 
 	@Override
-	@DeleteMapping("/id")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		as.delete(as.findById(id));
 	}

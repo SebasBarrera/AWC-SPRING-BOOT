@@ -8,13 +8,11 @@ import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.sebas.taller.dao.interfaces.AddressDao;
 import com.sebas.taller.model.person.Address;
 
 @Repository
-@Transactional
 @Scope("singleton")
 public class AddressDaoImp implements AddressDao {
 
@@ -38,8 +36,8 @@ public class AddressDaoImp implements AddressDao {
 		em.remove(a);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Address> findAll() {
 		String query = "SELECT a FROM Address a";
 		return em.createQuery(query).getResultList();
@@ -81,10 +79,9 @@ public class AddressDaoImp implements AddressDao {
 	}
 
 	@Override
-	public boolean existsById(Integer id) {
-		if (em.find(Address.class, id) != null) {
+	public boolean existsById(Integer addressId) {
+		if (em.find(Address.class, addressId) != null)
 			return true;
-		}
 		return false;
 	}
 	

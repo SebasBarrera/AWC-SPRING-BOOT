@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sebas.taller.bussinessDelegate.BusinessDelegate;
 import com.sebas.taller.model.person.Stateprovince;
-import com.sebas.taller.service.person.CountryregionService;
-import com.sebas.taller.service.person.StateprovinceService;
-import com.sebas.taller.service.sales.SalesterritoryService;
+//TODO import com.sebas.taller.service.sales.SalesterritoryService;
 
 @Controller
 public class StateprovinceControllerImp implements StateprovinceController {
@@ -33,7 +31,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 	public String addStateProvince(Model model) {
 		model.addAttribute("stateprovince", new Stateprovince());
 		
-		model.addAttribute("territoryids", ts.findAll());
+//TODO		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", bd.findAllCountryregion());
 		return "stateprovince/addStateprovince";
 	}
@@ -61,7 +59,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		if (!action.equals("Cancel") ) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);
-				model.addAttribute("territoryids", ts.findAll());
+//TODO				model.addAttribute("territoryids", ts.findAll());
 				model.addAttribute("countryregions", bd.findAllCountryregion());
 				return "stateprovince/addStateprovince";
 			}
@@ -77,7 +75,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		if (stateprovince == null) 
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
 		model.addAttribute("stateprovince", stateprovince);
-		model.addAttribute("territoryids", ts.findAll());
+//TODO		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", bd.findAllCountryregion());
 		return "stateprovince/editStateprovince";
 	}
@@ -89,7 +87,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);
-				model.addAttribute("territoryids", ts.findAll());
+//TODO				model.addAttribute("territoryids", ts.findAll());
 				model.addAttribute("countryregions", bd.findAllCountryregion());
 				return "stateprovince/editStateprovince";
 			}
@@ -106,7 +104,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		if (stateprovince == null) 
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
 		model.addAttribute("stateprovince", stateprovince);
-		model.addAttribute("territoryids", ts.findAll());
+//TODO		model.addAttribute("territoryids", ts.findAll());
 		model.addAttribute("countryregions", bd.findAllCountryregion());
 		return "info/stateprovince";
 	}

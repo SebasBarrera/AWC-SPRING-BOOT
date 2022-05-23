@@ -15,14 +15,14 @@ import com.sebas.taller.service.person.AddressService;
 import com.sebas.taller.web.interfaces.AddressRestController;
 
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/api/address")
 public class AddressRestControllerImp implements AddressRestController {
 
 	@Autowired
 	private AddressService as;
 	
 	@Override
-	@GetMapping
+	@GetMapping("/")
 	public Iterable<Address> findAll() {
 		return as.findAll();
 	}
@@ -34,13 +34,13 @@ public class AddressRestControllerImp implements AddressRestController {
 	}
 
 	@Override
-	@PostMapping
+	@PostMapping("/")
 	public void save(@RequestBody Address a) {
 		as.save(a);
 	}
 
 	@Override
-	@PutMapping
+	@PutMapping("/")
 	public void update(@RequestBody Address a) {
 		as.update(a);
 	}

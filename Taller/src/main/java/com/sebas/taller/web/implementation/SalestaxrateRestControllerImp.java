@@ -15,14 +15,14 @@ import com.sebas.taller.service.sales.SalestaxrateService;
 import com.sebas.taller.web.interfaces.SalestaxrateRestController;
 
 @RestController
-@RequestMapping("/salestaxrate")
+@RequestMapping("/api/salestaxrate")
 public class SalestaxrateRestControllerImp implements SalestaxrateRestController {
 
 	@Autowired
 	private SalestaxrateService ss;
 	
 	@Override
-	@GetMapping
+	@GetMapping("/")
 	public Iterable<Salestaxrate> findAll() {
 		return ss.findAll();
 	}
@@ -34,13 +34,13 @@ public class SalestaxrateRestControllerImp implements SalestaxrateRestController
 	}
 
 	@Override
-	@PostMapping
+	@PostMapping("/")
 	public void save(@RequestBody Salestaxrate s) {
 		ss.save(s);
 	}
 
 	@Override
-	@PutMapping
+	@PutMapping("/")
 	public void update(@RequestBody Salestaxrate s) {
 		ss.update(s);
 	}

@@ -15,14 +15,14 @@ import com.sebas.taller.service.person.CountryregionService;
 import com.sebas.taller.web.interfaces.CountryregionRestController;
 
 @RestController
-@RequestMapping("/countryregion")
+@RequestMapping("/api/countryregion")
 public class CountryregionRestControllerImp implements CountryregionRestController {
 
 	@Autowired
 	private CountryregionService dao;
 	
 	@Override
-	@GetMapping
+	@GetMapping("/")
 	public Iterable<Countryregion> findAll() {
 		return dao.findAll();
 	}
@@ -34,13 +34,13 @@ public class CountryregionRestControllerImp implements CountryregionRestControll
 	}
 
 	@Override
-	@PostMapping
+	@PostMapping("/")
 	public void save(@RequestBody Countryregion c) {
 		dao.save(c);
 	}
 
 	@Override
-	@PutMapping
+	@PutMapping("/")
 	public void update(@RequestBody Countryregion c) {
 		dao.update(c);
 	}

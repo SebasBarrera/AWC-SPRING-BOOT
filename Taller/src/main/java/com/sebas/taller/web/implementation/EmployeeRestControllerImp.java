@@ -15,14 +15,14 @@ import com.sebas.taller.service.hr.EmployeeService;
 import com.sebas.taller.web.interfaces.EmployeeRestController;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/api/employee")
 public class EmployeeRestControllerImp implements EmployeeRestController {
 
 	@Autowired
 	private EmployeeService es;
 	
 	@Override
-	@GetMapping
+	@GetMapping("/")
 	public Iterable<Employee> findAll() {
 		return es.findAll();
 	}
@@ -34,13 +34,13 @@ public class EmployeeRestControllerImp implements EmployeeRestController {
 	}
 
 	@Override
-	@PostMapping
+	@PostMapping("/")
 	public void save(@RequestBody Employee e) {
 		es.save(e);
 	}
 
 	@Override
-	@PutMapping
+	@PutMapping("/")
 	public void update(@RequestBody Employee e) {
 		es.update(e);
 	}

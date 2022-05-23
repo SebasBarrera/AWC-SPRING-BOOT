@@ -15,14 +15,14 @@ import com.sebas.taller.service.person.StateprovinceService;
 import com.sebas.taller.web.interfaces.StateprovinceRestController;
 
 @RestController
-@RequestMapping("/stateprovince")
+@RequestMapping("/api/stateprovince")
 public class StateprovinceRestControllerImp implements StateprovinceRestController {
 
 	@Autowired
 	private StateprovinceService ss;
 	
 	@Override
-	@GetMapping
+	@GetMapping("/")
 	public Iterable<Stateprovince> findAll() {
 		return ss.findAll();
 	}
@@ -34,13 +34,13 @@ public class StateprovinceRestControllerImp implements StateprovinceRestControll
 	}
 
 	@Override
-	@PostMapping
+	@PostMapping("/")
 	public void save(@RequestBody Stateprovince s) {
 		ss.save(s);
 	}
 
 	@Override
-	@PutMapping
+	@PutMapping("/")
 	public void update(@RequestBody Stateprovince s) {
 		ss.update(s);
 	}

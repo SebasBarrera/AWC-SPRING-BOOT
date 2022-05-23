@@ -16,13 +16,13 @@ import com.sebas.taller.model.sales.Salestaxrate;
 @Component
 public class BusinessDelegateImp implements BusinessDelegate {
 
-	private final static String URL = "http://localhost:8080/";
-	private final static String ADDRESS_URL = URL + "/address";
-	private final static String COUNTRYREGION_URL = URL + "/countryregion";
-	private final static String SALESTAXRATE_URL = URL + "/salestaxrate";
-	private final static String STATEPROVINCE_URL = URL + "/stateprovince";
-	private final static String PERSON_URL = URL + "/person";
-	private final static String EMPLOYEE_URL = URL + "/employee";
+	private final static String URL = "http://localhost:8080/api";
+	private final static String ADDRESS_URL = URL + "/address/";
+	private final static String COUNTRYREGION_URL = URL + "/countryregion/";
+	private final static String SALESTAXRATE_URL = URL + "/salestaxrate/";
+	private final static String STATEPROVINCE_URL = URL + "/stateprovince/";
+	private final static String PERSON_URL = URL + "/person/";
+	private final static String EMPLOYEE_URL = URL + "/employee/";
 	
 	private RestTemplate restTemplate = new RestTemplate();
 	
@@ -49,22 +49,22 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
 	@Override
 	public Address findAddressById(Integer id) {
-		return restTemplate.getForObject(ADDRESS_URL + "/" + id, Address.class);
+		return restTemplate.getForObject(ADDRESS_URL+ id, Address.class);
 	}
 
 	@Override
 	public Countryregion findCountryregionById(Integer id) {
-		return restTemplate.getForObject(COUNTRYREGION_URL + "/" + id, Countryregion.class);
+		return restTemplate.getForObject(COUNTRYREGION_URL+ id, Countryregion.class);
 	}
 
 	@Override
 	public Salestaxrate findSalestaxrateById(Integer id) {
-		return restTemplate.getForObject(SALESTAXRATE_URL + "/" + id, Salestaxrate.class);
+		return restTemplate.getForObject(SALESTAXRATE_URL+ id, Salestaxrate.class);
 	}
 
 	@Override
 	public Stateprovince findStateprovinceById(Integer id) {
-		return restTemplate.getForObject(STATEPROVINCE_URL + "/" + id, Stateprovince.class);
+		return restTemplate.getForObject(STATEPROVINCE_URL+ id, Stateprovince.class);
 	}
 
 	@Override
@@ -139,12 +139,12 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
 	@Override
 	public Person findPersonById(Integer id) {
-		return restTemplate.getForObject(PERSON_URL + "/" + id, Person.class);
+		return restTemplate.getForObject(PERSON_URL+ id, Person.class);
 	}
 
 	@Override
 	public Employee findEmployeeById(Integer id) {
-		return restTemplate.getForObject(EMPLOYEE_URL + "/" + id, Employee.class);
+		return restTemplate.getForObject(EMPLOYEE_URL+ id, Employee.class);
 	}
 
 	@Override

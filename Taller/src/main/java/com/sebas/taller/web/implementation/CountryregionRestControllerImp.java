@@ -22,7 +22,7 @@ public class CountryregionRestControllerImp implements CountryregionRestControll
 	private CountryregionService dao;
 	
 	@Override
-	@GetMapping("/")
+	@RequestMapping
 	public Iterable<Countryregion> findAll() {
 		return dao.findAll();
 	}

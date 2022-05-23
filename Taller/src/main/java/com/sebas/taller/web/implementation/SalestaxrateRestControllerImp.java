@@ -22,7 +22,7 @@ public class SalestaxrateRestControllerImp implements SalestaxrateRestController
 	private SalestaxrateService ss;
 	
 	@Override
-	@GetMapping("/")
+	@RequestMapping
 	public Iterable<Salestaxrate> findAll() {
 		return ss.findAll();
 	}

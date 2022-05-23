@@ -11,7 +11,7 @@ import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Address;
 
 @Service
-
+@Transactional
 public class AddressServiceImp implements AddressService{
 	
 	
@@ -26,7 +26,7 @@ public class AddressServiceImp implements AddressService{
 	}
 
 	@Override
-	@Transactional
+	
 	public Address save(Address a) {
 		if (a != null) {
 			

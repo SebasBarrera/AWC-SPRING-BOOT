@@ -22,7 +22,7 @@ public class AddressRestControllerImp implements AddressRestController {
 	private AddressService as;
 	
 	@Override
-	@GetMapping("/")
+	@RequestMapping
 	public Iterable<Address> findAll() {
 		return as.findAll();
 	}

@@ -15,38 +15,37 @@ import com.sebas.taller.service.hr.EmployeeService;
 import com.sebas.taller.web.interfaces.EmployeeRestController;
 
 @RestController
-@RequestMapping("/api/employee")
 public class EmployeeRestControllerImp implements EmployeeRestController {
 
 	@Autowired
 	private EmployeeService es;
 	
 	@Override
-	@GetMapping("/")
+	@RequestMapping("/api/employee/")
 	public Iterable<Employee> findAll() {
 		return es.findAll();
 	}
 
 	@Override
-	@GetMapping("/{id}")
+	@GetMapping("/api/employee/{id}")
 	public Employee findById(@PathVariable("id") Integer id) {
 		return es.findById(id);
 	}
 
 	@Override
-	@PostMapping("/")
+	@PostMapping("/api/employee/")
 	public void save(@RequestBody Employee e) {
 		es.save(e);
 	}
 
 	@Override
-	@PutMapping("/")
+	@PutMapping("/api/employee/")
 	public void update(@RequestBody Employee e) {
 		es.update(e);
 	}
 
 	@Override
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/api/employee/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		es.delete(es.findById(id));
 	}

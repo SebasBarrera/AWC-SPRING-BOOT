@@ -22,7 +22,7 @@ public class PersonRestControllerImp implements PersonRestController {
 	private PersonService ps;
 	
 	@Override
-	@GetMapping("/")
+	@RequestMapping
 	public Iterable<Person> findAll() {
 		return ps.findAll();
 	}

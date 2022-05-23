@@ -11,6 +11,7 @@ import com.sebas.taller.model.person.Stateprovince;
 import com.sebas.taller.repository.sales.SalesterritoryRepository;
 
 @Service
+@Transactional
 public class StateprovinceServiceImp implements StateprovinceService {
 
 	private StateprovinceDao stateprovinceDao;

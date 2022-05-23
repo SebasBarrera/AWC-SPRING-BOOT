@@ -22,7 +22,7 @@ public class StateprovinceRestControllerImp implements StateprovinceRestControll
 	private StateprovinceService ss;
 	
 	@Override
-	@GetMapping("/")
+	@RequestMapping
 	public Iterable<Stateprovince> findAll() {
 		return ss.findAll();
 	}

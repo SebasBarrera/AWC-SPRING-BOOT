@@ -19,36 +19,36 @@ import com.sebas.taller.web.interfaces.SalestaxrateRestController;
 public class SalestaxrateRestControllerImp implements SalestaxrateRestController {
 
 	@Autowired
-	private SalestaxrateService ss;
+	private SalestaxrateService service;
 	
 	@Override
-	@RequestMapping
+	@GetMapping("/")
 	public Iterable<Salestaxrate> findAll() {
-		return ss.findAll();
+		return service.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public Salestaxrate findById(@PathVariable("id") Integer id) {
-		return ss.findById(id);
+		return service.findById(id);
 	}
 
 	@Override
 	@PostMapping("/")
 	public void save(@RequestBody Salestaxrate s) {
-		ss.save(s);
+		service.save(s);
 	}
 
 	@Override
-	@PutMapping("/")
-	public void update(@RequestBody Salestaxrate s) {
-		ss.update(s);
+	@PutMapping("/{id}")
+	public void update(@RequestBody Salestaxrate s, @PathVariable("id") Integer id) {
+		service.update(s);
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
-		ss.delete(ss.findById(id));
+		service.delete(service.findById(id));
 	}
 
 }

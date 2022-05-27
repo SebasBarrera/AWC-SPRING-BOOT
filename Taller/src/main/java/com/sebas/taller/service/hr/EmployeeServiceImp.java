@@ -1,5 +1,6 @@
 package com.sebas.taller.service.hr;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sebas.taller.dao.interfaces.EmployeeDao;
@@ -8,7 +9,14 @@ import com.sebas.taller.model.hr.Employee;
 @Service
 public class EmployeeServiceImp implements EmployeeService {
 
+	
+	
 	public EmployeeDao employeeDao;
+	
+	@Autowired
+	public EmployeeServiceImp(EmployeeDao employeeDao) {
+		this.employeeDao = employeeDao;
+	}
 	
 	@Override
 	public Employee save(Employee e) {

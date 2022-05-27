@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sebas.taller.model.hr.Employee;
@@ -21,7 +20,7 @@ public class EmployeeRestControllerImp implements EmployeeRestController {
 	private EmployeeService es;
 	
 	@Override
-	@RequestMapping("/api/employee/")
+	@GetMapping("/api/employee/")
 	public Iterable<Employee> findAll() {
 		return es.findAll();
 	}
@@ -39,8 +38,8 @@ public class EmployeeRestControllerImp implements EmployeeRestController {
 	}
 
 	@Override
-	@PutMapping("/api/employee/")
-	public void update(@RequestBody Employee e) {
+	@PutMapping("/api/employee/{id}")
+	public void update(@RequestBody Employee e, @PathVariable("id") Integer id) {
 		es.update(e);
 	}
 

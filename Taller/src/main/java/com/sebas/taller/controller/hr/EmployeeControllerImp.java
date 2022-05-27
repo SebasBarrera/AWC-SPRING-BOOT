@@ -41,7 +41,7 @@ public class EmployeeControllerImp implements EmployeeController {
 	}
 
 	@Override
-	@PostMapping("/employee/")
+	@GetMapping("/employee/")
 	public String indexEmployee(Model model) {
 		model.addAttribute("employees", bd.findAllEmployee());
 		return "employee/index";
@@ -62,7 +62,7 @@ public class EmployeeControllerImp implements EmployeeController {
 	}
 
 	@Override
-	@PostMapping("/empoyee/editEmployee/{employeeid}")
+	@GetMapping("/empoyee/editEmployee/{employeeid}")
 	public String showUpdateForm(@PathVariable("employeeid") Integer employeeid, Model model) {
 		Employee employee = bd.findEmployeeById(employeeid);
 		if (employee == null) 

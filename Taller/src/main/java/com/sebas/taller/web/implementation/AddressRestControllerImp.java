@@ -19,36 +19,36 @@ import com.sebas.taller.web.interfaces.AddressRestController;
 public class AddressRestControllerImp implements AddressRestController {
 
 	@Autowired
-	private AddressService as;
+	private AddressService service;
 	
 	@Override
-	@RequestMapping
+	@GetMapping("/")
 	public Iterable<Address> findAll() {
-		return as.findAll();
+		return service.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public Address findById(@PathVariable("id") Integer id) {
-		return as.findById(id);
+		return service.findById(id);
 	}
 
 	@Override
 	@PostMapping("/")
 	public void save(@RequestBody Address a) {
-		as.save(a);
+		service.save(a);
 	}
 
 	@Override
-	@PutMapping("/")
-	public void update(@RequestBody Address a) {
-		as.update(a);
+	@PutMapping("/{id}")
+	public void update(@RequestBody Address a, @PathVariable("id") Integer id) {
+		service.update(a);
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
-		as.delete(as.findById(id));
+		service.delete(service.findById(id));
 	}
 
 }

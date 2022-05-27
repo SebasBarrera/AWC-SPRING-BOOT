@@ -22,7 +22,7 @@ public class PersonRestControllerImp implements PersonRestController {
 	private PersonService ps;
 	
 	@Override
-	@RequestMapping
+	@GetMapping("/")
 	public Iterable<Person> findAll() {
 		return ps.findAll();
 	}
@@ -40,8 +40,8 @@ public class PersonRestControllerImp implements PersonRestController {
 	}
 
 	@Override
-	@PutMapping("/")
-	public void update(@RequestBody Person p) {
+	@PutMapping("/{id}")
+	public void update(@RequestBody Person p, @PathVariable("id") Integer id) {
 		ps.update(p);
 	}
 

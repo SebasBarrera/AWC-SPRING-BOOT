@@ -7,7 +7,7 @@ public interface CountryregionRestController {
 	public Iterable<Countryregion> findAll();
 	public Countryregion findById(Integer id);
 	public void save(Countryregion c);
-	public void update(Countryregion c);
+	public void update(Countryregion c, Integer id);
 	public void delete(Integer id);
 	
 }

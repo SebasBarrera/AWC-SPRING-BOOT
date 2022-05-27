@@ -19,36 +19,36 @@ import com.sebas.taller.web.interfaces.StateprovinceRestController;
 public class StateprovinceRestControllerImp implements StateprovinceRestController {
 
 	@Autowired
-	private StateprovinceService ss;
+	private StateprovinceService service;
 	
 	@Override
-	@RequestMapping
+	@GetMapping("/")
 	public Iterable<Stateprovince> findAll() {
-		return ss.findAll();
+		return service.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public Stateprovince findById(@PathVariable("id") Integer id) {
-		return ss.findById(id);
+		return service.findById(id);
 	}
 
 	@Override
 	@PostMapping("/")
 	public void save(@RequestBody Stateprovince s) {
-		ss.save(s);
+		service.save(s);
 	}
 
 	@Override
-	@PutMapping("/")
-	public void update(@RequestBody Stateprovince s) {
-		ss.update(s);
+	@PutMapping("/{id}")
+	public void update(@RequestBody Stateprovince s, @PathVariable("id") Integer id) {
+		service.update(s);
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
-		ss.delete(ss.findById(id));
+		service.delete(service.findById(id));
 	}
 
 }

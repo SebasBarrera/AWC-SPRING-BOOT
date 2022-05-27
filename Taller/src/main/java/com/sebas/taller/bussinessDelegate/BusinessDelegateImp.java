@@ -1,8 +1,14 @@
 package com.sebas.taller.bussinessDelegate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +31,19 @@ public class BusinessDelegateImp implements BusinessDelegate {
 	private final static String EMPLOYEE_URL = URL + "/employee/";
 	
 	private RestTemplate restTemplate = new RestTemplate();
+	
+	public BusinessDelegateImp() {
+		
+		 List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+
+         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+
+         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+         messageConverters.add(converter);
+
+         this.restTemplate.setMessageConverters(messageConverters);
+	}
 	
 	
 	@Override
@@ -149,12 +168,14 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
 	@Override
 	public Person addPerson(Person p) {
+		
 		return restTemplate.postForObject(PERSON_URL, p, Person.class);
 	}
 
 	@Override
 	public Employee addEmployee(Employee e) {
-		return restTemplate.postForObject(EMPLOYEE_URL, e, Employee.class);
+		HttpEntity<Employee> http = new HttpEntity<Employee>(e);
+		return restTemplate.postForObject(EMPLOYEE_URL, http, Employee.class);
 	}
 
 	@Override

@@ -7,6 +7,6 @@ public interface EmployeeRestController {
 	public Iterable<Employee> findAll();
 	public Employee findById(Integer id);
 	public void save(Employee e);
-	public void update(Employee e);
+	public void update(Employee e, Integer i);
 	public void delete(Integer id);
 }

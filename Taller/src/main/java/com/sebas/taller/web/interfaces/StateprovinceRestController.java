@@ -7,7 +7,7 @@ public interface StateprovinceRestController {
 	public Iterable<Stateprovince> findAll();
 	public Stateprovince findById(Integer id);
 	public void save(Stateprovince s);
-	public void update(Stateprovince s);
+	public void update(Stateprovince s, Integer id);
 	public void delete(Integer id);
 	
 }

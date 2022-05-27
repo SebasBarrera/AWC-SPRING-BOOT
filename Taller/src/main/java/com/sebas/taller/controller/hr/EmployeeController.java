@@ -23,4 +23,6 @@ public interface EmployeeController {
 	public String updateEmployee(@PathVariable("id") Integer id,
 			@RequestParam(value = "action", required = true) String action, @ModelAttribute Employee e, BindingResult b, Model model);
 
+	String showInfoForm(Integer countryregionid, Model model);
+
 }

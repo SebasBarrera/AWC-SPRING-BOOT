@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sebas.taller.bussinessDelegate.interfaces.EmployeeBD;
 import com.sebas.taller.model.hr.Employee;
-import com.sebas.taller.model.person.Address;
 
 @Controller
 public class EmployeeControllerImp implements EmployeeController {
@@ -33,9 +31,9 @@ public class EmployeeControllerImp implements EmployeeController {
 	}
 
 	@Override
-	@GetMapping("/employee/delete/{employeeid}")
-	public String deleteEmployee(Integer employeeid, Model model) {
-		bd.deleteEmployee(employeeid);
+	@GetMapping("/employee/delete/{businessentityid}")
+	public String deleteEmployee(@PathVariable("businessentityid") Integer businessentityid, Model model) {
+		bd.deleteEmployee(businessentityid);
 		model.addAttribute("employees", bd.findAllEmployee());
 		return "employee/index";
 	}
@@ -49,7 +47,7 @@ public class EmployeeControllerImp implements EmployeeController {
 
 	@Override
 	@PostMapping("/employee/addEmployee")
-	public String saveEmployee(@Validated(Address.Validation.class) @ModelAttribute Employee employee, BindingResult bindingResult, Model model,
+	public String saveEmployee(@ModelAttribute Employee employee, BindingResult bindingResult, Model model,
 			@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
@@ -62,19 +60,19 @@ public class EmployeeControllerImp implements EmployeeController {
 	}
 
 	@Override
-	@GetMapping("/empoyee/editEmployee/{employeeid}")
-	public String showUpdateForm(@PathVariable("employeeid") Integer employeeid, Model model) {
-		Employee employee = bd.findEmployeeById(employeeid);
+	@GetMapping("/empoyee/editEmployee/{businessentityid}")
+	public String showUpdateForm(@PathVariable("businessentityid") Integer businessentityid, Model model) {
+		Employee employee = bd.findEmployeeById(businessentityid);
 		if (employee == null) 
-			throw new IllegalArgumentException("Invalid employee Id: " + employeeid);
+			throw new IllegalArgumentException("Invalid employee Id: " + businessentityid);
 		model.addAttribute("employee", employee);
 		return "employee/editEmployee";
 	}
 
 	@Override
-	@PostMapping("/employee/editEmployee/{employeeid}")
-	public String updateEmployee(@PathVariable("employeeid") Integer employeeid, @RequestParam(value = "action", required = true) String action, 
-			@Validated(Address.Validation.class) @ModelAttribute Employee employee, BindingResult bindingResult, Model model) {
+	@PostMapping("/employee/editEmployee/{businessentityid}")
+	public String updateEmployee(@PathVariable("businessentityid") Integer businessentityid, @RequestParam(value = "action", required = true) String action, 
+			@ModelAttribute Employee employee, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("employee", employee);
@@ -86,6 +84,12 @@ public class EmployeeControllerImp implements EmployeeController {
 		return "redirect:/employee/";
 	}
 	
-	
+	@Override
+	@GetMapping("/info/employee/{businessentityid}")
+	public String showInfoForm(@PathVariable("businessentityid") Integer businessentityid, Model model) {
+		Employee employee = bd.findEmployeeById(businessentityid);
+		model.addAttribute("employee", employee);
+		return "info/employee";
+	}
 
 }

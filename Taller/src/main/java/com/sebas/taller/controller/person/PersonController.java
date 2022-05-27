@@ -23,4 +23,6 @@ public interface PersonController {
 	public String updatePerson(@PathVariable("id") Integer id,
 			@RequestParam(value = "action", required = true) String action, @ModelAttribute Person p, BindingResult b, Model model);
 
+	String showInfoForm(Integer businessentityid, Model model);
+
 }

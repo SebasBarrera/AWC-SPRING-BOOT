@@ -50,12 +50,12 @@ public class AddressBDImp implements AddressBD {
 	@Override
 	public void updateAddress(Address a) {
 		HttpEntity<Address> http = new HttpEntity<Address>(a);
-		restTemplate.put(URL, http);
+		restTemplate.put(URL + a.getAddressid(), http);
 	}
 	
 	@Override
 	public void deleteAddress(Integer id) {
-		restTemplate.delete(URL, Integer.class);
+		restTemplate.delete(URL + id, Integer.class);
 	}
 	
 	

@@ -50,10 +50,10 @@ public class StateprovinceBDImp implements StateprovinceBD{
 	@Override
 	public void updateStateprovince(Stateprovince s) {
 		HttpEntity<Stateprovince> http = new HttpEntity<Stateprovince>(s);
-		restTemplate.put(URL, http);
+		restTemplate.put(URL + s.getStateprovinceid(), http);
 	}
 	@Override
 	public void deleteStateprovince(Integer id) {
-		restTemplate.delete(URL, Integer.class);
+		restTemplate.delete(URL + id, Integer.class);
 	}
 }

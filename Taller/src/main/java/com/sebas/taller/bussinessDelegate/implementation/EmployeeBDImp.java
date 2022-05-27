@@ -50,11 +50,11 @@ public class EmployeeBDImp implements EmployeeBD{
 	@Override
 	public void updateEmployee(Employee e) {
 		HttpEntity<Employee> http = new HttpEntity<Employee>(e);
-		restTemplate.put(URL, http);
+		restTemplate.put(URL + e.getBusinessentityid(), http);
 	}
 	
 	@Override
 	public void deleteEmployee(Integer id) {
-		restTemplate.delete(URL, Integer.class);
+		restTemplate.delete(URL + id, Integer.class);
 	}
 }

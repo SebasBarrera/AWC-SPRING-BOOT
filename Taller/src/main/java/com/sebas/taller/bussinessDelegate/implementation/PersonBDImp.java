@@ -50,11 +50,11 @@ public class PersonBDImp implements PersonBD{
 	@Override
 	public void updatePerson(Person p) {
 		HttpEntity<Person> http = new HttpEntity<Person>(p);
-		restTemplate.put(URL, http);
+		restTemplate.put(URL + p.getBusinessentityid(), http);
 	}
 
 	@Override
 	public void deletePerson(Integer id) {
-		restTemplate.delete(URL, Integer.class);
+		restTemplate.delete(URL + id, Integer.class);
 	}
 }

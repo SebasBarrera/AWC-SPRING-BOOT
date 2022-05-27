@@ -50,12 +50,12 @@ public class CountryregionBDImp implements CountryregionBD {
 	@Override
 	public void updateCountryregion(Countryregion c) {
 		HttpEntity<Countryregion> http = new HttpEntity<Countryregion>(c);
-		restTemplate.put(URL, http);
+		restTemplate.put(URL + c.getCountryregionid(), http);
 	}
 	
 	@Override
 	public void deleteCountryregion(Integer id) {
-		restTemplate.delete(URL, Integer.class);
+		restTemplate.delete(URL + id, Integer.class);
 	}
 	
 	

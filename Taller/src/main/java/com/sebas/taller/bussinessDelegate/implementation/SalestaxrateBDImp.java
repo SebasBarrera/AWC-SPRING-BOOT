@@ -50,11 +50,11 @@ public class SalestaxrateBDImp implements SalestaxrateBD{
 	@Override
 	public void updateSalestaxrate(Salestaxrate s) {
 		HttpEntity<Salestaxrate> http = new HttpEntity<Salestaxrate>(s);
-		restTemplate.put(URL, http);
+		restTemplate.put(URL + s.getSalestaxrateid(), http);
 	}
 
 	@Override
 	public void deleteSalestaxrate(Integer id) {
-		restTemplate.delete(URL, Integer.class);
+		restTemplate.delete(URL + id, Integer.class);
 	}
 }

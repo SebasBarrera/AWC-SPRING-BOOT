@@ -1,6 +1,4 @@
-       package com.sebas.taller;
-
-
+package com.sebas.taller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,7 +24,6 @@ import com.sebas.taller.service.sales.SalestaxrateService;
 import com.sebas.taller.service.sales.SalestaxrateServiceImp;
 import com.sebas.taller.service.sales.SalesterritoryService;
 import com.sebas.taller.service.sales.SalesterritoryServiceImp;
-
 
 @SpringBootApplication
 public class TallerApplication {

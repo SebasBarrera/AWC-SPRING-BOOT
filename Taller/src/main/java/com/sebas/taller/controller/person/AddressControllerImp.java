@@ -13,16 +13,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sebas.taller.bussinessDelegate.BusinessDelegate;
+import com.sebas.taller.bussinessDelegate.interfaces.AddressBD;
+import com.sebas.taller.bussinessDelegate.interfaces.StateprovinceBD;
 import com.sebas.taller.model.person.Address;
 
 @Controller
 public class AddressControllerImp implements AddressController {
 	
-	BusinessDelegate bd;
+	AddressBD bd;
+	StateprovinceBD sbd;
 	
 	@Autowired
-	public AddressControllerImp(BusinessDelegate bd) {
+	public AddressControllerImp(AddressBD bd, StateprovinceBD sbd) {
+		this.sbd = sbd;
 		this.bd = bd;
 	}
 
@@ -31,7 +34,7 @@ public class AddressControllerImp implements AddressController {
 	public String addAddress(Model model) {
 		model.addAttribute("address", new Address());
 		
-		model.addAttribute("stateprovinces", bd.findAllStateprovince());
+		model.addAttribute("stateprovinces", sbd.findAllStateprovince());
 		return "address/addAddress";
 	}
 
@@ -67,7 +70,7 @@ public class AddressControllerImp implements AddressController {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("address", address);
-				model.addAttribute("stateprovinces", bd.findAllStateprovince());
+				model.addAttribute("stateprovinces", sbd.findAllStateprovince());
 				return "address/addAddress";
 			}
 			bd.addAddress(address);
@@ -84,7 +87,7 @@ public class AddressControllerImp implements AddressController {
 		model.addAttribute("address", address);
 
 
-		model.addAttribute("stateprovinces", bd.findAllStateprovince());
+		model.addAttribute("stateprovinces", sbd.findAllStateprovince());
 		return "address/editAddress";
 	}
 
@@ -95,7 +98,7 @@ public class AddressControllerImp implements AddressController {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("address", address);
-				model.addAttribute("stateprovinces", bd.findAllStateprovince());
+				model.addAttribute("stateprovinces", sbd.findAllStateprovince());
 				return "address/editAddress";
 			}
 			bd.updateAddress(address);

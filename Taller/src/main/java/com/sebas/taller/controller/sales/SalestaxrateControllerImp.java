@@ -12,18 +12,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sebas.taller.bussinessDelegate.BusinessDelegate;
+import com.sebas.taller.bussinessDelegate.interfaces.SalestaxrateBD;
+import com.sebas.taller.bussinessDelegate.interfaces.StateprovinceBD;
 import com.sebas.taller.model.sales.Salestaxrate;
 
 @Controller
 public class SalestaxrateControllerImp implements SalestaxrateController {
 
 	
-	BusinessDelegate bd;
+	SalestaxrateBD bd;
+	StateprovinceBD sbd;
 
 	@Autowired
-	public SalestaxrateControllerImp(BusinessDelegate bd) {
+	public SalestaxrateControllerImp(SalestaxrateBD bd, StateprovinceBD sbd) {
 		this.bd = bd;
+		this.sbd = sbd;
 	}
 	
 	@Override
@@ -31,7 +34,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 	public String addSalestaxrate(Model model) {
 		model.addAttribute("salestaxrate", new Salestaxrate());
 		
-		model.addAttribute("stateprovinces", bd.findAllStateprovince());
+		model.addAttribute("stateprovinces", sbd.findAllStateprovince());
 		return "salestaxrate/addSalestaxrate";
 	}
 
@@ -58,7 +61,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("salestaxrate", salestaxrate);
-				model.addAttribute("stateprovinces", bd.findAllStateprovince());
+				model.addAttribute("stateprovinces", sbd.findAllStateprovince());
 				return "salestaxrate/addSalestaxrate";
 			}
 			bd.addSalestaxrate(salestaxrate);
@@ -74,7 +77,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 		if (salestaxrate == null)
 			throw new IllegalArgumentException("Invalid salestaxrate id: " + salestaxrateid);
 		model.addAttribute("salestaxrate", salestaxrate);
-		model.addAttribute("stateprovinces", bd.findAllStateprovince());
+		model.addAttribute("stateprovinces", sbd.findAllStateprovince());
 		return "salestaxrate/editSalestaxrate";
 	}
 
@@ -85,7 +88,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("salestaxrate", salestaxrate);
-				model.addAttribute("stateprovinces", bd.findAllStateprovince());
+				model.addAttribute("stateprovinces", sbd.findAllStateprovince());
 				return "salestaxrate/editSalestaxrate";
 			}
 			bd.updateSalestaxrate(salestaxrate);

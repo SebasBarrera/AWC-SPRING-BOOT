@@ -12,22 +12,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sebas.taller.bussinessDelegate.BusinessDelegate;
+import com.sebas.taller.bussinessDelegate.interfaces.CountryregionBD;
+import com.sebas.taller.bussinessDelegate.interfaces.StateprovinceBD;
 import com.sebas.taller.model.person.Stateprovince;
-//TODO import com.sebas.taller.service.sales.SalesterritoryService;
 import com.sebas.taller.service.sales.SalesterritoryService;
 
 @Controller
 public class StateprovinceControllerImp implements StateprovinceController {
 
-	BusinessDelegate bd;
+	StateprovinceBD bd;
 	SalesterritoryService ts;
+	CountryregionBD cbd;
 	
 	
 	@Autowired
-	public StateprovinceControllerImp(BusinessDelegate bd, SalesterritoryService ts) {
+	public StateprovinceControllerImp(StateprovinceBD bd, SalesterritoryService ts, CountryregionBD cbd) {
 		this.bd = bd;
 		this.ts = ts;
+		this.cbd = cbd;
 	}
 	
 	@Override
@@ -36,7 +38,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 		model.addAttribute("stateprovince", new Stateprovince());
 		
 		model.addAttribute("territoryids", ts.findAll());
-		model.addAttribute("countryregions", bd.findAllCountryregion());
+		model.addAttribute("countryregions", cbd.findAllCountryregion());
 		return "stateprovince/addStateprovince";
 	}
 
@@ -64,7 +66,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);
 				model.addAttribute("territoryids", ts.findAll());
-				model.addAttribute("countryregions", bd.findAllCountryregion());
+				model.addAttribute("countryregions", cbd.findAllCountryregion());
 				return "stateprovince/addStateprovince";
 			}
 			bd.addStateprovince(stateprovince);
@@ -80,7 +82,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
 		model.addAttribute("stateprovince", stateprovince);
 		model.addAttribute("territoryids", ts.findAll());
-		model.addAttribute("countryregions", bd.findAllCountryregion());
+		model.addAttribute("countryregions", cbd.findAllCountryregion());
 		return "stateprovince/editStateprovince";
 	}
 
@@ -92,7 +94,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("stateprovince", stateprovince);
 				model.addAttribute("territoryids", ts.findAll());
-				model.addAttribute("countryregions", bd.findAllCountryregion());
+				model.addAttribute("countryregions", cbd.findAllCountryregion());
 				return "stateprovince/editStateprovince";
 			}
 			bd.updateStateprovince(stateprovince);
@@ -109,7 +111,7 @@ public class StateprovinceControllerImp implements StateprovinceController {
 			throw new IllegalArgumentException("Invalid state province id: " + stateprovinceid);
 		model.addAttribute("stateprovince", stateprovince);
 		model.addAttribute("territoryids", ts.findAll());
-		model.addAttribute("countryregions", bd.findAllCountryregion());
+		model.addAttribute("countryregions", cbd.findAllCountryregion());
 		return "info/stateprovince";
 	}
 

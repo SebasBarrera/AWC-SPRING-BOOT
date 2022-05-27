@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sebas.taller.bussinessDelegate.BusinessDelegate;
+import com.sebas.taller.bussinessDelegate.interfaces.PersonBD;
 import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Person;
 
 @Controller
 public class PersonControllerImp implements PersonController {
 
-	BusinessDelegate bd;
+	PersonBD bd;
 	
 	@Autowired
-	public PersonControllerImp(BusinessDelegate bd) {
+	public PersonControllerImp(PersonBD bd) {
 		this.bd = bd;
 	}
 	

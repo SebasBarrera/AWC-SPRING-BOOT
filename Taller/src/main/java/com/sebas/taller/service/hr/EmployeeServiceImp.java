@@ -1,26 +1,35 @@
 package com.sebas.taller.service.hr;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sebas.taller.dao.interfaces.EmployeeDao;
+import com.sebas.taller.dao.interfaces.PersonDao;
 import com.sebas.taller.model.hr.Employee;
+import com.sebas.taller.model.person.Person;
 
 @Service
+@Transactional
 public class EmployeeServiceImp implements EmployeeService {
 
 	
-	
 	public EmployeeDao employeeDao;
+	public PersonDao personDao;
 	
 	@Autowired
-	public EmployeeServiceImp(EmployeeDao employeeDao) {
+	public EmployeeServiceImp(EmployeeDao employeeDao, PersonDao personDao) {
 		this.employeeDao = employeeDao;
+		this.personDao = personDao;
 	}
 	
 	@Override
 	public Employee save(Employee e) {
-		return employeeDao.save(e);
+		Person p = new Person();
+		employeeDao.save(e);
+		personDao.save(p);
+		return employeeDao.findById(e.getBusinessentityid());
 	}
 
 	@Override

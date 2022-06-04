@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,6 +22,7 @@ public class SalestaxrateBDImp implements SalestaxrateBD{
 
 	private final static String URL = "http://localhost:8080/api/salestaxrate/";
 	
+	@Autowired
 	private RestTemplate restTemplate;
 	
 	public SalestaxrateBDImp() {
@@ -48,13 +51,23 @@ public class SalestaxrateBDImp implements SalestaxrateBD{
 	}
 	
 	@Override
-	public void updateSalestaxrate(Salestaxrate s) {
+	public Salestaxrate updateSalestaxrate(Salestaxrate s) {
 		HttpEntity<Salestaxrate> http = new HttpEntity<Salestaxrate>(s);
-		restTemplate.put(URL + s.getSalestaxrateid(), http);
+		return restTemplate.exchange(
+				URL + s.getSalestaxrateid(), 
+				HttpMethod.PUT, 
+				http, 
+				Salestaxrate.class,
+				s.getSalestaxrateid())
+				.getBody();
 	}
 
 	@Override
 	public void deleteSalestaxrate(Integer id) {
 		restTemplate.delete(URL + id, Integer.class);
+	}
+
+	public static String getUrl() {
+		return URL;
 	}
 }

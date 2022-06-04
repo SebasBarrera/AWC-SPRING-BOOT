@@ -9,7 +9,7 @@ public interface AddressBD {
 	public List<Address> findAllAddress();
 	public Address findAddressById(Integer id);
 	public Address addAddress(Address a);
-	public void updateAddress(Address a);
+	public Address updateAddress(Address a);
 	public void deleteAddress(Integer id);
 
 }

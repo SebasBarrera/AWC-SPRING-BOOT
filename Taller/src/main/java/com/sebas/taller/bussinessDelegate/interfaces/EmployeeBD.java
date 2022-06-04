@@ -9,7 +9,7 @@ public interface EmployeeBD {
 	public List<Employee> findAllEmployee();
 	public Employee findEmployeeById(Integer id);
 	public Employee addEmployee(Employee e);
-	public void updateEmployee(Employee e);
+	public Employee updateEmployee(Employee e);
 	public void deleteEmployee(Integer id);
 	
 }

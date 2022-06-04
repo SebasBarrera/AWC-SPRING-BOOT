@@ -8,6 +8,6 @@ public interface SalestaxrateBD {
 	public List<Salestaxrate> findAllSalestaxrate();
 	public Salestaxrate findSalestaxrateById(Integer id);
 	public Salestaxrate addSalestaxrate(Salestaxrate s);
-	public void updateSalestaxrate(Salestaxrate s);
+	public Salestaxrate updateSalestaxrate(Salestaxrate s);
 	public void deleteSalestaxrate(Integer id);
 }

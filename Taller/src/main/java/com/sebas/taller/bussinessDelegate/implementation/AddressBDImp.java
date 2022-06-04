@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -15,11 +17,13 @@ import org.springframework.web.client.RestTemplate;
 import com.sebas.taller.bussinessDelegate.interfaces.AddressBD;
 import com.sebas.taller.model.person.Address;
 
+
 @Component
 public class AddressBDImp implements AddressBD {
 
 	private final static String URL = "http://localhost:8080/api/address/";
-
+	
+	@Autowired
 	private RestTemplate restTemplate;
 	
 	public AddressBDImp() {
@@ -48,15 +52,24 @@ public class AddressBDImp implements AddressBD {
 	}
 	
 	@Override
-	public void updateAddress(Address a) {
+	public Address updateAddress(Address a) {
 		HttpEntity<Address> http = new HttpEntity<Address>(a);
-		restTemplate.put(URL + a.getAddressid(), http);
+		return restTemplate.exchange(
+				URL + a.getAddressid(), 
+				HttpMethod.PUT, 
+				http, 
+				Address.class,
+				a.getAddressid())
+				.getBody();
 	}
 	
 	@Override
 	public void deleteAddress(Integer id) {
 		restTemplate.delete(URL + id, Integer.class);
 	}
-	
+
+	public static String getUrl() {
+		return URL;
+	}
 	
 }

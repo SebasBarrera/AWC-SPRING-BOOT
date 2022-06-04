@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.sebas.taller.bussinessDelegate.interfaces.CountryregionBD;
+import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Countryregion;
 
 @Component
@@ -20,6 +23,7 @@ public class CountryregionBDImp implements CountryregionBD {
 	
 	private final static String URL = "http://localhost:8080/api/countryregion/";
 	
+	@Autowired
 	private RestTemplate restTemplate;
 	
 	public CountryregionBDImp() {
@@ -48,15 +52,24 @@ public class CountryregionBDImp implements CountryregionBD {
 	}
 	
 	@Override
-	public void updateCountryregion(Countryregion c) {
+	public Countryregion updateCountryregion(Countryregion c) {
 		HttpEntity<Countryregion> http = new HttpEntity<Countryregion>(c);
-		restTemplate.put(URL + c.getCountryregionid(), http);
+		return restTemplate.exchange(
+				URL + c.getCountryregionid(), 
+				HttpMethod.PUT, 
+				http, 
+				Countryregion.class,
+				c.getCountryregionid())
+				.getBody();
 	}
 	
 	@Override
 	public void deleteCountryregion(Integer id) {
 		restTemplate.delete(URL + id, Integer.class);
 	}
-	
+
+	public static String getUrl() {
+		return URL;
+	}
 	
 }

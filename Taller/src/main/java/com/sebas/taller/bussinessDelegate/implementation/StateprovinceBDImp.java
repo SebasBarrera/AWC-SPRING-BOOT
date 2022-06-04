@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.sebas.taller.bussinessDelegate.interfaces.StateprovinceBD;
+import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Stateprovince;
 
 @Component
@@ -20,6 +23,7 @@ public class StateprovinceBDImp implements StateprovinceBD{
 
 	private final static String URL = "http://localhost:8080/api/stateprovince/";
 	
+	@Autowired
 	private RestTemplate restTemplate;
 	
 	public StateprovinceBDImp() {
@@ -48,12 +52,22 @@ public class StateprovinceBDImp implements StateprovinceBD{
 	}
 
 	@Override
-	public void updateStateprovince(Stateprovince s) {
+	public Stateprovince updateStateprovince(Stateprovince s) {
 		HttpEntity<Stateprovince> http = new HttpEntity<Stateprovince>(s);
-		restTemplate.put(URL + s.getStateprovinceid(), http);
+		return restTemplate.exchange(
+				URL + s.getStateprovinceid(), 
+				HttpMethod.PUT, 
+				http, 
+				Stateprovince.class,
+				s.getStateprovinceid())
+				.getBody();
 	}
 	@Override
 	public void deleteStateprovince(Integer id) {
 		restTemplate.delete(URL + id, Integer.class);
+	}
+
+	public static String getUrl() {
+		return URL;
 	}
 }

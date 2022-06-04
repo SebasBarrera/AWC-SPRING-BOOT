@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -13,13 +15,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.sebas.taller.bussinessDelegate.interfaces.PersonBD;
+import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Person;
 
 @Component
 public class PersonBDImp implements PersonBD{
 
 	private final static String URL = "http://localhost:8080/api/person/";
-	
+
+	@Autowired
 	private RestTemplate restTemplate;
 	
 	public PersonBDImp() {
@@ -48,13 +52,23 @@ public class PersonBDImp implements PersonBD{
 	}
 
 	@Override
-	public void updatePerson(Person p) {
+	public Person updatePerson(Person p) {
 		HttpEntity<Person> http = new HttpEntity<Person>(p);
-		restTemplate.put(URL + p.getBusinessentityid(), http);
+		return restTemplate.exchange(
+				URL + p.getBusinessentityid(), 
+				HttpMethod.PUT, 
+				http, 
+				Person.class,
+				p.getBusinessentityid())
+				.getBody();
 	}
 
 	@Override
 	public void deletePerson(Integer id) {
 		restTemplate.delete(URL + id, Integer.class);
+	}
+	
+	public static String getUrl() {
+		return URL;
 	}
 }

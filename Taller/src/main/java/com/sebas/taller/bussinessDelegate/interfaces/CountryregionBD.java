@@ -8,7 +8,7 @@ public interface CountryregionBD {
 	public List<Countryregion> findAllCountryregion();
 	public Countryregion findCountryregionById(Integer id);
 	public Countryregion addCountryregion(Countryregion c);
-	public void updateCountryregion(Countryregion c);
+	public Countryregion updateCountryregion(Countryregion c);
 	public void deleteCountryregion(Integer id);
 
 }

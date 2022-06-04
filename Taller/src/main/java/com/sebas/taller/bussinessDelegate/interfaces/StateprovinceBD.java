@@ -9,7 +9,7 @@ public interface StateprovinceBD {
 	public List<Stateprovince> findAllStateprovince();
 	public Stateprovince findStateprovinceById(Integer id);
 	public Stateprovince addStateprovince(Stateprovince s);
-	public void updateStateprovince(Stateprovince s);
+	public Stateprovince updateStateprovince(Stateprovince s);
 	public void deleteStateprovince(Integer id);
 
 }

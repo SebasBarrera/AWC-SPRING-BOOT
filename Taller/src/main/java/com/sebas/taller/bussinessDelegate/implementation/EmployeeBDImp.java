@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -14,12 +16,14 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sebas.taller.bussinessDelegate.interfaces.EmployeeBD;
 import com.sebas.taller.model.hr.Employee;
+import com.sebas.taller.model.person.Address;
 
 @Component
 public class EmployeeBDImp implements EmployeeBD{
 
 	private final static String URL = "http://localhost:8080/api/employee/";
 	
+	@Autowired
 	private RestTemplate restTemplate;
 	
 	public EmployeeBDImp() {
@@ -48,13 +52,24 @@ public class EmployeeBDImp implements EmployeeBD{
 	}
 	
 	@Override
-	public void updateEmployee(Employee e) {
+	public Employee updateEmployee(Employee e) {
 		HttpEntity<Employee> http = new HttpEntity<Employee>(e);
-		restTemplate.put(URL + e.getBusinessentityid(), http);
+		return restTemplate.exchange(
+				URL + e.getBusinessentityid(), 
+				HttpMethod.PUT, 
+				http, 
+				Employee.class,
+				e.getBusinessentityid())
+				.getBody();
 	}
 	
 	@Override
 	public void deleteEmployee(Integer id) {
 		restTemplate.delete(URL + id, Integer.class);
 	}
+
+	public static String getUrl() {
+		return URL;
+	}
+	
 }

@@ -2,6 +2,8 @@ package com.sebas.taller.service.person;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +37,8 @@ public class AddressServiceImp implements AddressService{
 				if (stateprovinceDao.existsById(a.getStateprovince().getStateprovinceid())) {
 				
 					if (a.getAddressline1() != null && a.getCity().length() >= 3 && 
-							a.getPostalcode().length() == 6 && a.getPostalcode().chars().allMatch(Character::isDigit)) {
+							a.getPostalcode().length() == 6 && 
+							a.getPostalcode().chars().allMatch(Character::isDigit)) {
 						
 						a.setStateprovince(stateprovinceDao.findById(a.getStateprovince().getStateprovinceid()));
 						addressDao.save(a);
@@ -134,6 +137,18 @@ public class AddressServiceImp implements AddressService{
 	@Override
 	public void delete(Address a) {
 		addressDao.delete(a);
+	}
+
+	@Override
+	public Iterable<Address> specialFind() {
+//		List<Address> al = addressDao.findByAtLeastTwoSalesorderheaders();
+//		int counter = 0;
+//		for (Address currentA : al) {
+//			System.out.println(currentA.getCity());
+//			counter++;
+//		}
+//		System.out.println(counter);
+		return addressDao.findByAtLeastTwoSalesorderheaders();
 	}
 
 	

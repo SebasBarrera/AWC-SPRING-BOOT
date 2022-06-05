@@ -73,8 +73,17 @@ public class AddressDaoImp implements AddressDao {
 		String jpql = "SELECT a FROM Address a, Stateprovince s, Salesterritory t "
 				+ "WHERE s.stateprovinceid=a.stateprovince.stateprovinceid "
 				+ "AND t.territoryid=s.territoryid "
-				+ "AND t.salesorderheaders.size >= 2";
+				+ "AND SIZE(t.salesorderheaders) >= 2";
 		Query query = em.createQuery(jpql);
+		
+//		List<Address> al = query.getResultList();
+//		int counter = 0;
+//		for (Address currentA : al) {
+//			System.out.println(currentA.getCity());
+//			counter++;
+//		}
+//		System.out.println(counter);
+		
 		return query.getResultList();
 	}
 

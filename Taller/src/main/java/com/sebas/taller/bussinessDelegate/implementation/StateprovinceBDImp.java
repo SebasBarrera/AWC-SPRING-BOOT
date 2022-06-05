@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.sebas.taller.bussinessDelegate.interfaces.StateprovinceBD;
-import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Stateprovince;
 
 @Component

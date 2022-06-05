@@ -1,5 +1,6 @@
 package com.sebas.taller.dao.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sebas.taller.dao.interfaces.StateprovinceDao;
 import com.sebas.taller.model.person.Stateprovince;
+import com.sebas.taller.model.person.StateprovinceAndAddresses;
 
 @Repository
 @Transactional
@@ -79,13 +81,23 @@ public class StateprovinceDaoImp implements StateprovinceDao{
 		return query.getResultList();
 	}
 
-	@SuppressWarnings({ "rawtypes" })
+	/*
+	 * Lo(s) estados-provincia (s) con sus datos y cantidad de direcciones 
+	 * (que pertenecen a un territorio), ordenados por nombre. Recibe como 
+	 * parámetro un territorio de venta y retorna todos los estados-provincia 
+	 * que cumplen con tener al menos una tasa impositiva de ventas.
+	 */
+//	@SuppressWarnings({ "rawtypes" })
 	@Override
-	public List findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(Integer id) {
-		String jpql = "SELECT s, COUNT(a) FROM Stateprovince s, Address a "
+	@SuppressWarnings("unchecked")
+	public List<Object[]> findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(Integer id) {
+		String jpql = "SELECT s, COUNT(a) FROM Stateprovince s JOIN s.addresses a "
 				+ "WHERE a.stateprovince.stateprovinceid = s.stateprovinceid "
-				+ "s.territoryid =: id "
-				+ "ORDER BY s.name";
+				+ "AND s.territoryid = :id "
+				+ "AND SIZE(s.salestaxrates) > 0 "
+				+ "GROUP BY s "
+				+ "ORDER BY s.name "
+				;
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", id);
 		return query.getResultList();

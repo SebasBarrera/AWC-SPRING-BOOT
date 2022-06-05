@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.sebas.taller.model.User;
+import com.sebas.taller.model.Users;
 import com.sebas.taller.repository.UserRepository;
 
 @Service
@@ -19,9 +19,9 @@ public class UserDetailService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User userApp = null;
+		Users userApp = null;
 		
-		List<User> user = ur.findByUsername(username);
+		List<Users> user = ur.findByUsername(username);
 		
 		if (user.size() != 0) {
 			userApp = user.get(0);

@@ -2,22 +2,22 @@ package com.sebas.taller.service;
 
 import java.util.Optional;
 
-import com.sebas.taller.model.User;
+import com.sebas.taller.model.Users;
 import com.sebas.taller.model.UserType;
 
 public interface UserService {
 	
-	public void save(User user);
+	public void save(Users user);
 
-	public Optional<User> findById(Integer id);
+	public Optional<Users> findById(Integer id);
 
-	public Iterable<User> findAll();
+	public Iterable<Users> findAll();
 
-	public Iterable<User> findAllAdmins();
+	public Iterable<Users> findAllAdmins();
 
-	public Iterable<User> findAllOperators();
+	public Iterable<Users> findAllOperators();
 
-	public void delete(User user);
+	public void delete(Users user);
 
 	public UserType[] getTypes();
 

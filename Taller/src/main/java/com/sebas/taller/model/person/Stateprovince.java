@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sebas.taller.model.sales.Salestaxrate;
 
 /**
  * The persistent class for the stateprovince database table.
@@ -56,6 +57,11 @@ public class Stateprovince implements Serializable {
 	@OneToMany(mappedBy = "stateprovince")
 	@JsonIgnore
 	private List<Address> addresses;
+
+	// bi-directional many-to-one association to Salestaxrate
+	@OneToMany(mappedBy = "stateprovince")
+	@JsonIgnore
+	private List<Salestaxrate> salestaxrates;
 
 	// bi-directional many-to-one association to Countryregion
 	@ManyToOne
@@ -149,6 +155,14 @@ public class Stateprovince implements Serializable {
 
 	public void setTerritoryid(Integer territoryid) {
 		this.territoryid = territoryid;
+	}
+
+	public List<Salestaxrate> getSalestaxrates() {
+		return salestaxrates;
+	}
+
+	public void setSalestaxrates(List<Salestaxrate> salestaxrates) {
+		this.salestaxrates = salestaxrates;
 	}
 
 }

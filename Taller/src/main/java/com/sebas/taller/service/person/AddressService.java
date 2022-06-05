@@ -12,5 +12,6 @@ public interface AddressService {
 	public Address findById(Integer id);
 	public Iterable<Address> findAll();
 	public void delete(Address a);
+	public Iterable<Address> specialFind();
 	
 }

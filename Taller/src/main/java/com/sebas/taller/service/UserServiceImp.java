@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sebas.taller.model.User;
+import com.sebas.taller.model.Users;
 import com.sebas.taller.model.UserType;
 import com.sebas.taller.repository.UserRepository;
 
@@ -20,33 +20,33 @@ public class UserServiceImp implements UserService {
 	}
 	
 	@Override
-	public void save(User user) {
+	public void save(Users user) {
 		ur.save(user);
 		
 	}
 
 	@Override
-	public Optional<User> findById(Integer id) {
+	public Optional<Users> findById(Integer id) {
 		return ur.findById(id);
 	}
 
 	@Override
-	public Iterable<User> findAll() {
+	public Iterable<Users> findAll() {
 		return ur.findAll();
 	}
 
 	@Override
-	public Iterable<User> findAllAdmins() {
+	public Iterable<Users> findAllAdmins() {
 		return ur.findByType(UserType.administrator);
 	}
 
 	@Override
-	public Iterable<User> findAllOperators() {
+	public Iterable<Users> findAllOperators() {
 		return ur.findByType(UserType.operator);
 	}
 
 	@Override
-	public void delete(User user) {
+	public void delete(Users user) {
 		ur.delete(user);
 	}
 

@@ -365,10 +365,24 @@ class StateprovinceDaoTest {
 		s3.setTerritoryid(t1.getTerritoryid());
 		s4.setTerritoryid(t2.getTerritoryid());
 		
-		tax1.setStateprovince(s5);
-		tax2.setStateprovince(s4);
-		tax3.setStateprovince(s3);
-		tax4.setStateprovince(s2);
+//		tax1.setStateprovince(s5);
+//		tax2.setStateprovince(s4);
+//		tax3.setStateprovince(s3);
+//		tax4.setStateprovince(s2);
+		
+		List<Salestaxrate> lstr1 = new ArrayList<Salestaxrate>();
+		lstr1.add(tax1);
+		List<Salestaxrate> lstr2 = new ArrayList<Salestaxrate>();
+		lstr1.add(tax2);
+		List<Salestaxrate> lstr3 = new ArrayList<Salestaxrate>();
+		lstr1.add(tax3);
+		List<Salestaxrate> lstr4 = new ArrayList<Salestaxrate>();
+		lstr1.add(tax4);
+		
+		s5.setSalestaxrates(lstr1);
+		s4.setSalestaxrates(lstr2);
+		s3.setSalestaxrates(lstr3);
+		s2.setSalestaxrates(lstr4);
 		
 		List<Address> la = new ArrayList<Address>();
 		la.add(city);
@@ -410,9 +424,25 @@ class StateprovinceDaoTest {
 		city9.setStateprovince(s4);
 		city10.setStateprovince(s4);
 		
-		//Object stAd = dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(t2.getTerritoryid());
+		List<Object[]> stAd = dao.findByTerritoryIdAtLeastOneSalestaxrateOrderedByName(t2.getTerritoryid());
 		
-		
+		String previousName = null;
+		boolean flag = false;
+		for (Object[] spArray : stAd) {
+			Stateprovince sp = (Stateprovince) spArray[0];
+			long numOfAddresses = (long) spArray[1];
+			if (!flag) {
+				previousName = sp.getName();
+				flag = true;
+			}
+			
+			assertEquals(sp.getTerritoryid(), t2.getTerritoryid());
+			assertEquals(sp.getAddresses().size(), numOfAddresses);
+			assertTrue(sp.getSalestaxrates().size() > 0);
+			assertTrue(sp.getName().compareTo(previousName) >= 0);
+			
+			previousName = sp.getName();
+		}
 	
 	}
 	

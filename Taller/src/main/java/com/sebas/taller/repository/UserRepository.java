@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.sebas.taller.model.User;
+import com.sebas.taller.model.Users;
 import com.sebas.taller.model.UserType;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<Users, Integer> {
 	
-	List<User> findByType(UserType type);
+	List<Users> findByType(UserType type);
 	
-	List<User> findByUsername(String username);
+	List<Users> findByUsername(String username);
 
 }

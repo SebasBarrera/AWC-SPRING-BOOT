@@ -178,7 +178,7 @@ public class TallerApplication {
 		lstr1.add(tax4);
 
 		s5.setSalestaxrates(lstr1);
-		s4.setSalestaxrates(lstr1);
+		s4.setSalestaxrates(lstr2);
 		s3.setSalestaxrates(lstr3);
 		s2.setSalestaxrates(lstr4);
 
@@ -317,7 +317,7 @@ public class TallerApplication {
 		s.setIsonlystateprovinceflag("Y");
 		s.setStateprovincecode("11223");
 		s.setCountryregion(c3);
-		s.setTerritoryid(t1.getTerritoryid());
+		s.setTerritoryid(t4.getTerritoryid());
 		ss.save(s);
 		
 		Address a = new Address();
@@ -331,12 +331,11 @@ public class TallerApplication {
 		ls.add(a);
 		s.setAddresses(ls);
 
-		Salesterritory st = new Salesterritory();
-		st.setTerritoryid(1);
-		sts.save(st);
+//		Salesterritory st = new Salesterritory();
+//		st.setTerritoryid(1);
+//		sts.save(st);
 
 
-		s.setTerritoryid(st.getTerritoryid());
 		ss.update(s);
 
 		Salesorderheader h3 = new Salesorderheader();
@@ -347,14 +346,14 @@ public class TallerApplication {
 		lh.add(h3);
 		lh.add(h4);
 
-		h3.setSalesterritory(st);
-		h4.setSalesterritory(st);
+		h3.setSalesterritory(t2);
+		h4.setSalesterritory(t2);
 
 		sos.update(h3);
 		sos.update(h4);
-		st.setSalesorderheaders(lh);
+		t2.setSalesorderheaders(lh);
 		
-		sts.update(st);
+		sts.update(t2);
 		
 		
 	}

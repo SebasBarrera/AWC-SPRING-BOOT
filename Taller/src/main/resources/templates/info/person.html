@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Info Person</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container my-5">
+		<h2 class="mb-5">Info Person</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<form action="#" th:object="${person}"
+					th:action="@{/info/person/{id}(id=${person.businessentityid})}"
+					method="post">
+					<div class="row">
+
+
+						<div class="form-group col-md-6">
+							<label for="firstname" class="col-form-label">First Name
+							</label> <input type="text" th:field="*{firstname}" class="form-control"
+								id="firstname" placeholder="first name" disabled="disabled">
+							<span th:if="${#fields.hasErrors('firstname')}"
+								th:errors="firstname" class="text-danger"></span>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="middlename" class="col-form-label">Middle
+								Name</label> <input type="text" th:field="*{middlename}"
+								class="form-control" id="middlename" placeholder="middlename"
+								disabled="disabled"> <span
+								th:if="${#fields.hasErrors('middlename')}"
+								th:errors="*{middlename}" class="text-danger"></span>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="lastname" class="col-form-label">Last Name</label> <input
+								type="text" th:field="*{lastname}" class="form-control"
+								id="lastname" placeholder="lastname" disabled="disabled">
+							<span th:if="${#fields.hasErrors('lastname')}"
+								th:errors="*{lastname}" class="text-danger"></span>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="title" class="col-form-label">title</label> <input
+								type="text" th:field="*{title}" id="title" disabled="disabled"
+								class="form-control">
+						</div>
+
+
+						<div></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 mt-3">
+							<input type="button" onclick="history.back()" name="go back"
+								value="go back">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -66,7 +66,7 @@ public class PersonControllerImp implements PersonController {
 		if (person == null)
 			throw new IllegalAccessError("Invalid person Id: " + businessentityid);
 		model.addAttribute("person", person);
-		return "employee/editEmployee";
+		return "person/editPerson";
 	}
 
 	@Override

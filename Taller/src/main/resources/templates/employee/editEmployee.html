@@ -20,52 +20,53 @@
 		<div class="row">
 			<div class="col-md-6">
 				<form action="#" th:object="${employee}"
-					th:action="@{/employee/editEmployee/{employeebusinessentityid}(employeebusinessentityid=${employee.businessentityid})}"
+					th:action="@{/employee/editEmployee/{employeeid}(employeeid=${employee.businessentityid})}"
 					method="post">
 					<div class="row">
-					
+
 						<div class="form-group col-md-6">
-							<label for="gender" class="col-form-label">Gender</label>
-							<select class="form-control-range" th:field="*{gender}"
-							id="gender">
+							<label for="gender" class="col-form-label">Gender</label> <select
+								class="form-control-range" th:field="*{gender}" id="gender">
 								<option value="Masculino">Male</option>
 								<option value="Femenino">Female</option>
 							</select>
 						</div>
-						
+
 						<div class="form-group col-md-6">
-							<label for="jobtitle" class="col-form-label">Job Title
-								</label> <input type="text" th:field="*{jobtitle}"
-								class="form-control" id="jobtitle"
-								placeholder="job title"> <span
-								th:if="${#fields.hasErrors('jobtitle')}"
-								th:errors="*{jobtitle}" class="text-danger"></span>
+							<label for="jobtitle" class="col-form-label">Job Title </label> <input
+								type="text" th:field="*{jobtitle}" class="form-control"
+								id="jobtitle" placeholder="job title"> <span
+								th:if="${#fields.hasErrors('jobtitle')}" th:errors="*{jobtitle}"
+								class="text-danger"></span>
 						</div>
-						
+
 						<div class="form-group col-md-6">
-							<label for="maritalstatus" class="col-form-label">Marital Status</label> <input
-								type="text" th:field="*{maritalstatus}" class="form-control" id="maritalstatus"
+							<label for="maritalstatus" class="col-form-label">Marital
+								Status</label> <input type="text" th:field="*{maritalstatus}"
+								class="form-control" id="maritalstatus"
 								placeholder="maritalstatus"> <span
-								th:if="${#fields.hasErrors('maritalstatus')}" th:errors="*{maritalstatus}"
-								class="text-danger"></span>
+								th:if="${#fields.hasErrors('maritalstatus')}"
+								th:errors="*{maritalstatus}" class="text-danger"></span>
 						</div>
-						
+
 						<div class="form-group col-md-6">
-							<label for="nationalidnumber" class="col-form-label">National Id</label> <input
-								type="text" th:field="*{maritalstatus}" class="form-control" id="nationalidnumber"
+							<label for="nationalidnumber" class="col-form-label">National
+								Id</label> <input type="text" th:field="*{maritalstatus}"
+								class="form-control" id="nationalidnumber"
 								placeholder="nationalidnumber"> <span
-								th:if="${#fields.hasErrors('nationalidnumber')}" th:errors="*{nationalidnumber}"
-								class="text-danger"></span>
+								th:if="${#fields.hasErrors('nationalidnumber')}"
+								th:errors="*{nationalidnumber}" class="text-danger"></span>
 						</div>
-						
+
 						<div class="form-group col-md-6">
-							<label for="vacationhours" class="col-form-label">Vacation Hours</label> <input
-									type="text" th:field="*{vacationhours}" class="form-control" id="vacationhours"
-									placeholder="vacationhours"> <span
-									th:if="${#fields.hasErrors('vacationhours')}" th:errors="*{vacationhours}"
-									class="text-danger"></span>
+							<label for="vacationhours" class="col-form-label">Vacation
+								Hours</label> <input type="text" th:field="*{vacationhours}"
+								class="form-control" id="vacationhours"
+								placeholder="vacationhours"> <span
+								th:if="${#fields.hasErrors('vacationhours')}"
+								th:errors="*{vacationhours}" class="text-danger"></span>
 						</div>
-						
+
 
 						<div></div>
 					</div>

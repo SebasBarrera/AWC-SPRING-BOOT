@@ -60,7 +60,7 @@ public class EmployeeControllerImp implements EmployeeController {
 	}
 
 	@Override
-	@GetMapping("/empoyee/editEmployee/{businessentityid}")
+	@GetMapping("/employee/editEmployee/{businessentityid}")
 	public String showUpdateForm(@PathVariable("businessentityid") Integer businessentityid, Model model) {
 		Employee employee = bd.findEmployeeById(businessentityid);
 		if (employee == null) 

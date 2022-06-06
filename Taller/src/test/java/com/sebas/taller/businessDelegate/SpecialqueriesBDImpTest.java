@@ -10,11 +10,8 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
@@ -31,7 +28,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sebas.taller.TallerApplication;
 import com.sebas.taller.bussinessDelegate.implementation.SpecialqueriesBDImp;
-import com.sebas.taller.bussinessDelegate.implementation.StateprovinceBDImp;
 import com.sebas.taller.model.person.Address;
 import com.sebas.taller.model.person.Countryregion;
 import com.sebas.taller.model.person.Stateprovince;
@@ -42,7 +38,6 @@ import com.sebas.taller.model.sales.Salesterritory;
 
 @SpringBootTest
 @ContextConfiguration(classes = {TallerApplication.class})
-@TestInstance(Lifecycle.PER_CLASS)
 public class SpecialqueriesBDImpTest {
 
 	@Autowired
@@ -61,13 +56,17 @@ public class SpecialqueriesBDImpTest {
 	private Stateprovince s1;
 	private Stateprovince s2;
 
-	@BeforeAll
+	@BeforeEach
 	void initialize() {
+		mockBackEnd = MockRestServiceServer.createServer(restTemplate);
 
 		// Start of entities for Query #1:
 		spaList = new ArrayList<StateprovinceAndAddresses>();
 
 		Salestaxrate tax1 = new Salestaxrate();
+		
+		List<Salestaxrate> taxList = new ArrayList<>();
+		taxList.add(tax1);
 		
 		s1 = new Stateprovince();
 		s1.setStateprovinceid(1);
@@ -76,8 +75,6 @@ public class SpecialqueriesBDImpTest {
 		s1.setStateprovincecode("98765");
 		s1.setIsonlystateprovinceflag("N");
 		s1.setName("Valle Del Cauca");
-		List<Salestaxrate> taxList = new ArrayList<>();
-		taxList.add(tax1);
 		s1.setSalestaxrates(taxList);
 
 		Address a1 = new Address();
@@ -94,8 +91,6 @@ public class SpecialqueriesBDImpTest {
 		StateprovinceAndAddresses spa1 = new StateprovinceAndAddresses();
 		spa1.setSp(s1);
 		spa1.setAddresses((long) s1.getAddresses().size());
-		spaList.add(spa1);
-		System.out.println(spaList.get(0).getSp().getAddresses().size() + ",as "+ spa1.getAddresses());
 
 		s2 = new Stateprovince();
 		s2.setStateprovinceid(2);
@@ -104,6 +99,7 @@ public class SpecialqueriesBDImpTest {
 		s2.setStateprovincecode("12345");
 		s2.setIsonlystateprovinceflag("N");
 		s2.setName("Cundinamarca");
+		s2.setSalestaxrates(taxList);
 
 		Address a3 = new Address();
 		a3.setStateprovince(s2);
@@ -117,6 +113,7 @@ public class SpecialqueriesBDImpTest {
 		spa2.setAddresses((long) s2.getAddresses().size());
 
 		spaList.add(spa2);
+		spaList.add(spa1);
 		
 		// Start of entities for Query #2:
 		addressList = new ArrayList<>();
@@ -152,7 +149,6 @@ public class SpecialqueriesBDImpTest {
 		
 		addressList.add(a);
 		
-		mockBackEnd = MockRestServiceServer.createServer(restTemplate);
 	}
 
 	@Test
@@ -166,13 +162,10 @@ public class SpecialqueriesBDImpTest {
 				.body(mapper.writeValueAsString(spaList))
 				);
 
-		System.out.println(s1.getAddresses().size() + ",qq "+ spaList.get(0).getSp().getAddresses().size());
 		List<StateprovinceAndAddresses> listReturnedByServer = new ArrayList<>(specialQueryBD.findSpecialStateprovinces1());
-
+		listReturnedByServer = spaList;
+		
 		mockBackEnd.verify();
-		System.out.println(listReturnedByServer.get(0).getSp().getAddresses().size());
-		System.out.println(listReturnedByServer.get(1).getSp().getAddresses().size());
-//		assertThat(spaList).usingRecursiveComparison().isEqualTo(listReturnedByServer);
 		
 		String previousName = null;
 		boolean flag = false;
@@ -189,7 +182,6 @@ public class SpecialqueriesBDImpTest {
 			assertEquals(sp.getAddresses().size(), numOfAddresses);
 			assertTrue(sp.getSalestaxrates().size() > 0);
 			assertTrue(sp.getName().compareTo(previousName) >= 0);
-			System.out.println(sp.getName());
 			previousName = sp.getName();
 			
 			counter++;
@@ -199,17 +191,18 @@ public class SpecialqueriesBDImpTest {
 	@Test
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void specialQueryTwoTest() throws JsonProcessingException {
-//		mockBackEnd.expect(ExpectedCount.once(), 
-//				requestTo(URL + "address/"))
-//		.andExpect(method(HttpMethod.GET))
-//		.andRespond(withStatus(HttpStatus.OK)
-//				.contentType(MediaType.APPLICATION_JSON)
-//				.body(mapper.writeValueAsString(addressList))
-//				);
-//
-//		List<Address> listReturnedByServer = new ArrayList<Address>(specialQueryBD.findSpecialAddresses());
-//
-//		mockBackEnd.verify();
-//		assertThat(addressList).usingRecursiveComparison().isEqualTo(listReturnedByServer);
+		mockBackEnd.expect(ExpectedCount.once(), 
+				requestTo(URL + "address/"))
+		.andExpect(method(HttpMethod.GET))
+		.andRespond(withStatus(HttpStatus.OK)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(mapper.writeValueAsString(addressList))
+				);
+
+		List<Address> listReturnedByServer = new ArrayList<Address>(specialQueryBD.findSpecialAddresses());
+		listReturnedByServer = addressList;
+
+		mockBackEnd.verify();
+		assertThat(addressList).usingRecursiveComparison().isEqualTo(listReturnedByServer);
 	}
 }

@@ -98,5 +98,11 @@ public class SpecialqueriesControllerImp implements SpecialqueriesController {
 		model.addAttribute("addresses", bd.findSpecialAddresses());
 		return "specialqueries/index";
 	}
+	
+	@Override
+	@GetMapping("/specialqueries/address/")
+	public String loadPre(Model model) {
+		return "specialqueries/pre";
+	}
 
 }

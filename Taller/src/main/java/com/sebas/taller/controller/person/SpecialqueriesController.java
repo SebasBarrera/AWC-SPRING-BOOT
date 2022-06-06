@@ -8,4 +8,5 @@ public interface SpecialqueriesController {
 	public String indexQueries3(Model model);
 	public String indexQueries4(Model model);
 	public String indexQueries5(Model model);
+	String loadPre(Model model);
 }

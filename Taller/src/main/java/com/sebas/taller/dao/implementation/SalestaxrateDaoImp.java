@@ -41,7 +41,7 @@ public class SalestaxrateDaoImp implements SalestaxrateDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Salestaxrate> findAll() {
-		String query = "SELECT s FROM Salestaxrate s";
+		String query = "SELECT s FROM Salestaxrate s ORDER BY s.salestaxrateid";
 		return em.createQuery(query).getResultList();
 	}
 

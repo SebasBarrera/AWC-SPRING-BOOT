@@ -43,7 +43,7 @@ public class StateprovinceDaoImp implements StateprovinceDao{
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Stateprovince> findAll() {
-		String query = "SELECT s FROM Stateprovince s";
+		String query = "SELECT s FROM Stateprovince s ORDER BY s.stateprovinceid";
 		return em.createQuery(query).getResultList();
 	}
 

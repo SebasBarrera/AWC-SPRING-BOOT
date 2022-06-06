@@ -41,7 +41,7 @@
 						</div>
 						<div class="form-group col-md-6">
 							<label for="stateprovincecode" class="col-form-label">State province code</label> <input
-								type="text" th:field="*{stateprovincecode}" class="form-control" id="stateprovincecode"
+								type="number" th:field="*{stateprovincecode}" class="form-control" id="stateprovincecode"
 								placeholder="stateprovincecode"> <span
 								th:if="${#fields.hasErrors('stateprovincecode')}" th:errors="*{stateprovincecode}"
 								class="text-danger"></span>
@@ -53,7 +53,7 @@
 								<select class="form-control-range" th:field="*{territoryid}">
 								<option th:each="c : ${territoryids}"
 									th:value="${c.territoryid}" class="form-control"
-									th:text="${c.territoryid}" th:selected="${stateprovince.territoryid=c}"></option>
+									th:text="${c.territoryid}"></option>
 								</select> <span th:if="${#fields.hasErrors('territoryid')}"
 								th:errors="*{territoryid}" class="text-danger"></span>
 							<span th:if="${#fields.hasErrors('territoryid')}"
@@ -65,7 +65,7 @@
 							<select class="form-control-range" th:field="*{countryregion}">
 								<option th:each="c : ${countryregions}"
 									th:value="${c.countryregionid}" class="form-control"
-									th:text="${c.name}" th:selected="${stateprovince.countryregion=c}"></option>
+									th:text="${c.name}"></option>
 							</select> <span th:if="${#fields.hasErrors('countryregion')}"
 								th:errors="*{countryregion}" class="text-danger"></span>
 						</div>

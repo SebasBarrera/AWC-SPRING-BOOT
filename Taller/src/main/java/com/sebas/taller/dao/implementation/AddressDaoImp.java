@@ -39,7 +39,7 @@ public class AddressDaoImp implements AddressDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Address> findAll() {
-		String query = "SELECT a FROM Address a";
+		String query = "SELECT a FROM Address a ORDER BY a.addressid";
 		return em.createQuery(query).getResultList();
 	}
 

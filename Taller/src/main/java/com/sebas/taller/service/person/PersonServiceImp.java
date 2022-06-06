@@ -40,6 +40,7 @@ public class PersonServiceImp implements PersonService{
 	@Override
 	public void delete(Person p) {
 		personDao.delete(p);
+		employeeDao.delete(employeeDao.findById(p.getBusinessentityid()));
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class EmployeeDaoImp implements EmployeeDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> findAll() {
-		String query = "SELECT e FROM Employee e";
+		String query = "SELECT e FROM Employee e ORDER BY e.businessentityid";
 		return em.createQuery(query).getResultList();
 	}
 

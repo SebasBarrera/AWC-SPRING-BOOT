@@ -38,7 +38,7 @@ public class PersonDaoImp implements PersonDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Person> findAll() {
-		String query = "SELECT p FROM Person p";
+		String query = "SELECT p FROM Person p ORDER BY p.businessentityid";
 		return em.createQuery(query).getResultList();
 	}
 

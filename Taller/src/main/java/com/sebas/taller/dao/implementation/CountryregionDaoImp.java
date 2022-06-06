@@ -40,7 +40,7 @@ public class CountryregionDaoImp implements CountryregionDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Countryregion> findAll() {
-		String query = "SELECT c FROM Countryregion c";
+		String query = "SELECT c FROM Countryregion c ORDER BY c.countryregionid";
 		return em.createQuery(query).getResultList();
 	}
 

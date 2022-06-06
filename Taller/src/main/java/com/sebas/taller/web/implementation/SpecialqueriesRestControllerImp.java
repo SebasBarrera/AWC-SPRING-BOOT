@@ -22,16 +22,32 @@ public class SpecialqueriesRestControllerImp implements SpecialqueriesRestContro
 	
 	@Override
 	@GetMapping("/stateprovince/1")
-	public Iterable<StateprovinceAndAddresses> findAllStateprovinces() {
-//		Iterable<StateprovinceAndAddresses> al = ss.specialFind(1);
-//		int counter = 0;
-//		for (StateprovinceAndAddresses currentSpa : al) {
-//			Stateprovince sp = currentSpa.getSp();
-//			System.out.println(sp.getName() + currentSpa.getAddresses());
-//			counter++;
-//		}
-//		System.out.println(counter);
+	public Iterable<StateprovinceAndAddresses> findAllStateprovinces1() {
 		return ss.specialFind(1);
+	}
+	
+	@Override
+	@GetMapping("/stateprovince/2")
+	public Iterable<StateprovinceAndAddresses> findAllStateprovinces2() {
+		return ss.specialFind(2);
+	}
+	
+	@Override
+	@GetMapping("/stateprovince/3")
+	public Iterable<StateprovinceAndAddresses> findAllStateprovinces3() {
+		return ss.specialFind(3);
+	}
+	
+	@Override
+	@GetMapping("/stateprovince/4")
+	public Iterable<StateprovinceAndAddresses> findAllStateprovinces4() {
+		return ss.specialFind(4);
+	}
+	
+	@Override
+	@GetMapping("/stateprovince/5")
+	public Iterable<StateprovinceAndAddresses> findAllStateprovinces5() {
+		return ss.specialFind(5);
 	}
 	
 	@Override

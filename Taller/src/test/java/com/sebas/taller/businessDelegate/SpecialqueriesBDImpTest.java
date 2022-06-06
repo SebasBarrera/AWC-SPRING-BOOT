@@ -161,7 +161,7 @@ public class SpecialqueriesBDImpTest {
 				);
 
 		System.out.println(s1.getAddresses().size() + ", "+ spaList.get(0).getAddresses());
-		List<StateprovinceAndAddresses> listReturnedByServer = new ArrayList<StateprovinceAndAddresses>(specialQueryBD.findSpecialStateprovinces());
+		List<StateprovinceAndAddresses> listReturnedByServer = new ArrayList<StateprovinceAndAddresses>(specialQueryBD.findSpecialStateprovinces1());
 
 		mockBackEnd.verify();
 //		System.out.println(listReturnedByServer.get(0).size());

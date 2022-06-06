@@ -33,29 +33,9 @@ public class SpecialqueriesBDImp implements SpecialqueriesBD{
         this.restTemplate.setMessageConverters(messageConverters);
 	}
 	
-	@Override
-	public List<StateprovinceAndAddresses> findSpecialStateprovinces() {
-//		ResponseEntity<List<StateprovinceAndAddresses>> rateResponse =
-//				restTemplate.exchange(URL + "stateprovince/",
-//		                    HttpMethod.GET, null, new ParameterizedTypeReference<List<StateprovinceAndAddresses>>() {
-//		            });
-//		List<StateprovinceAndAddresses> al = rateResponse.getBody();
-		
-//		List<StateprovinceAndAddresses> al = Arrays.asList(restTemplate.getForObject(URL + "stateprovince/", StateprovinceAndAddresses[].class));
-//		int counter = 0;
-//		for (StateprovinceAndAddresses currentSpa : al) {
-//			Stateprovince sp = currentSpa.getSp();
-//			System.out.println(sp.getName() + currentSpa.getAddresses());
-//			counter++;
-//		}
-//		System.out.println(counter);
-//		return al;
-		return Arrays.asList(restTemplate.getForObject(URL + "stateprovince/1", StateprovinceAndAddresses[].class));
-	}
 
 	@Override
 	public List<Address> findSpecialAddresses() {
-//		List<Address> al = Arrays.asList(restTemplate.getForObject(URL + "stateprovince/", Address[].class));
 		return Arrays.asList(restTemplate.getForObject(URL + "address/", Address[].class));
 	}
 
@@ -66,6 +46,35 @@ public class SpecialqueriesBDImp implements SpecialqueriesBD{
 
 	public static String getUrl() {
 		return URL;
+	}
+	
+	@Override
+	public List<StateprovinceAndAddresses> findSpecialStateprovinces1() {
+
+		return Arrays.asList(restTemplate.getForObject(URL + "stateprovince/1", StateprovinceAndAddresses[].class));
+	}
+
+
+	@Override
+	public List<StateprovinceAndAddresses> findSpecialStateprovinces2() {
+		return Arrays.asList(restTemplate.getForObject(URL + "stateprovince/2", StateprovinceAndAddresses[].class));
+	}
+	
+	
+
+	@Override
+	public List<StateprovinceAndAddresses> findSpecialStateprovinces3() {
+		return Arrays.asList(restTemplate.getForObject(URL + "stateprovince/3", StateprovinceAndAddresses[].class));
+	}
+
+	@Override
+	public List<StateprovinceAndAddresses> findSpecialStateprovinces4() {
+		return Arrays.asList(restTemplate.getForObject(URL + "stateprovince/4", StateprovinceAndAddresses[].class));
+	}
+
+	@Override
+	public List<StateprovinceAndAddresses> findSpecialStateprovinces5() {
+		return Arrays.asList(restTemplate.getForObject(URL + "stateprovince/5", StateprovinceAndAddresses[].class));
 	}
 
 }

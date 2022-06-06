@@ -23,26 +23,78 @@ public class SpecialqueriesControllerImp implements SpecialqueriesController {
 	}
 	
 	@Override
-	@GetMapping("/specialqueries/address")
-	public String indexQueries(Model model) {
-		List<StateprovinceAndAddresses> specialQueryResult = bd.findSpecialStateprovinces();
+	@GetMapping("/specialqueries/address/1")
+	public String indexQueries1(Model model) {
+		List<StateprovinceAndAddresses> specialQueryResult = bd.findSpecialStateprovinces1();
 		List<Stateprovince> stateprovincesFromQuery = new ArrayList<>();
 		List<Long> amountOfAddressesFromQuery = new ArrayList<>();
 		for (StateprovinceAndAddresses spa : specialQueryResult) {
 			stateprovincesFromQuery.add(spa.getSp());
 			amountOfAddressesFromQuery.add(spa.getAddresses());
 		}
-////		System.out.println(bd.findSpecialStateprovinces().size());
-//		List<Stateprovince> spList = new ArrayList<Stateprovince>();
-//		for (Object[] objects : specialQueryResult) {
-//			spList.add((Stateprovince) objects[0]);
-//		}
-//		System.out.println(spList.size());
-//		model.addAttribute("stateprovinces", stateprovincesFromQuery);
+
 		model.addAttribute("stateprovinces", specialQueryResult);
-//		model.addAttribute("amount", amountOfAddressesFromQuery);
-//		model.addAttribute("amount", bd.findspecialAmountAddressInStateprovince());
-//		model.addAttribute("stateprovinces", spList);
+		model.addAttribute("addresses", bd.findSpecialAddresses());
+		return "specialqueries/index";
+	}
+	
+	@Override
+	@GetMapping("/specialqueries/address/2")
+	public String indexQueries2(Model model) {
+		List<StateprovinceAndAddresses> specialQueryResult = bd.findSpecialStateprovinces2();
+		List<Stateprovince> stateprovincesFromQuery = new ArrayList<>();
+		List<Long> amountOfAddressesFromQuery = new ArrayList<>();
+		for (StateprovinceAndAddresses spa : specialQueryResult) {
+			stateprovincesFromQuery.add(spa.getSp());
+			amountOfAddressesFromQuery.add(spa.getAddresses());
+		}
+
+		model.addAttribute("stateprovinces", specialQueryResult);
+		model.addAttribute("addresses", bd.findSpecialAddresses());
+		return "specialqueries/index";
+	}
+	@Override
+	@GetMapping("/specialqueries/address/3")
+	public String indexQueries3(Model model) {
+		List<StateprovinceAndAddresses> specialQueryResult = bd.findSpecialStateprovinces3();
+		List<Stateprovince> stateprovincesFromQuery = new ArrayList<>();
+		List<Long> amountOfAddressesFromQuery = new ArrayList<>();
+		for (StateprovinceAndAddresses spa : specialQueryResult) {
+			stateprovincesFromQuery.add(spa.getSp());
+			amountOfAddressesFromQuery.add(spa.getAddresses());
+		}
+
+		model.addAttribute("stateprovinces", specialQueryResult);
+		model.addAttribute("addresses", bd.findSpecialAddresses());
+		return "specialqueries/index";
+	}
+	@Override
+	@GetMapping("/specialqueries/address/4")
+	public String indexQueries4(Model model) {
+		List<StateprovinceAndAddresses> specialQueryResult = bd.findSpecialStateprovinces4();
+		List<Stateprovince> stateprovincesFromQuery = new ArrayList<>();
+		List<Long> amountOfAddressesFromQuery = new ArrayList<>();
+		for (StateprovinceAndAddresses spa : specialQueryResult) {
+			stateprovincesFromQuery.add(spa.getSp());
+			amountOfAddressesFromQuery.add(spa.getAddresses());
+		}
+
+		model.addAttribute("stateprovinces", specialQueryResult);
+		model.addAttribute("addresses", bd.findSpecialAddresses());
+		return "specialqueries/index";
+	}
+	@Override
+	@GetMapping("/specialqueries/address/5")
+	public String indexQueries5(Model model) {
+		List<StateprovinceAndAddresses> specialQueryResult = bd.findSpecialStateprovinces5();
+		List<Stateprovince> stateprovincesFromQuery = new ArrayList<>();
+		List<Long> amountOfAddressesFromQuery = new ArrayList<>();
+		for (StateprovinceAndAddresses spa : specialQueryResult) {
+			stateprovincesFromQuery.add(spa.getSp());
+			amountOfAddressesFromQuery.add(spa.getAddresses());
+		}
+
+		model.addAttribute("stateprovinces", specialQueryResult);
 		model.addAttribute("addresses", bd.findSpecialAddresses());
 		return "specialqueries/index";
 	}

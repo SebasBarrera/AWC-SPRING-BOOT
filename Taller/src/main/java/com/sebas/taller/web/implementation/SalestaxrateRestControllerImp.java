@@ -42,6 +42,7 @@ public class SalestaxrateRestControllerImp implements SalestaxrateRestController
 	@Override
 	@PutMapping("/{id}")
 	public void update(@RequestBody Salestaxrate s, @PathVariable("id") Integer id) {
+		System.out.println("called put"+s.getTaxrate());
 		service.update(s);
 	}
 

@@ -74,6 +74,8 @@ public class SalestaxrateServiceImp implements SalestaxrateService{
 						real.setTaxrate(s.getTaxrate());
 						real.setTaxtype(s.getTaxtype());
 						
+						salestaxrateDao.update(real);
+						
 					} else {
 						throw new IllegalArgumentException();
 					}

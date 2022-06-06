@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sebas.taller.bussinessDelegate.interfaces.SalestaxrateBD;
@@ -82,7 +83,7 @@ public class SalestaxrateControllerImp implements SalestaxrateController {
 	}
 
 	@Override
-	@PostMapping("/salestaxrate/editSalestaxrate/{salestaxrateid}")
+	@PostMapping("/salestaxrate/{salestaxrateid}")
 	public String updateSalestaxrate(@PathVariable("salestaxrateid") Integer salestaxrateid, @RequestParam(value = "action", required = true) String action, 
 			@Validated(Salestaxrate.Validation.class) @ModelAttribute Salestaxrate salestaxrate, BindingResult bindingResult, Model model) {
 		if (!action.equals("Cancel")) {

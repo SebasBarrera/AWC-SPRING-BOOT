@@ -46,7 +46,7 @@ public class SpecialqueriesBDImp implements SpecialqueriesBD{
 //		            });
 //		List<StateprovinceAndAddresses> al = rateResponse.getBody();
 		
-		List<StateprovinceAndAddresses> al = Arrays.asList(restTemplate.getForObject(URL + "stateprovince/", StateprovinceAndAddresses[].class));
+//		List<StateprovinceAndAddresses> al = Arrays.asList(restTemplate.getForObject(URL + "stateprovince/", StateprovinceAndAddresses[].class));
 //		int counter = 0;
 //		for (StateprovinceAndAddresses currentSpa : al) {
 //			Stateprovince sp = currentSpa.getSp();
@@ -54,8 +54,8 @@ public class SpecialqueriesBDImp implements SpecialqueriesBD{
 //			counter++;
 //		}
 //		System.out.println(counter);
-		return al;
-//		return Arrays.asList(restTemplate.getForObject(URL + "stateprovince/1", StateprovinceAndAddresses[].class));
+//		return al;
+		return Arrays.asList(restTemplate.getForObject(URL + "stateprovince/1", StateprovinceAndAddresses[].class));
 	}
 
 	@Override
@@ -67,6 +67,10 @@ public class SpecialqueriesBDImp implements SpecialqueriesBD{
 	@Override
 	public List<Integer> findspecialAmountAddressInStateprovince() {
 		return Arrays.asList(restTemplate.getForObject(URL + "amount/", Integer[].class));
+	}
+
+	public static String getUrl() {
+		return URL;
 	}
 
 }

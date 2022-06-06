@@ -17,6 +17,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 /**
@@ -58,6 +60,7 @@ public class Address implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "stateprovinceid")
 	@NotNull(message = "You must choose one State-Province", groups = {Validation.class})
+	@JsonIgnore
 	private Stateprovince stateprovince;
 
 	// bi-directional many-to-one association to Businessentityaddress

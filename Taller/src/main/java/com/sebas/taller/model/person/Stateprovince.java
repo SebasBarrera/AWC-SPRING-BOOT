@@ -55,12 +55,10 @@ public class Stateprovince implements Serializable {
 
 	// bi-directional many-to-one association to Address
 	@OneToMany(mappedBy = "stateprovince")
-	@JsonIgnore
 	private List<Address> addresses;
 
 	// bi-directional many-to-one association to Salestaxrate
 	@OneToMany(mappedBy = "stateprovince")
-	@JsonIgnore
 	private List<Salestaxrate> salestaxrates;
 
 	// bi-directional many-to-one association to Countryregion

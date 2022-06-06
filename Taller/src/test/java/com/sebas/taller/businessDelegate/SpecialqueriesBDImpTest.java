@@ -10,8 +10,11 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
@@ -39,6 +42,7 @@ import com.sebas.taller.model.sales.Salesterritory;
 
 @SpringBootTest
 @ContextConfiguration(classes = {TallerApplication.class})
+@TestInstance(Lifecycle.PER_CLASS)
 public class SpecialqueriesBDImpTest {
 
 	@Autowired
@@ -57,9 +61,8 @@ public class SpecialqueriesBDImpTest {
 	private Stateprovince s1;
 	private Stateprovince s2;
 
-	@BeforeEach
+	@BeforeAll
 	void initialize() {
-		mockBackEnd = MockRestServiceServer.createServer(restTemplate);
 
 		// Start of entities for Query #1:
 		spaList = new ArrayList<StateprovinceAndAddresses>();
@@ -73,8 +76,9 @@ public class SpecialqueriesBDImpTest {
 		s1.setStateprovincecode("98765");
 		s1.setIsonlystateprovinceflag("N");
 		s1.setName("Valle Del Cauca");
-		s1.setSalestaxrates(new ArrayList<Salestaxrate>());
-		s1.getSalestaxrates().add(tax1);
+		List<Salestaxrate> taxList = new ArrayList<>();
+		taxList.add(tax1);
+		s1.setSalestaxrates(taxList);
 
 		Address a1 = new Address();
 		a1.setStateprovince(s1);
@@ -90,8 +94,8 @@ public class SpecialqueriesBDImpTest {
 		StateprovinceAndAddresses spa1 = new StateprovinceAndAddresses();
 		spa1.setSp(s1);
 		spa1.setAddresses((long) s1.getAddresses().size());
-//		System.out.println(s1.getAddresses().size() + ", "+ spa1.getAddresses());
 		spaList.add(spa1);
+		System.out.println(spaList.get(0).getSp().getAddresses().size() + ",as "+ spa1.getAddresses());
 
 		s2 = new Stateprovince();
 		s2.setStateprovinceid(2);
@@ -147,6 +151,8 @@ public class SpecialqueriesBDImpTest {
 		st.setSalesorderheaders(lh);
 		
 		addressList.add(a);
+		
+		mockBackEnd = MockRestServiceServer.createServer(restTemplate);
 	}
 
 	@Test
@@ -160,15 +166,17 @@ public class SpecialqueriesBDImpTest {
 				.body(mapper.writeValueAsString(spaList))
 				);
 
-		System.out.println(s1.getAddresses().size() + ", "+ spaList.get(0).getAddresses());
-		List<StateprovinceAndAddresses> listReturnedByServer = new ArrayList<StateprovinceAndAddresses>(specialQueryBD.findSpecialStateprovinces());
+		System.out.println(s1.getAddresses().size() + ",qq "+ spaList.get(0).getSp().getAddresses().size());
+		List<StateprovinceAndAddresses> listReturnedByServer = new ArrayList<>(specialQueryBD.findSpecialStateprovinces1());
 
 		mockBackEnd.verify();
-//		System.out.println(listReturnedByServer.get(0).size());
+		System.out.println(listReturnedByServer.get(0).getSp().getAddresses().size());
+		System.out.println(listReturnedByServer.get(1).getSp().getAddresses().size());
 //		assertThat(spaList).usingRecursiveComparison().isEqualTo(listReturnedByServer);
 		
 		String previousName = null;
 		boolean flag = false;
+		int counter = 0;
 		for (StateprovinceAndAddresses spArray : listReturnedByServer) {
 			Stateprovince sp = spArray.getSp();
 			long numOfAddresses = spArray.getAddresses();
@@ -177,12 +185,14 @@ public class SpecialqueriesBDImpTest {
 				flag = true;
 			}
 			
-			assertEquals(sp.getTerritoryid(), s1.getTerritoryid());
+			assertEquals(sp.getTerritoryid(), spaList.get(counter).getSp().getTerritoryid());
 			assertEquals(sp.getAddresses().size(), numOfAddresses);
 			assertTrue(sp.getSalestaxrates().size() > 0);
 			assertTrue(sp.getName().compareTo(previousName) >= 0);
 			System.out.println(sp.getName());
 			previousName = sp.getName();
+			
+			counter++;
 		}
 	}
 
